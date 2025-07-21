@@ -49,7 +49,10 @@ function calc_qrs_statsv2(data)
     return filt_fc_df
 end
 
-
+"""
+Производит расчет статистики по формам QRS.
+Возвращает объект типа `DataFrame` с колонками: [form, CmpxCount, CmpxCountPercent]
+"""
 function calc_qrs_statsv3(data)
     pqrst_df = filter(row -> !occursin(r"^[XZ]", string(row.form)), DataFrame(data))
 
