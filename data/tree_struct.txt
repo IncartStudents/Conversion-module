@@ -1,0 +1,191 @@
+
+Rhythms:
+- sinus
+- paced-undefined
+- paced-dual
+- paced-atrial
+- paced-vent
+- paced-fail
+- paced-sensed
+- atrial-fib
+- atrial-flutter
+- irregular
+- atrial-poly
+- atrial
+    - premature
+        - single
+            - aberrant
+            - bi
+            - tri
+            - qu
+        - pair
+            - aberrant
+        - group
+            - aberrant
+        - blocked
+    - escape
+        - single
+        - pair
+        - group
+    - tachy
+    - rhythm
+    - rhythm-low
+- nodal
+    - premature
+    - escape
+    - tachy
+    - rhythm
+    - rhythm-reentry
+- supravent
+    - premature
+    - escape
+    - combined-VS
+        - pair
+        - group
+    - tachy
+    - rhythm
+- vent-by-form
+    - V
+        - premature
+            - single
+                - bi
+                - tri
+                - qu
+            - pair-mono
+            - pair-poly
+        - escape
+            - single
+            - pair-mono
+            - pair-poly
+        - combined-VS
+            - pair
+            - group
+        - tachy-unstable-mono
+        - tachy-unstable-poly
+        - tachy-stable-mono
+        - tachy-stable-poly
+        - rhythm-unstable-mono
+        - rhythm-unstable-poly
+        - rhythm-stable-mono
+        - rhythm-stable-poly
+    - VR
+    - VL
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - F
+    - poly
+        - premature-pair-F
+        - escape-pair-F
+        - premature-pair
+        - escape-pair
+        - tachy-unstable
+        - tachy-stable
+        - rhythm-unstable
+        - rhythm-stable
+- vent-classic
+	- premature
+		- single
+			- V
+                - bi
+                - tri
+                - qu
+			- VR
+			- VL
+			- V1
+			- V2
+			- V3
+			- V4
+			- V5
+			- F	
+		- pair-mono
+			- VR
+			- VL
+			- V1
+			- V2
+			- V3
+			- V4
+			- V5
+			- F
+		- pair-poly
+	
+	- escape
+		- single
+			- VR
+			- VL
+			- V1
+			- V2
+			- V3
+			- V4
+			- V5
+			- F
+		- pair-mono
+			- VR
+			- VL
+			- V1
+			- V2
+			- V3
+			- V4
+			- V5
+			- F
+		- pair-poly
+	-combined-VS
+		- pair
+		- group
+	-tachy-unstable-mono
+		- VR
+		- VL
+		- V1
+		- V2
+		- V3
+		- V4
+		- V5
+		- F
+    - tachy-unstable-poly
+    - tachy-stable-mono
+		- VR
+		- VL
+		- V1
+		- V2
+		- V3
+		- V4
+		- V5
+		- F
+    - tachy-stable-poly
+    - rhythm-unstable-mono
+		- VR
+		- VL
+		- V1
+		- V2
+		- V3
+		- V4
+		- V5
+		- F
+	- rhythm-unstable-poly
+	- rhythm-stable-mono
+		- VR
+		- VL
+		- V1
+		- V2
+		- V3
+		- V4
+		- V5
+		- F
+	- rhythm-stable-poly	
+		
+Pause:
+- blocked-atrial-premature
+- sinus-arrhythmia
+- SA-block
+- sinus-arrest
+- AV-block-degree2-Mobitz-type1
+- AV-block-degree2-Mobitz-type2
+- AV-block-degree2-2to1
+- AV-block-degree2-highgrade
+- binodal-block
+- AV-varying-supravent-tachy
+- paced-high-rate
+- miopotential-inhibition
+- undefined
