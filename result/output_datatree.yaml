@@ -1,0 +1,5 @@
+Rhythms:
+  paced-fail:
+    CustomName: "rCU"
+  atrial-flutter:
+    CustomName: "rFA"
