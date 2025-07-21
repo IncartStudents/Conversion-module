@@ -1,37 +1,37 @@
 Rhythms:
 
   sinus: # Синусовый ритм
-    CustomName: "Ритм из СА узла"
+    CustomName: "rN"
 
   paced-undefined: # ритм стимуляции (неуточненный)
-    CustomName: ""
+    CustomName: "rC"
  
   paced-dual: # двухкамерной стимуляции
-    CustomName: ""
+    CustomName: "rCD"
 
   paced-atrial: # предсердной стимуляции
-    CustomName: ""
+    CustomName: "rCA"
 
   paced-vent: # желудочковой стимуляции
-    CustomName: ""
+    CustomName: "rCV"
  
   paced-fail: # безответной стимуляции
-    CustomName: ""
+    CustomName: "rCU"
  
   paced-sensed: # Р-синхронизированная стимуляция желудочков
-    CustomName: ""
+    CustomName: "rN;vC"
  
   atrial-fib: # Фибрилляция предсердий
-    CustomName: ""
+    CustomName: "rF"
  
   atrial-flutter: # Трепетание предсердий
-    CustomName: ""
+    CustomName: "rFA"
  
   irregular: # Нерегулярный
-    CustomName: ""
+    CustomName: "rFN"
  
   atrial-poly: # Миграция водителя ритма по предсердиям (в т.ч. полиморфный предсердный)
-    CustomName: ""
+    CustomName: "(rSM|rSP);nP"
  
 
   atrial: # Предсердный
@@ -39,7 +39,7 @@ Rhythms:
     premature:
       single: # одиночные
         aberrant: # с аберрантным проведением
-          CustomName: ""
+          CustomName: "(rSA|rSI);nD;pP*;vA*"
         bi: # бигеминии
           CustomName: ""
         tri: # тригеминии
