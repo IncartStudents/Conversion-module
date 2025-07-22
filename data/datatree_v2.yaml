@@ -1,6 +1,7 @@
 Rhythms:
 
   sinus: # Синусовый ритм
+    Form: "(S*|B*|A*|W*)"
     CustomName: "rN"
 
   paced-undefined: # ритм стимуляции (неуточненный)
@@ -35,605 +36,650 @@ Rhythms:
  
 
   atrial: # Предсердный
-    
+    Form: "(S*|B*|A*|W*)"
     premature:
       single: # одиночные
         aberrant: # с аберрантным проведением
-          CustomName: "(rSA|rSI);nD;pP*;vA*"
+          CustomName: "(rSA|rSI);nS;pP*;vA*"
         bi: # бигеминии
-          CustomName: ""
+          CustomName: "(rSA|rSI);nS;pP*;gB"
         tri: # тригеминии
-          CustomName: ""
-        qu: # квадригеминии
-          CustomName: ""
+          CustomName: "(rSA|rSI);nS;pP*;gT"
       pair: # парные
+        CustomName: "(rSA|rSI);nD;pP*"
         aberrant:
-          CustomName: ""
+          CustomName: "(rSA|rSI);nD;pP*;vA*"
       group: # групповые
+        CustomName: "(rSA|rSI);nG;pP*"
         aberrant:
-          CustomName: ""
+          CustomName: "(rSA|rSI);nG;pP*;vA*"
       blocked: # блокированные
-        CustomName: ""
+        CustomName: "(rSA|rSI);bB"
     
     escape:
       single:
-        CustomName: ""
+        CustomName: "(rSA|rSI|rSM);nS;pE*"
       pair:
-        CustomName: ""
+        CustomName: "(rSA|rSI|rSM);nD;pE*"
       group:
-        CustomName: ""
+        CustomName: "(rSA|rSI|rSM);nG;pE*"
     
     tachy: # тахикардии
-      CustomName: ""
+      CustomName: "rSA;nP;pP*;!fR"
         
     rhythm: # ритм
-      CustomName: ""
+      CustomName: "rSA;nP;fR|(;!pP*&!fT)"
         
     rhythm-low: # Нижнепредсердный ритм (без деления на ритм и тахи)
-      CustomName: ""
+      CustomName: "rSI;nP"
         
-
   nodal: # Узловой
-
+    Form: "(S*|B*|A*|W*)"
     premature:
       single: # одиночные
         aberrant: # с аберрантным проведением
-          CustomName: ""
+          CustomName: "(rSN|rSR);nS;pP*;vA*"
         bi: # бигеминии
-          CustomName: ""
+          CustomName: "(rSN|rSR);nS;pP*;gB"
         tri: # тригеминии
-          CustomName: ""
-        qu: # квадригеминии
-          CustomName: ""
+          CustomName: "(rSN|rSR);nS;pP*;gT"
       pair: # парные
-        CustomName: ""
-      aberrant:
-        CustomName: ""
-      group: # групповые
+        CustomName: "(rSN|rSR);nD;pP*"
         aberrant:
-          CustomName: ""
+          CustomName: "(rSN|rSR);nD;pP*;vA*"
+      group: # групповые
+        CustomName: "(rSN|rSR);nG;pP*"
+        aberrant:
+          CustomName: "(rSN|rSR);nG;pP*;vA*"
       blocked: # блокированные
-        CustomName: ""
+        CustomName: "(rSN|rSR);bB"
     
     escape:
       single:
-        CustomName: ""
+        CustomName: "(rSN|rSR|rSM);nS;pE*"
       pair:
-        CustomName: ""
+        CustomName: "(rSN|rSR|rSM);nD;pE*"
       group:
-        CustomName: ""
+        CustomName: "(rSN|rSR|rSM);nG;pE*"
+    
     tachy:
-      CustomName: ""
+      CustomName: "rSN;nP;pP*;!fR"
         
     rhythm:
-      CustomName: ""
+      CustomName: "rSN;nP;fR|(;!pP*&!fT)"
         
     rhythm-reentry:
-      CustomName: ""
-        
+      CustomName: "rSR;nP"   
 
   supravent: # Наджелудочковый "так описанный"
-    
+    Form: "(S*|B*|A*|W*)"
     premature:
       single: # одиночные
         aberrant: # с аберрантным проведением
-          CustomName: ""
+          CustomName: "(rS|rM);nS;pP*;vA*"
         bi: # бигеминии
-          CustomName: ""
+          CustomName: "(rS|rM);nS;pP*;gB"
         tri: # тригеминии
-          CustomName: ""
-        qu: # квадригеминии
-          CustomName: ""
-      
+          CustomName: "(rS|rM);nS;pP*;gT"
       pair: # парные
+        CustomName: "(rS|rM);nD;pP*"
         aberrant:
-          CustomName: ""
+          CustomName: "(rS|rM);nD;pP*;vA*"
       group: # групповые
+        CustomName: "(rS|rM);nG;pP*"
         aberrant:
-          CustomName: ""
+          CustomName: "(rS|rM);nG;pP*;vA*"
       blocked: # блокированные
-        CustomName: ""
+        CustomName: "(rS|rM);bB"
     
     escape:
       single:
-        CustomName: ""
+        CustomName: "(rS|rM|rSM);nS;pE*"
       pair:
-        CustomName: ""
+        CustomName: "(rS|rM|rSM);nD;pE*"
       group:
-        CustomName: ""
+        CustomName: "(rS|rM|rSM);nG;pE*"
    
     tachy:
-      CustomName: ""
+      CustomName: "rS;nP;pP*;!fR"
     
     rhythm:
-      CustomName: ""   
+      CustomName: "rS;nP;fR|(;!pP*&!fT)"  
+
+    combined-VS:
+      pair:
+        CustomName: "rM;nD"
+      group:
+        CustomName: "rM;nG"
 
   vent-by-form: # Желудочковые с группировкой по морфологиям
+    V:
+      Form: "V"
+      premature: # экстрасистолы
+        single:
+          bi:
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
+          tri:
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
+        pair-mono: # в парах мономорфных ЭС
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+        pair-poly: # в парах полиморфных ЭС
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
+      
+      escape: # выскальзывающие
+        single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
+        pair-mono:
+          CustomName: "(rV|rVM);nD;pE*"
+        pair-poly:
+          CustomName: "(rVP|rVD);nD;pE*"
+      
+      combined-VS: # в сочетаниях с наджелудочковыми
+        pair:
+          CustomName: "rM;nD"
+        group:
+          CustomName: "rM;nG"
+      
+      tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+   
+      tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
+      
+      tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
+        CustomName: "(rV|rVM);nP;pP*;!fR"
+   
+      tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
+      
+      rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+   
+      rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+      
+      rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+   
+      rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+
     VR:
+      Form: "VR"
       premature: # экстрасистолы
         single:
           bi:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
-            CustomName: ""
-          qu:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
         pair-mono: # в парах мономорфных ЭС
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
         pair-poly: # в парах полиморфных ЭС
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
       
       escape: # выскальзывающие
         single:
-          CustomName: ""
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
         pair-mono:
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;pE*"
         pair-poly:
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;pE*"
       
       combined-VS: # в сочетаниях с наджелудочковыми
         pair:
-          CustomName: ""
+          CustomName: "rM;nD"
         group:
-          CustomName: ""
+          CustomName: "rM;nG"
       
       tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;pP*;!fR"
    
       tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;pP*;!fR"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
 
-    VL: # аналогично VR
+    VL:
+      Form: "VL"
       premature: # экстрасистолы
         single:
           bi:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
-            CustomName: ""
-          qu:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
         pair-mono: # в парах мономорфных ЭС
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
         pair-poly: # в парах полиморфных ЭС
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
       
       escape: # выскальзывающие
         single:
-          CustomName: ""
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
         pair-mono:
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;pE*"
         pair-poly:
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;pE*"
       
       combined-VS: # в сочетаниях с наджелудочковыми
         pair:
-          CustomName: ""
+          CustomName: "rM;nD"
         group:
-          CustomName: ""
+          CustomName: "rM;nG"
       
       tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;pP*;!fR"
    
       tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;pP*;!fR"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
 
-    V1: # аналогично VR
+    V1:
+      Form: "V1"
       premature: # экстрасистолы
         single:
           bi:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
-            CustomName: ""
-          qu:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
         pair-mono: # в парах мономорфных ЭС
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
         pair-poly: # в парах полиморфных ЭС
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
       
       escape: # выскальзывающие
         single:
-          CustomName: ""
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
         pair-mono:
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;pE*"
         pair-poly:
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;pE*"
       
       combined-VS: # в сочетаниях с наджелудочковыми
         pair:
-          CustomName: ""
+          CustomName: "rM;nD"
         group:
-          CustomName: ""
+          CustomName: "rM;nG"
       
       tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;pP*;!fR"
    
       tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;pP*;!fR"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
 
-    V2: # аналогично VR
+    V2:
+      Form: "V2"
       premature: # экстрасистолы
         single:
           bi:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
-            CustomName: ""
-          qu:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
         pair-mono: # в парах мономорфных ЭС
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
         pair-poly: # в парах полиморфных ЭС
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
       
       escape: # выскальзывающие
         single:
-          CustomName: ""
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
         pair-mono:
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;pE*"
         pair-poly:
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;pE*"
       
       combined-VS: # в сочетаниях с наджелудочковыми
         pair:
-          CustomName: ""
+          CustomName: "rM;nD"
         group:
-          CustomName: ""
+          CustomName: "rM;nG"
       
       tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;pP*;!fR"
    
       tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;pP*;!fR"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
 
-    V3: # аналогично VR
+    V3:
+      Form: "V3"
       premature: # экстрасистолы
         single:
           bi:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
-            CustomName: ""
-          qu:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
         pair-mono: # в парах мономорфных ЭС
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
         pair-poly: # в парах полиморфных ЭС
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
       
       escape: # выскальзывающие
         single:
-          CustomName: ""
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
         pair-mono:
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;pE*"
         pair-poly:
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;pE*"
       
       combined-VS: # в сочетаниях с наджелудочковыми
         pair:
-          CustomName: ""
+          CustomName: "rM;nD"
         group:
-          CustomName: ""
+          CustomName: "rM;nG"
       
       tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;pP*;!fR"
    
       tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;pP*;!fR"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
 
-    V4: # аналогично VR
+    V4:
+      Form: "V4"
       premature: # экстрасистолы
         single:
           bi:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
-            CustomName: ""
-          qu:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
         pair-mono: # в парах мономорфных ЭС
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
         pair-poly: # в парах полиморфных ЭС
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
       
       escape: # выскальзывающие
         single:
-          CustomName: ""
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
         pair-mono:
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;pE*"
         pair-poly:
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;pE*"
       
       combined-VS: # в сочетаниях с наджелудочковыми
         pair:
-          CustomName: ""
+          CustomName: "rM;nD"
         group:
-          CustomName: ""
+          CustomName: "rM;nG"
       
       tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;pP*;!fR"
    
       tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;pP*;!fR"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
 
-    V5: # аналогично VR
+    V5:
+      Form: "V5"
       premature: # экстрасистолы
         single:
           bi:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
-            CustomName: ""
-          qu:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
         pair-mono: # в парах мономорфных ЭС
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
         pair-poly: # в парах полиморфных ЭС
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
       
       escape: # выскальзывающие
         single:
-          CustomName: ""
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
         pair-mono:
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;pE*"
         pair-poly:
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;pE*"
       
       combined-VS: # в сочетаниях с наджелудочковыми
         pair:
-          CustomName: ""
+          CustomName: "rM;nD"
         group:
-          CustomName: ""
+          CustomName: "rM;nG"
       
       tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;pP*;!fR"
    
       tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;pP*;!fR"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
 
-    V6: # аналогично VR
+    V6:
+      Form: "V6"
       premature: # экстрасистолы
         single:
           bi:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
-            CustomName: ""
-          qu:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
         pair-mono: # в парах мономорфных ЭС
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
         pair-poly: # в парах полиморфных ЭС
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
       
       escape: # выскальзывающие
         single:
-          CustomName: ""
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
         pair-mono:
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;pE*"
         pair-poly:
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;pE*"
       
       combined-VS: # в сочетаниях с наджелудочковыми
         pair:
-          CustomName: ""
+          CustomName: "rM;nD"
         group:
-          CustomName: ""
+          CustomName: "rM;nG"
       
       tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;pP*;!fR"
    
       tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;pP*;!fR"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
 
-    F: # аналогично VR
+    F:
+      Form: "F"
       premature: # экстрасистолы
         single:
           bi:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
-            CustomName: ""
-          qu:
-            CustomName: ""
+            CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gT"
         pair-mono: # в парах мономорфных ЭС
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
         pair-poly: # в парах полиморфных ЭС
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;(pP*|!pE*)"
       
       escape: # выскальзывающие
         single:
-          CustomName: ""
+          CustomName: "(rV|rVM|rVP|rVD);nS;pE*"
         pair-mono:
-          CustomName: ""
+          CustomName: "(rV|rVM);nD;pE*"
         pair-poly:
-          CustomName: ""
+          CustomName: "(rVP|rVD);nD;pE*"
       
       combined-VS: # в сочетаниях с наджелудочковыми
         pair:
-          CustomName: ""
+          CustomName: "rM;nD"
         group:
-          CustomName: ""
+          CustomName: "rM;nG"
       
       tachy-unstable-mono: # V* эпизоды неустойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;pP*;!fR"
    
       tachy-unstable-poly: # V* в эпизодах неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;pP*;!fR"
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;pP*;!fR"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
 
     poly: # Полиморфные желудочковые (отдельно)
       premature-pair-F: # парные полиморфные экстрасистолы со сливным комплексом
-        CustomName: ""
+        CustomName: "(rVP|rVD);nD;(pP*|!pE*);vF"
       escape-pair-F: # парные полиморфные замещающие комплексы со сливным
-        CustomName: ""
+        CustomName: "(rVP|rVD);nD;pE*;vF"
       premature-pair: # парные полиморфные экстрасистолы
-        CustomName: ""
+        CustomName: "(rVP|rVD);nD;(pP*|!pE*);!vF"
       escape-pair: # парные полиморфные замещающие комплексы
-        CustomName: ""
+        CustomName: "(rVP|rVD);nD;pE*;!vF"
       tachy-unstable: # все эпизоды неустойчивой полиморфной желудочковой тахикардии
-        CustomName: ""   
+        CustomName: "(rVP|rVD);nG;pP*;!fR"   
       tachy-stable: # все эпизоды устойчивой полиморфной желудочковой тахикардии
-        CustomName: ""   
+        CustomName: "(rVP|rVD);nP;pP*;!fR"   
       rhythm-unstable: # все эпизоды устойчивого полиморфного желудочкового ритма
-        CustomName: ""   
+        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"   
       rhythm-stable: # все эпизоды устойчивого полиморфного желудочкового ритма
-        CustomName: ""
+        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
    
 
   # vent-classic # желудочковые (без группировки по формам - классический вариант) - пока не делаем

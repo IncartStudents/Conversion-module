@@ -1,5 +1,85 @@
 Rhythms:
-  paced-fail:
-    CustomName: "rCU"
-  atrial-flutter:
-    CustomName: "rFA"
+  vent-by-form:
+    V5:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+    V3:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+    V6:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+    VL:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+    V2:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+    V:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+    VR:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+    V4:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+    F:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+    V1:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+Pauses:
+  AV-block-degree2-mobitz-type1:
+    CustomName: "bV1"
