@@ -1,60 +1,67 @@
+"""
+Функция преобразования `CustomName` в регулярное выражение
+"""
+function build_regex_pattern(custom_name)
+    parts = split(custom_name, ";")
+    regex_components = []
 
-"""
-Рекурсивно ищет узел, содержащий `CustomName`, который начинается с `input_code`.
-Возвращает путь (в виде массива ключей) и сам узел.
-"""
-function find_node(data, input_code, path=[])
-    if isa(data, Dict)
-        if haskey(data, "CustomName")
-            custom_value = data["CustomName"]
-            if isa(custom_value, String) && startswith(custom_value, input_code)
-                return (path, data)
-            end
-        end
-        for (key, value) in data
-            result = find_node(value, input_code, [path..., key])
-            if result !== nothing
-                return result
-            end
-        end
-    elseif isa(data, Vector)
-        for (i, item) in enumerate(data)
-            result = find_node(item, input_code, [path..., i])
-            if result !== nothing
-                return result
-            end
+    for part in parts       
+        if startswith(part, "!")
+            neg_pattern = part[2:end]
+            push!(regex_components, "(?!.*$(neg_pattern))")
+        elseif startswith(part, "(") && endswith(part, ")")
+            inner = part[2:end-1]            
+            push!(regex_components, "(?=.*(?:$(inner)))")
+        else # остальные части без символов + символ `*`
+            part_final = replace(part, "*" => ".*")
+            push!(regex_components, "(?=.*$(part_final))")
         end
     end
-    return nothing
+
+    full_regex = "^" * join(regex_components, "") * ".*\$"   
+    return Regex(full_regex)
 end
 
-
-"""  
-Рекурсивно ищет все узлы, где `CustomName` начинается с любого из `input_codes`.
+"""
+Рекурсивно ищет все узлы, где `CustomName` соответствует коду из `input_codes` 
+и `Form` (если есть) входит в список `forms`.
 Возвращает список кортежей: [(path, node), ...]
 """
-function find_all_nodes(data, input_codes, path=[])
+function find_all_nodes(data, input_codes, forms, path=[])
     results = []
 
     if isa(data, Dict)
         if haskey(data, "CustomName")
             custom_value = data["CustomName"]
-            for code in input_codes
-                if isa(custom_value, String) && startswith(custom_value, code)
-                    push!(results, (path, data))
-                    break
+            if isa(custom_value, String)
+                for code in input_codes
+                    if occursin(build_regex_pattern(custom_value), code)
+                        # Проверка поля Form
+                        form_ok = true
+                        if haskey(data, "Form")
+                            form_value = data["Form"]
+                            if isa(form_value, String)
+                                form_ok = form_value in forms
+                            else
+                                form_ok = false
+                            end
+                        end
+                        if form_ok
+                            push!(results, (path, data))
+                            break
+                        end
+                    end
                 end
             end
         end
 
         for (key, value) in data
-            child_results = find_all_nodes(value, input_codes, [path..., key])
+            child_results = find_all_nodes(value, input_codes, forms, [path..., key])
             append!(results, child_results)
         end
-
     elseif isa(data, Vector)
         for (i, item) in enumerate(data)
-            child_results = find_all_nodes(item, input_codes, [path..., i])
+            child_results = find_all_nodes(item, input_codes, forms, [path..., i])
             append!(results, child_results)
         end
     end
