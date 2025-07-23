@@ -68,7 +68,7 @@ Rhythms:
       CustomName: "rSA;nP;pP*;!fR"
         
     rhythm: # ритм
-      CustomName: "rSA;nP;fR|(;!pP*&!fT)"
+      CustomName: "rSA;nP;fR|(!pP*&!fT)"
         
     rhythm-low: # Нижнепредсердный ритм (без деления на ритм и тахи)
       CustomName: "rSI;nP"
@@ -106,7 +106,7 @@ Rhythms:
       CustomName: "rSN;nP;pP*;!fR"
         
     rhythm:
-      CustomName: "rSN;nP;fR|(;!pP*&!fT)"
+      CustomName: "rSN;nP;fR|(!pP*&!fT)"
         
     rhythm-reentry:
       CustomName: "rSR;nP"   
@@ -144,7 +144,7 @@ Rhythms:
       CustomName: "rS;nP;pP*;!fR"
     
     rhythm:
-      CustomName: "rS;nP;fR|(;!pP*&!fT)"  
+      CustomName: "rS;nP;fR|(pP*&!fT)"  
 
     combined-VS:
       pair:
@@ -157,6 +157,7 @@ Rhythms:
       Form: "V"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -193,21 +194,22 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     VR:
       Form: "VR"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -244,21 +246,22 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     VL:
       Form: "VL"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -295,21 +298,22 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     V1:
       Form: "V1"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -346,21 +350,22 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     V2:
       Form: "V2"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -397,21 +402,22 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     V3:
       Form: "V3"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -448,21 +454,22 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     V4:
       Form: "V4"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -499,21 +506,22 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     V5:
       Form: "V5"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -550,21 +558,22 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     V6:
       Form: "V6"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -601,21 +610,22 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     F:
       Form: "F"
       premature: # экстрасистолы
         single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
           bi:
             CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*);gB"
           tri:
@@ -652,16 +662,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
 
     poly: # Полиморфные желудочковые (отдельно)
       premature-pair-F: # парные полиморфные экстрасистолы со сливным комплексом
@@ -677,9 +687,9 @@ Rhythms:
       tachy-stable: # все эпизоды устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"   
       rhythm-unstable: # все эпизоды устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(;!pP*&!fT)"   
+        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"   
       rhythm-stable: # все эпизоды устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(;!pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
    
 
   # vent-classic # желудочковые (без группировки по формам - классический вариант) - пока не делаем
