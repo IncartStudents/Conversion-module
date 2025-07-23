@@ -33,4 +33,13 @@ end
     include("../src/FindNodes.jl")
     @test occursin(build_regex_pattern("(rSM|rSI);nD;pP*;!fT"), "rSM;nD;pP2;fR")
     @test !occursin(build_regex_pattern("(rSM|rSI);nD;pP*;!fT"), "rSI;nD;pP;fT")
+    
+    @test occursin(build_regex_pattern("(rV|rVM);nD;(pP*|!pE*)"), "rV;nD;pP2")
+    @test !occursin(build_regex_pattern("(rV|rVM);nD;(pP*|!pE*)"), "rVM;nD;pE")
+
+    @test occursin(build_regex_pattern("(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"), "rV;pP;nS")
+    
+    @test occursin(build_regex_pattern("(rV|rVM);nG;fR|(pP*&!fT)"), "rV;nG;fR")
+    @test occursin(build_regex_pattern("(rV|rVM);nG;fR|(pP*&!fT)"), "rVM;nG;pP2;fR")
+    @test !occursin(build_regex_pattern("(rV|rVM);nG;fR|(pP*&!fT)"), "rVM;nG;pP;fT")
 end

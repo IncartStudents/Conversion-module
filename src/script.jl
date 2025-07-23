@@ -16,6 +16,14 @@ arr_pairs = res[1]    # Rhythms in xml-file
 arr_tuples = res[2]   # Arrhythmias in xml-file
 metadata = res[3]
 
+bit_inf = []
+total_num = length(arr_tuples[1].bitvec)
+for el in arr_tuples
+    push!(bit_inf, sum(el.bitvec))
+end
+bit_inf
+s = sum(bit_inf)
+total_num - s
 
 arrhythmias = Vector{Vector{Enum}}()
 
@@ -53,13 +61,13 @@ data = YAML.load(open(input_tree, "r"))
 codes = [t.code for t in arr_tuples]
 formes = [String(f) for f in form_stats.form]
 
-res = find_all_nodes(data, codes, formes)
-if !isempty(res)
-    result_data = build_structure(res)
+result = find_all_nodes(data, codes, formes)
+if !isempty(result)
+    result_data = build_structure(result)
     open(output_tree, "w") do f
         YAML.write(f, result_data)
     end
-    println("Найдено $(length(found_nodes)) узлов. Результат сохранён в $output_tree")
+    println("Найдено $(length(result)) узлов. Результат сохранён в $output_tree")
 else
     println("Ни один узел не найден")
 end
