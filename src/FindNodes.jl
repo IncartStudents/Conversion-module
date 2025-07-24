@@ -64,41 +64,59 @@ end
 иначе он наследует контекст от родителя.
 Возвращает список кортежей: [(path, node), ...]
 """
-function find_all_nodes(data, input_codes, forms, path=[], form_context_ok=true)
+function find_all_nodes(data, input_codes, forms, path=[], form_context=nothing)
     results = []
 
     if isa(data, Dict)
-        current_form_ok = form_context_ok # по умолчанию наследуем от родителя
+        current_form = form_context
         if haskey(data, "Form")
             form_value = data["Form"]
             if isa(form_value, String)
-                current_form_ok = form_value in forms
+                form_ok = false
+                for f in forms
+                    if occursin(Regex(form_value), f)
+                        form_ok = true
+                        break
+                    end
+                end
+                if form_ok
+                    current_form = form_value
+                else
+                    # Форма не совпала — пропускаем этот узел
+                    return results
+                end
             else
-                current_form_ok = false # некорректная форма
+                # Form не строка — пропускаем
+                return results
             end
         end
 
-        if current_form_ok && haskey(data, "CustomName")
+        # Теперь проверяем CustomName, если форма подошла или её нет
+        if haskey(data, "CustomName")
             custom_value = data["CustomName"]
             if isa(custom_value, String)
                 for code in input_codes
                     if occursin(build_regex_pattern(custom_value), code)
-                        push!(results, (path, data))
-                        break # совпадение по коду, выходим
+                        push!(results, (path, custom_value))
+                        break
                     end
                 end
             end
         end
 
-        # Рекурсивно обрабатываем дочерние узлы
+        # Рекурсивно обрабатываем дочерние элементы, кроме Form и CustomName
         for (key, value) in data
-            child_results = find_all_nodes(value, input_codes, forms, [path..., key], current_form_ok)
+            if key in ["Form", "CustomName"]
+                continue
+            end
+            child_path = [path..., key]
+            child_results = find_all_nodes(value, input_codes, forms, child_path, current_form)
             append!(results, child_results)
         end
 
     elseif isa(data, Vector)
         for (i, item) in enumerate(data)
-            child_results = find_all_nodes(item, input_codes, forms, [path..., i], form_context_ok)
+            child_results = find_all_nodes(item, input_codes, forms, [path..., i], form_context)
             append!(results, child_results)
         end
     end
@@ -117,13 +135,17 @@ function build_structure(results)
 
     for (path, node) in results
         current = merged
-        for key in path[1:end-1]
-            if !haskey(current, key)
+        for i in 1:length(path)-1
+            key = path[i]
+            if !haskey(current, key) || !isa(current[key], Dict)
                 current[key] = Dict()
             end
             current = current[key]
         end
-        current[path[end]] = node
+        # Устанавливаем конечное значение
+        if length(path) > 0
+            current[path[end]] = node
+        end
     end
 
     return merged
