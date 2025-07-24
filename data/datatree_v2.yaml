@@ -1,7 +1,7 @@
 Rhythms:
 
   sinus: # Синусовый ритм
-    Form: "(S*|B*|A*|W*)"
+    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
     CustomName: "rN"
 
   paced-undefined: # ритм стимуляции (неуточненный)
@@ -36,9 +36,11 @@ Rhythms:
  
 
   atrial: # Предсердный
-    Form: "(S*|B*|A*|W*)"
+    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    CustomName: "(rSA|rSI)"
     premature:
       single: # одиночные
+        CustomName: "(rSA|rSI);nS;pP*"
         aberrant: # с аберрантным проведением
           CustomName: "(rSA|rSI);nS;pP*;vA*"
         bi: # бигеминии
@@ -74,7 +76,8 @@ Rhythms:
       CustomName: "rSI;nP"
         
   nodal: # Узловой
-    Form: "(S*|B*|A*|W*)"
+    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    CustomName: "(rSN|rSR)"
     premature:
       single: # одиночные
         aberrant: # с аберрантным проведением
@@ -112,9 +115,11 @@ Rhythms:
       CustomName: "rSR;nP"   
 
   supravent: # Наджелудочковый "так описанный"
-    Form: "(S*|B*|A*|W*)"
+    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    CustomName: "(rS|rM)"
     premature:
       single: # одиночные
+        CustomName: "(rS|rM);nS;pP*"
         aberrant: # с аберрантным проведением
           CustomName: "(rS|rM);nS;pP*;vA*"
         bi: # бигеминии
@@ -153,6 +158,8 @@ Rhythms:
         CustomName: "rM;nG"
 
   vent-by-form: # Желудочковые с группировкой по морфологиям
+    # Form: "(?:(?=.*V.*)|(?=.*F.*)).*"
+    CustomName: "(rV|rVM|rVP|rVD|rM)"
     V:
       Form: "V"
       premature: # экстрасистолы
