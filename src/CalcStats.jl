@@ -1,65 +1,115 @@
 using DataFrames
 
 
-function calc_qrs_stats(data)
-    total_count = length(data)
-    unique_forms = Set{Symbol}()
-
-    for entry in data
-        push!(unique_forms, entry.form)
-    end
-
-    counts = Dict{Symbol, Int}()
-    for form in unique_forms
-        counts[form] = 0
-    end
-
-    for entry in data
-        counts[entry.form] += 1
-    end
-
-    result = Dict{String, Any}()
-    result["CmpxCountTotal"] = total_count
-
-    for form in unique_forms
-        count = counts[form]
-        percent = total_count > 0 ? (count / total_count) * 100 : 0.0
-        result[string(form)] = Dict("CmpxCount" => count, "CmpxCountPercent" => percent)
-    end
-
-    return result
-end
-
-
-function calc_qrs_statsv2(data)
-    pqrst_df = DataFrame(data)
-
-    pqrst_gdf = groupby(pqrst_df, :form)
-
-    form_count_df = combine(pqrst_gdf, nrow => :CmpxCount)
-
-    filt_fc_df = filter(:form => f -> !occursin(r"^[XZ]", string(f)), form_count_df)
-
-    total_count = sum(filt_fc_df.CmpxCount)
-
-    cc_per = [round((cc / total_count) * 100, digits=3) for cc in filt_fc_df.CmpxCount]
-
-    filt_fc_df[!, :CmpxCountPercent] = cc_per
-
-    return filt_fc_df
-end
-
 """
 Производит расчет статистики по формам QRS.
 Возвращает объект типа `DataFrame` с колонками: [form, CmpxCount, CmpxCountPercent]
 """
-function calc_qrs_statsv3(data)
+function calc_qrs_stats(data)
     pqrst_df = filter(row -> !occursin(r"^[XZ]", string(row.form)), DataFrame(data))
 
     form_count_df = combine(groupby(pqrst_df, :form),
         nrow => :CmpxCount,
         :form => (f -> round((length(f) / nrow(pqrst_df)) * 100, digits=3)) => :CmpxCountPercent
     )
-
     return form_count_df
+end
+
+"""
+Производит расчет статистик  `TotalDuration`, `TotalDurationPercent`
+"""
+function calc_duration()
+end
+
+"""
+Производит расчет статистик     
+    "CmpxCount" => 0,
+P   "CmpxCountDay" => 0,
+P   "CmpxCountNight" => 0,
+    "CmpxPercent" => 0.0,
+    "CmpxOccurence" => "",
+P   "CmpxCount2s" => 0,
+P   "CmpxCount3s" => 0,.
+"""
+function calc_cmpx_stats(data, sleep, fs)
+    
+    _total = []
+    CmpxCount = 0
+    CmpxCountDay = 0
+    CmpxCountNight = 0
+    CmpxPercent = 0.0
+    CmpxOccurence = ""
+    CmpxCount2s = 0
+    CmpxCount3s = 0
+
+    for item in data
+        bitvec = item.bitvec
+        CmpxCount = sum(bitvec)
+        CmpxPercent = round((CmpxCount / length(bitvec)) * 100, digits=3)
+        if CmpxPercent < 1.0
+            CmpxOccurence = "Rare"
+        elseif 1.0 <= CmpxPercent < 10.0
+            CmpxOccurence = "Moderate"
+        else
+            CmpxOccurence = "Frequent"
+        end
+
+        if item[1][1] == "Pauses"
+            lengths = [el / fs for el in item.len]
+            CmpxCount2s = 0
+            CmpxCount3s = 0
+            for l in lengths
+                if l >= 2.0
+                    CmpxCount2s += 1
+                end
+                if l >= 3.0
+                    CmpxCount3s += 1
+                end
+            end
+        
+        _start = item.starts
+        _end = item.starts + item.len
+        
+        for (_st, _fin) in sleep
+            if _start >= _st && _end <= _fin
+                CmpxCountNight += 1
+            end
+        end
+        CmpxCountDay = CmpxCount - CmpxCountNight
+        end
+    
+    _item = [
+        "$(item.code)",
+        Dict(
+            "CmpxCount" => CmpxCount,
+            "CmpxCountDay" => CmpxCountDay,
+            "CmpxCountNight" => CmpxCountNight,
+            "CmpxPercent" => CmpxPercent,
+            "CmpxOccurence" => CmpxOccurence,
+            "CmpxCount2s" => CmpxCount2s,
+            "CmpxCount3s" => CmpxCount3s
+        )
+    ]
+    push!(_total, _item)
+    end
+
+    return _total
+end
+
+"""
+Производит расчет статистики по формам QRS.
+"""
+function calc_episode_stats()
+end
+
+"""
+Производит расчет статистики по формам QRS.
+"""
+function calc_rr_stats()
+end
+
+"""
+Производит расчет статистики по формам QRS.
+"""
+function calc_hr()
 end

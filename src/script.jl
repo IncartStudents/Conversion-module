@@ -14,36 +14,24 @@ res = readxml_rhythms_arrs(filepath)
 
 arr_pairs = res[1]    # Rhythms in xml-file
 arr_tuples = res[2]   # Arrhythmias in xml-file
-metadata = res[3]
+metadata = res[3]     # timestart, fs
+sleep_info = res[4]   # SleepFragments
 
-bit_inf = []
-total_num = length(arr_tuples[1].bitvec)
-for el in arr_tuples
-    push!(bit_inf, sum(el.bitvec))
+lens = [t.len for t in arr_tuples]
+starts = [t.starts for t in arr_tuples]
+titles = [t.title for t in arr_tuples]
+
+sleep_frag = []
+for (_, slp) in sleep_info
+    push!(sleep_frag, (slp["ECGStartPoints"][1], slp["ECGStartPoints"][1] + slp["ECGDurationPoints"][1]))
 end
-bit_inf
-s = sum(bit_inf)
-total_num - s
+sleep_frag
 
-arrhythmias = Vector{Vector{Enum}}()
+calc_cmpx_stats(arr_tuples, sleep_frag, metadata.fs)
 
-for nt in arr_tuples
-    codes = split(nt.code, ';')
-    for code in codes
-        for mod in keys(DICT)
-            val = get(DICT[mod], code, nothing)
-            if val !== nothing
-                push!(arrhythmias, val)
-            end
-        end
-    end
-end
-
-println(arrhythmias)
 
 pqrst = readxml_pqrst_anz(filepath)
-calc_qrs_stats(pqrst[1])
-form_stats = calc_qrs_statsv3(pqrst[1])
+form_stats = calc_qrs_stats(pqrst[1])
 
 
 # ================================================================================
@@ -61,7 +49,8 @@ data = YAML.load(open(input_tree, "r"))
 codes = [t.code for t in arr_tuples]
 formes = [String(f) for f in form_stats.form]
 
-result = find_all_nodes(data, codes, formes)
+# result = find_all_nodes(data, codes, formes)
+result = find_all_nodes(data, arr_tuples, formes)
 if !isempty(result)
     result_data = build_structure(result)
     open(output_tree, "w") do f
