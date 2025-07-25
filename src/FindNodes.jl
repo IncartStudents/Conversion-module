@@ -64,7 +64,7 @@ end
 иначе он наследует контекст от родителя.
 Возвращает список кортежей: [(path, node), ...]
 """
-function find_all_nodes(data, input_codes, forms, path=[], form_context=nothing)
+function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=nothing)
     results = []
 
     if isa(data, Dict)
@@ -95,9 +95,11 @@ function find_all_nodes(data, input_codes, forms, path=[], form_context=nothing)
         if haskey(data, "CustomName")
             custom_value = data["CustomName"]
             if isa(custom_value, String)
-                for code in input_codes
+                for nt in input_arr_tuples
+                    code = nt.code
                     if occursin(build_regex_pattern(custom_value), code)
-                        push!(results, (path, custom_value))
+                        # Сохраняем также bitvec
+                        push!(results, (path, custom_value, nt.bitvec))
                         break
                     end
                 end
@@ -110,13 +112,13 @@ function find_all_nodes(data, input_codes, forms, path=[], form_context=nothing)
                 continue
             end
             child_path = [path..., key]
-            child_results = find_all_nodes(value, input_codes, forms, child_path, current_form)
+            child_results = find_all_nodes(value, input_arr_tuples, forms, child_path, current_form)
             append!(results, child_results)
         end
 
     elseif isa(data, Vector)
         for (i, item) in enumerate(data)
-            child_results = find_all_nodes(item, input_codes, forms, [path..., i], form_context)
+            child_results = find_all_nodes(item, input_arr_tuples, forms, [path..., i], form_context)
             append!(results, child_results)
         end
     end
