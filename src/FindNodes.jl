@@ -62,7 +62,7 @@ end
 Рекурсивно ищет все узлы, где `CustomName` соответствует коду из `input_codes`.
 Проверка `Form` идёт сверху вниз: если узел имеет `Form`, он должен быть в `forms`,
 иначе он наследует контекст от родителя.
-Возвращает список кортежей: [(path, node), ...]
+Возвращает список кортежей: [(path, custom_name, matched_arr_tuple), ...]
 """
 function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=nothing)
     results = []
@@ -98,8 +98,8 @@ function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=not
                 for nt in input_arr_tuples
                     code = nt.code
                     if occursin(build_regex_pattern(custom_value), code)
-                        # Сохраняем также bitvec
-                        push!(results, (path, custom_value, nt.bitvec))
+                        # Сохраняем весь кортеж
+                        push!(results, (path, custom_value, nt))
                         break
                     end
                 end
@@ -126,7 +126,6 @@ function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=not
     return results
 end
 
-
 """
 Объединяет все найденные узлы в единую структуру с сохранением их путей.
 """
@@ -135,7 +134,7 @@ function build_structure(results)
     # Если передан один узел, то оборачиваем в массив
     results = isa(results, Tuple) ? [results] : results
 
-    for (path, node) in results
+    for (path, custom_name, matched_tuple) in results
         current = merged
         for i in 1:length(path)-1
             key = path[i]
@@ -146,9 +145,19 @@ function build_structure(results)
         end
         # Устанавливаем конечное значение
         if length(path) > 0
-            current[path[end]] = node
+            node_info = Dict(
+                "CustomName" => custom_name,
+                "MatchedData" => Dict(
+                    "rhythm_code" => matched_tuple.rhythm_code,
+                    "code" => matched_tuple.code,
+                    # "bitvec" => matched_tuple.bitvec,
+                    "len" => matched_tuple.len,
+                    "starts" => matched_tuple.starts,
+                    "title" => matched_tuple.title
+                )
+            )
+            current[path[end]] = node_info
         end
     end
-
     return merged
 end
