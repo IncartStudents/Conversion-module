@@ -13,10 +13,6 @@ rhythms_defaults = Dict{String, Any}(
     "EpisodeDurationAvg" => "",
     "EpisodeDurationMax" => "",
     "EpisodeDurationMin" => "",
-)
-
-# Словарь для ЧСС
-hr = Dict{String, Any}(
     "HRIntervalSec" => 0,
     "EpisodeHRAvg" => 0,
     "EpisodeHRMax" => 0,

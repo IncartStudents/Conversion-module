@@ -14,7 +14,7 @@ res = readxml_rhythms_arrs(filepath)
 
 arr_pairs = res[1]    # Rhythms in xml-file
 arr_tuples = res[2]   # Arrhythmias in xml-file
-metadata = res[3]     # timestart, fs
+metadata = res[3]     # timestart, fs, point_count
 sleep_info = res[4]   # SleepFragments
 
 lens = [t.len for t in arr_tuples]
@@ -37,6 +37,7 @@ form_stats = calc_qrs_stats(pqrst[1])
 # ================================================================================
 
 using YAML
+using DataFrames
 
 include("FindNodes.jl")
 
@@ -60,3 +61,26 @@ if !isempty(result)
 else
     println("Ни один узел не найден")
 end
+
+result[1]
+length(lens[1])
+length(starts[1])
+
+calc = calc_cmpx_stats(result, sleep_frag, metadata.fs)
+
+stats_dicts = [item[2] for item in calc]
+
+df = DataFrame(stats_dicts)
+new_column_order = vcat(["Path"], setdiff(names(df), ["Path"]))
+select!(df, new_column_order)
+
+println(df)
+
+calc1 = calc_episode_stats(result, sleep_frag, metadata.fs)
+stats_dicts1 = [item[2] for item in calc1]
+
+df1 = DataFrame(stats_dicts1)
+new_column_order1 = vcat(["Path"], setdiff(names(df1), ["Path"]))
+select!(df1, new_column_order1)
+
+println(df1)
