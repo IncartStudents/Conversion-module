@@ -1,0 +1,646 @@
+DataType: Analysis result data of Holter monitoring record
+Common:
+  FileCreator: KTResult 3
+  FileCreatorVersion: 3.252.36497.0
+Patient:
+  BirthDay: 1955-08-27T00:00:00
+  FIO: Семинар АД ФП
+  Sex: M
+Exam:
+  ExamStart: 2021-09-25T16:30:00
+  LeadNames:
+  - I
+  - II
+  - III
+  - AVR
+  - AVL
+  - AVF
+  - V1
+  - V2
+  - V3
+  - V4
+  - V5
+  - V6
+  PhysLoad: true
+  Breath: true
+  BP: true
+  Stimulator: false
+  GoodDuration: 23:30:00
+  TotalDuration: 23:30:00
+  NightDuration: 11:06:00
+  ActDuration: 00:39:00
+  WalkDuration: 00:01:30
+  ActIntegral24_mg_min: 8231
+QRS:
+  CmpxCountTotal: 132717
+  V:
+    CmpxCount: 559
+    CmpxCountPercent: 0.421
+  VR:
+    CmpxCount: 101
+    CmpxCountPercent: 0.076
+  VL:
+    CmpxCount: 429
+    CmpxCountPercent: 0.323
+  V1:
+    CmpxCount: 18
+    CmpxCountPercent: 0.014
+  V2:
+    CmpxCount: 11
+    CmpxCountPercent: 0.008
+  S:
+    CmpxCount: 132158
+    CmpxCountPercent: 99.579
+HR:
+  IntervalSec: 60
+  AvgDaily: 94
+  AvgDay: 96
+  MaxDay: 136
+  MaxDayTime: 2021-09-26T10:50:00
+  MinDay: 80
+  MinDayTime: 2021-09-25T17:49:00
+  AvgNight: 91
+  MaxNight: 118
+  MaxNightTime: 2021-09-26T04:55:00
+  MinNight: 75
+  MinNightTime: 2021-09-26T01:35:00
+  MaxInFL: 135
+  MaxOutFL: 136
+  TachyCutoff: 110
+  TachyTotalDuration: 01:53:00
+  TachyDayDuration: 01:39:00
+  TachyNightDuration: 00:14:00
+  BradyCutoff: 55
+  BradyTotalDuration: 00:00:00
+  BradyDayDuration: 00:00:00
+  BradyNightDuration: 00:00:00
+  CI: 1.05494505494505
+RhythmArrs:
+  sinus:
+    CmpxCount: 4973
+    CmpxPercent: 3.75
+    CmpxOccurence: Moderate
+    TotalDuration: 01:11:40.8040000
+    TotalDurationPercent: 5.08
+    EpisodeCount: 4413
+    EpisodeCountDay: 2582
+    EpisodeCountNight: 1831
+    EpisodeDurationMin: 00:00:00.5160000
+    EpisodeDurationMax: 00:00:04.2880000
+    EpisodeDurationAvg: 00:00:00.9750000
+    CustomName: Паузы с нормальным СА и АВ-проведением
+    OriginalArrCodes:
+    - ®;rF;@;rN;pE;bN
+    OriginalArrTitles:
+    - Паузы с нормальным СА и АВ-проведением
+  atrial-fib:
+    CmpxCount: 132739
+    CmpxPercent: 100.02
+    CmpxOccurence: Frequent
+    TotalDuration: 23:30:14.7600000
+    TotalDurationPercent: 100.02
+    HRIntervalSec: 10
+    HRAvg: 94
+    HRMax: 148
+    HRMaxTime: 2021-09-26T10:40:40
+    HRMin: 64
+    HRMinTime: 2021-09-26T02:15:00
+    EpisodeCount: 2
+    EpisodeCountDay: 2
+    EpisodeCountNight: 0
+    EpisodeDurationMin: 03:25:08.7240000
+    EpisodeDurationMax: 20:05:06.0360000
+    EpisodeDurationAvg: 11:45:07.3800000
+    OriginalRhCodes:
+    - rF
+    OriginalRhTitles:
+    - Фибрилляция предсердий
+  vent-by-form:
+    CmpxCount: 559
+    CmpxPercent: 0.42
+    CmpxOccurence: Rare
+    TotalDuration: 00:04:24.6720000
+    TotalDurationPercent: 0.31
+    EpisodeCount: 557
+    EpisodeCountDay: 196
+    EpisodeCountNight: 361
+    EpisodeDurationMin: 00:00:00.3000000
+    EpisodeDurationMax: 00:00:01.0880000
+    EpisodeDurationAvg: 00:00:00.4750000
+    CustomName: Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+    OriginalArrCodes:
+    - ®;rF;@;rV;vVR;pP;nS
+    - ®;rF;@;rV;vVL;pP;nS
+    - ®;rF;@;rV;vV1;pP;nS
+    - ®;rF;@;rV;vV2;pP;nS
+    - ®;rF;@;rVP;vV;pP;nD
+    - ®;rF;@;rVD;vV;pP;nD
+    OriginalArrTitles:
+    - Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+    - Одиночные желудочковые экстрасистолы с QRS по типу блокады левой ножки п. Гиса
+    - Одиночные желудочковые экстрасистолы с отрицательной конкрдантностью
+    - Одиночные желудочковые экстрасистолы с положительной конкордантностью
+    - Парные желудочковые полиморфные экстрасистолы
+    - Парные желудочковые разнонаправленные экстрасистолы
+    VR:
+      CmpxCount: 101
+      CmpxPercent: 0.08
+      CmpxOccurence: Rare
+      TotalDuration: 00:00:49.4400000
+      TotalDurationPercent: 0.06
+      EpisodeCount: 101
+      EpisodeCountDay: 27
+      EpisodeCountNight: 74
+      EpisodeDurationMin: 00:00:00.3120000
+      EpisodeDurationMax: 00:00:00.6280000
+      EpisodeDurationAvg: 00:00:00.4900000
+      CustomName: Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+      OriginalArrCodes:
+      - ®;rF;@;rV;vVR;pP;nS
+      - ®;rF;@;rV;vVL;pP;nS
+      - ®;rF;@;rV;vV1;pP;nS
+      - ®;rF;@;rV;vV2;pP;nS
+      - ®;rF;@;rVP;vV;pP;nD
+      - ®;rF;@;rVD;vV;pP;nD
+      OriginalArrTitles:
+      - Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+      - Одиночные желудочковые экстрасистолы с QRS по типу блокады левой ножки п. Гиса
+      - Одиночные желудочковые экстрасистолы с отрицательной конкрдантностью
+      - Одиночные желудочковые экстрасистолы с положительной конкордантностью
+      - Парные желудочковые полиморфные экстрасистолы
+      - Парные желудочковые разнонаправленные экстрасистолы
+      premature:
+        single:
+          CmpxCount: 99
+          CmpxPercent: 0.07
+          CmpxOccurence: Rare
+          TotalDuration: 00:00:48.3160000
+          TotalDurationPercent: 0.06
+          EpisodeCount: 99
+          EpisodeCountDay: 26
+          EpisodeCountNight: 73
+          EpisodeDurationMin: 00:00:00.3120000
+          EpisodeDurationMax: 00:00:00.6120000
+          EpisodeDurationAvg: 00:00:00.4880000
+          CustomName: Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+          OriginalArrCodes:
+          - ®;rF;@;rV;vVR;pP;nS
+          - ®;rF;@;rV;vVL;pP;nS
+          - ®;rF;@;rV;vV1;pP;nS
+          - ®;rF;@;rV;vV2;pP;nS
+          OriginalArrTitles:
+          - Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+          - Одиночные желудочковые экстрасистолы с QRS по типу блокады левой ножки п. Гиса
+          - Одиночные желудочковые экстрасистолы с отрицательной конкрдантностью
+          - Одиночные желудочковые экстрасистолы с положительной конкордантностью
+        pair-poly:
+          CmpxCount: 2
+          CmpxPercent: 0
+          CmpxOccurence: Rare
+          TotalDuration: 00:00:01.1240000
+          TotalDurationPercent: 0
+          EpisodeCount: 2
+          EpisodeCountDay: 1
+          EpisodeCountNight: 1
+          EpisodeDurationMin: 00:00:00.4960000
+          EpisodeDurationMax: 00:00:00.6280000
+          EpisodeDurationAvg: 00:00:00.5620000
+          CustomName: Парные желудочковые полиморфные экстрасистолы
+          OriginalArrCodes:
+          - ®;rF;@;rVP;vV;pP;nD
+          - ®;rF;@;rVD;vV;pP;nD
+          OriginalArrTitles:
+          - Парные желудочковые полиморфные экстрасистолы
+          - Парные желудочковые разнонаправленные экстрасистолы
+    VL:
+      CmpxCount: 429
+      CmpxPercent: 0.32
+      CmpxOccurence: Rare
+      TotalDuration: 00:03:21.2640000
+      TotalDurationPercent: 0.24
+      EpisodeCount: 429
+      EpisodeCountDay: 163
+      EpisodeCountNight: 266
+      EpisodeDurationMin: 00:00:00.3000000
+      EpisodeDurationMax: 00:00:01.0480000
+      EpisodeDurationAvg: 00:00:00.4690000
+      CustomName: Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+      OriginalArrCodes:
+      - ®;rF;@;rV;vVR;pP;nS
+      - ®;rF;@;rV;vVL;pP;nS
+      - ®;rF;@;rV;vV1;pP;nS
+      - ®;rF;@;rV;vV2;pP;nS
+      - ®;rF;@;rVP;vV;pP;nD
+      - ®;rF;@;rVD;vV;pP;nD
+      OriginalArrTitles:
+      - Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+      - Одиночные желудочковые экстрасистолы с QRS по типу блокады левой ножки п. Гиса
+      - Одиночные желудочковые экстрасистолы с отрицательной конкрдантностью
+      - Одиночные желудочковые экстрасистолы с положительной конкордантностью
+      - Парные желудочковые полиморфные экстрасистолы
+      - Парные желудочковые разнонаправленные экстрасистолы
+      premature:
+        single:
+          CmpxCount: 428
+          CmpxPercent: 0.32
+          CmpxOccurence: Rare
+          TotalDuration: 00:03:20.8040000
+          TotalDurationPercent: 0.24
+          EpisodeCount: 428
+          EpisodeCountDay: 163
+          EpisodeCountNight: 265
+          EpisodeDurationMin: 00:00:00.3000000
+          EpisodeDurationMax: 00:00:01.0480000
+          EpisodeDurationAvg: 00:00:00.4690000
+          CustomName: Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+          OriginalArrCodes:
+          - ®;rF;@;rV;vVR;pP;nS
+          - ®;rF;@;rV;vVL;pP;nS
+          - ®;rF;@;rV;vV1;pP;nS
+          - ®;rF;@;rV;vV2;pP;nS
+          OriginalArrTitles:
+          - Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+          - Одиночные желудочковые экстрасистолы с QRS по типу блокады левой ножки п. Гиса
+          - Одиночные желудочковые экстрасистолы с отрицательной конкрдантностью
+          - Одиночные желудочковые экстрасистолы с положительной конкордантностью
+        pair-poly:
+          CmpxCount: 1
+          CmpxPercent: 0
+          CmpxOccurence: Rare
+          TotalDuration: 00:00:00.4600000
+          TotalDurationPercent: 0
+          EpisodeCount: 1
+          EpisodeCountDay: 0
+          EpisodeCountNight: 1
+          EpisodeDurationMin: 00:00:00.4600000
+          EpisodeDurationMax: 00:00:00.4600000
+          EpisodeDurationAvg: 00:00:00.4600000
+          CustomName: Парные желудочковые полиморфные экстрасистолы
+          OriginalArrCodes:
+          - ®;rF;@;rVP;vV;pP;nD
+          - ®;rF;@;rVD;vV;pP;nD
+          OriginalArrTitles:
+          - Парные желудочковые полиморфные экстрасистолы
+          - Парные желудочковые разнонаправленные экстрасистолы
+    V1:
+      CmpxCount: 18
+      CmpxPercent: 0.01
+      CmpxOccurence: Rare
+      TotalDuration: 00:00:08.4320000
+      TotalDurationPercent: 0.01
+      EpisodeCount: 18
+      EpisodeCountDay: 4
+      EpisodeCountNight: 14
+      EpisodeDurationMin: 00:00:00.3880000
+      EpisodeDurationMax: 00:00:00.5920000
+      EpisodeDurationAvg: 00:00:00.4680000
+      CustomName: Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+      OriginalArrCodes:
+      - ®;rF;@;rV;vVR;pP;nS
+      - ®;rF;@;rV;vVL;pP;nS
+      - ®;rF;@;rV;vV1;pP;nS
+      - ®;rF;@;rV;vV2;pP;nS
+      - ®;rF;@;rVP;vV;pP;nD
+      - ®;rF;@;rVD;vV;pP;nD
+      OriginalArrTitles:
+      - Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+      - Одиночные желудочковые экстрасистолы с QRS по типу блокады левой ножки п. Гиса
+      - Одиночные желудочковые экстрасистолы с отрицательной конкрдантностью
+      - Одиночные желудочковые экстрасистолы с положительной конкордантностью
+      - Парные желудочковые полиморфные экстрасистолы
+      - Парные желудочковые разнонаправленные экстрасистолы
+      premature:
+        single:
+          CmpxCount: 17
+          CmpxPercent: 0.01
+          CmpxOccurence: Rare
+          TotalDuration: 00:00:07.9520000
+          TotalDurationPercent: 0.01
+          EpisodeCount: 17
+          EpisodeCountDay: 3
+          EpisodeCountNight: 14
+          EpisodeDurationMin: 00:00:00.3880000
+          EpisodeDurationMax: 00:00:00.5920000
+          EpisodeDurationAvg: 00:00:00.4680000
+          CustomName: Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+          OriginalArrCodes:
+          - ®;rF;@;rV;vVR;pP;nS
+          - ®;rF;@;rV;vVL;pP;nS
+          - ®;rF;@;rV;vV1;pP;nS
+          - ®;rF;@;rV;vV2;pP;nS
+          OriginalArrTitles:
+          - Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+          - Одиночные желудочковые экстрасистолы с QRS по типу блокады левой ножки п. Гиса
+          - Одиночные желудочковые экстрасистолы с отрицательной конкрдантностью
+          - Одиночные желудочковые экстрасистолы с положительной конкордантностью
+        pair-poly:
+          CmpxCount: 1
+          CmpxPercent: 0
+          CmpxOccurence: Rare
+          TotalDuration: 00:00:00.4800000
+          TotalDurationPercent: 0
+          EpisodeCount: 1
+          EpisodeCountDay: 1
+          EpisodeCountNight: 0
+          EpisodeDurationMin: 00:00:00.4800000
+          EpisodeDurationMax: 00:00:00.4800000
+          EpisodeDurationAvg: 00:00:00.4800000
+          CustomName: Парные желудочковые полиморфные экстрасистолы
+          OriginalArrCodes:
+          - ®;rF;@;rVP;vV;pP;nD
+          - ®;rF;@;rVD;vV;pP;nD
+          OriginalArrTitles:
+          - Парные желудочковые полиморфные экстрасистолы
+          - Парные желудочковые разнонаправленные экстрасистолы
+    V2:
+      CmpxCount: 11
+      CmpxPercent: 0.01
+      CmpxOccurence: Rare
+      TotalDuration: 00:00:05.5360000
+      TotalDurationPercent: 0.01
+      EpisodeCount: 11
+      EpisodeCountDay: 3
+      EpisodeCountNight: 8
+      EpisodeDurationMin: 00:00:00.3560000
+      EpisodeDurationMax: 00:00:00.6160000
+      EpisodeDurationAvg: 00:00:00.5030000
+      CustomName: Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+      OriginalArrCodes:
+      - ®;rF;@;rV;vVR;pP;nS
+      - ®;rF;@;rV;vVL;pP;nS
+      - ®;rF;@;rV;vV1;pP;nS
+      - ®;rF;@;rV;vV2;pP;nS
+      - ®;rF;@;rVP;vV;pP;nD
+      - ®;rF;@;rVD;vV;pP;nD
+      OriginalArrTitles:
+      - Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+      - Одиночные желудочковые экстрасистолы с QRS по типу блокады левой ножки п. Гиса
+      - Одиночные желудочковые экстрасистолы с отрицательной конкрдантностью
+      - Одиночные желудочковые экстрасистолы с положительной конкордантностью
+      - Парные желудочковые полиморфные экстрасистолы
+      - Парные желудочковые разнонаправленные экстрасистолы
+      premature:
+        single:
+          CmpxCount: 11
+          CmpxPercent: 0.01
+          CmpxOccurence: Rare
+          TotalDuration: 00:00:05.5360000
+          TotalDurationPercent: 0.01
+          EpisodeCount: 11
+          EpisodeCountDay: 3
+          EpisodeCountNight: 8
+          EpisodeDurationMin: 00:00:00.3560000
+          EpisodeDurationMax: 00:00:00.6160000
+          EpisodeDurationAvg: 00:00:00.5030000
+          CustomName: Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+          OriginalArrCodes:
+          - ®;rF;@;rV;vVR;pP;nS
+          - ®;rF;@;rV;vVL;pP;nS
+          - ®;rF;@;rV;vV1;pP;nS
+          - ®;rF;@;rV;vV2;pP;nS
+          OriginalArrTitles:
+          - Одиночные желудочковые экстрасистолы с QRS по типу блокады правой ножки п. Гиса
+          - Одиночные желудочковые экстрасистолы с QRS по типу блокады левой ножки п. Гиса
+          - Одиночные желудочковые экстрасистолы с отрицательной конкрдантностью
+          - Одиночные желудочковые экстрасистолы с положительной конкордантностью
+    poly:
+      premature-pair:
+        CmpxCount: 4
+        CmpxPercent: 0
+        CmpxOccurence: Rare
+        TotalDuration: 00:00:02.0640000
+        TotalDurationPercent: 0
+        EpisodeCount: 2
+        EpisodeCountDay: 1
+        EpisodeCountNight: 1
+        EpisodeDurationMin: 00:00:00.9760000
+        EpisodeDurationMax: 00:00:01.0880000
+        EpisodeDurationAvg: 00:00:01.0320000
+        CustomName: Парные желудочковые полиморфные экстрасистолы
+        OriginalArrCodes:
+        - ®;rF;@;rVP;vV;pP;nD
+        - ®;rF;@;rVD;vV;pP;nD
+        OriginalArrTitles:
+        - Парные желудочковые полиморфные экстрасистолы
+        - Парные желудочковые разнонаправленные экстрасистолы
+Pause:
+  sinus-arrhythmia:
+    CmpxCount: 4973
+    CmpxCountDay: 2902
+    CmpxCountNight: 2071
+    CmpxPercent: 3.75
+    CmpxOccurence: Moderate
+    TotalDuration: 01:11:40.8040000
+    TotalDurationPercent: 5.08
+    EpisodeCount: 4413
+    EpisodeCountDay: 2582
+    EpisodeCountNight: 1831
+    EpisodeDurationMin: 00:00:00.5160000
+    EpisodeDurationMax: 00:00:04.2880000
+    EpisodeDurationAvg: 00:00:00.9750000
+    CustomName: Паузы с нормальным СА и АВ-проведением
+    OriginalArrCodes:
+    - ®;rF;@;rN;pE;bN
+    OriginalArrTitles:
+    - Паузы с нормальным СА и АВ-проведением
+    RRMinMs: 516
+    RRMaxMs: 1804
+    Cmpx2sCount: 0
+    Cmpx3sCount: 0
+VGradation:
+  Lown: 4A
+  Ryan: 4B
+Distribuition:
+  V:
+    DistrIvanov: NotAdvisable
+    DistrMakarov: NotAdvisableSmallQty
+  S:
+    DistrIvanov: NotAdvisable
+    DistrMakarov: NotAdvisableSmallQty
+  pause:
+    DistrIvanov: EvenlyDistr24
+    DistrMakarov: EvenlyDistr24
+ST:
+  IschemiaIndex_mcV_mnt: 0
+  Elev:
+    Count: 0
+    MaxAmpl: 0
+    InLoadQty: 0
+    InRestQty: 0
+    TotalDur: 00:00:00
+    Locale:
+      Undefined: false
+      V1_V3: false
+      V4_V5: false
+      V6_I: false
+      III_avF: false
+      Other: false
+  Depr:
+    Count: 0
+    MaxAmpl: 0
+    InLoadQty: 0
+    InRestQty: 0
+    TotalDur: 00:00:00
+    Locale:
+      Undefined: false
+      V1_V3: false
+      V4_V5: false
+      V6_I: false
+      III_avF: false
+      Other: false
+  Comb:
+    Count: 0
+    MaxAmpl: 0
+    InLoadQty: 0
+    InRestQty: 0
+    TotalDur: 00:00:00
+    Locale:
+      Undefined: false
+      V1_V3: false
+      V4_V5: false
+      V6_I: false
+      III_avF: false
+      Other: false
+QT:
+  AnalysisImpossible: false
+  AnalysisDuration: 15:43:00
+  AnalysisDurationPercent: 66.88
+  QTForLowHR: 379
+  QTCorrectionMethod: Bazett
+  AverageQTc: 444
+  MaxQTc: 481
+  MinQTc: 421
+  ProlongedQTcCutoffMs: 450
+  ProlongedQTcDuration: 04:05:00
+  ProlongedQTcPercent: 25.981
+  SignProlongedQTcCutoffMs: 480
+  SignProlongedQTcDuration: 00:01:00
+  SignProlongedQTcPercent: 0.106
+  ShortQTcCutoffMs: 340
+  ShortQTcDuration: 00:00:00
+  ShortQTcPercent: 0
+  SlopeQTRR: 0.185953888742485
+PQ:
+  AnalysisImpossible: true
+  AnalysisDuration: 00:00:00
+BP:
+  AnalysisImpossible: false
+  DaySAD:
+    Avg: 136
+    Min: 108
+    Max: 178
+  NightSAD:
+    Avg: 151
+    Min: 125
+    Max: 190
+  Day24SAD:
+    Avg: 5
+  DayDAD:
+    Avg: 81
+    Min: 53
+    Max: 120
+  NightDAD:
+    Avg: 101
+    Min: 65
+    Max: 123
+  Day24DAD:
+    Avg: 3
+  Comment: Динамика АД характерна для стабильной преимущественно систолической артериальной гипертензии в течение суток.
+  CommentFeatures: Обращает внимание эпизод повышения АД до 178/120 мм.рт.ст. с 21:14 до 22:43, а также кратковременное повышение АД до 190/123 мм.рт.ст. с 09:03 до 09:54.
+  CircIndSADPercent: -11
+  CircIndDADPercent: -25
+  GoodMeasQtyDay: 15
+  GoodMeasQtyNight: 10
+  SADRise: 65
+  SADRiseRate_mmHgPerMin: 17
+  DADRise: 58
+  DADRiseRate_mmHgPerMin: 20
+  SettingsDipper: 10
+  SettingsOverDipper: 20
+  SettingsNightPicker: 0
+  HypertensivePressureLoadIndexes:
+    HyperIndexPercent:
+      Syst:
+        All: 60
+        Day: 33.3333320617676
+        Night: 100
+      Diast:
+        All: 52
+        Day: 33.3333320617676
+        Night: 80
+      SystDiast:
+        All: 0
+        Day: 0
+        Night: 0
+    HyperIndexTimePercent:
+      Syst:
+        All: 70.8689575195313
+        Day: 41.7221908569336
+        Night: 100
+      Diast:
+        All: 55.5311317443848
+        Day: 20.5105304718018
+        Night: 90.5328369140625
+      SystDiast:
+        All: 51.3432655334473
+        Day: 15.3802042007446
+        Night: 87.2869338989258
+    HyperIndexSquare_mmHour:
+      Syst:
+        All: 371.570098876953
+        Day: 31.9037036895752
+        Night: 339.666381835938
+      Diast:
+        All: 262.786743164063
+        Day: 33.180736541748
+        Night: 229.606002807617
+      SystDiast:
+        All: 0
+        Day: 0
+        Night: 0
+    HyperIndex_NormalizedSquare:
+      Syst:
+        All: 17.185302734375
+        Day: 2.95192074775696
+        Night: 31.4110050201416
+      Diast:
+        All: 12.1540174484253
+        Day: 3.07007956504822
+        Night: 21.2330551147461
+      SystDiast:
+        All: 0
+        Day: 0
+        Night: 0
+  BPVariability:
+    SADNight_Sigma: 21.8105487823486
+    DADNight_Sigma: 19.3520030975342
+    SADDay_Sigma: 17.2877597808838
+    DADDay_Sigma: 16.7590770721436
+Breath:
+  StudyType: Screening
+  Apnoe:
+    Count: 341
+    CountPerHour: 42.36
+    DurMin_sec: 10
+    DurMax_sec: 129
+    ObstructCount: 0
+    CenterCount: 0
+    MixedCount: 0
+    OD_Count: 0
+    OD_Percent: 0
+  Hypopnoe:
+    Count: 0
+    DurMin_sec: 0
+    DurMax_sec: 0
+  DisordersTotal:
+    Count: 341
+    DurMin_sec: 0
+    DurMax_sec: 129
+  Hypoxemia:
+    DesaturationEpsCount: 0
+  Snore_Count: 0
+  Snore_Percent: 0
+  ApnoeHypoIndex: 42
+  Reo2Exists: true
+  NightBreathTime: 08:03:00
+  NightBreathTimePercent: 72.52

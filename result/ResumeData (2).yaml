@@ -1,0 +1,340 @@
+DataType: Analysis result data of Holter monitoring record
+Common:
+  FileCreator: KTResult 3
+  FileCreatorVersion: 3.252.36497.0
+Patient:
+  BirthDay: 1951-05-03T00:00:00
+  FIO: 'Дыхание Рео '
+  Sex: F
+Exam:
+  ExamStart: 2019-08-15T11:01:00
+  LeadNames:
+  - I
+  - II
+  - III
+  - AVR
+  - AVL
+  - AVF
+  - V1
+  - V2
+  - V3
+  - V4
+  - V5
+  - V6
+  PhysLoad: true
+  Breath: true
+  BP: false
+  Stimulator: false
+  GoodDuration: 21:10:00
+  TotalDuration: 21:12:00
+  NightDuration: 07:05:00
+  ActDuration: 01:33:10
+  WalkDuration: 00:07:30
+  ActIntegral24_mg_min: 12398
+QRS:
+  CmpxCountTotal: 84736
+  A:
+    CmpxCount: 506
+    CmpxCountPercent: 0.597
+  AR:
+    CmpxCount: 506
+    CmpxCountPercent: 0.597
+  S:
+    CmpxCount: 84230
+    CmpxCountPercent: 99.403
+HR:
+  IntervalSec: 60
+  AvgDaily: 66
+  AvgDay: 70
+  MaxDay: 125
+  MaxDayTime: 2019-08-16T07:55:00
+  MinDay: 53
+  MinDayTime: 2019-08-16T05:26:00
+  AvgNight: 59
+  MaxNight: 109
+  MaxNightTime: 2019-08-15T23:39:00
+  MinNight: 51
+  MinNightTime: 2019-08-15T23:43:00
+  MaxInFL: 125
+  MaxOutFL: 110
+  TachyCutoff: 110
+  TachyTotalDuration: 00:06:00
+  TachyDayDuration: 00:06:00
+  TachyNightDuration: 00:00:00
+  BradyCutoff: 55
+  BradyTotalDuration: 03:38:00
+  BradyDayDuration: 00:42:00
+  BradyNightDuration: 02:56:00
+  CI: 1.1864406779661
+RhythmArrs:
+  sinus:
+    CmpxCount: 72063
+    CmpxPercent: 85.04
+    CmpxOccurence: Frequent
+    TotalDuration: 18:55:54.6720000
+    TotalDurationPercent: 89.44
+    HRIntervalSec: 10
+    HRAvg: 63
+    HRMax: 92
+    HRMaxTime: 2019-08-15T20:36:50
+    HRMin: 45
+    HRMinTime: 2019-08-16T02:53:50
+    EpisodeCount: 84
+    EpisodeCountDay: 57
+    EpisodeCountNight: 27
+    EpisodeDurationMin: 00:00:00.7120000
+    EpisodeDurationMax: 02:24:30.9480000
+    EpisodeDurationAvg: 00:13:31.3650000
+    CustomName: Паузы за счет синусовой аритмии
+    OriginalRhCodes:
+    - rN;vS
+    OriginalRhTitles:
+    - Синусовый ритм
+    OriginalArrCodes:
+    - ®;rN;vS;@;rN;pE1;bN
+    OriginalArrTitles:
+    - Паузы за счет синусовой аритмии
+  atrial-flutter:
+    CmpxCount: 12681
+    CmpxPercent: 14.97
+    CmpxOccurence: Frequent
+    TotalDuration: 02:15:33.1800000
+    TotalDurationPercent: 10.67
+    HRIntervalSec: 10
+    HRAvg: 93
+    HRMax: 139
+    HRMaxTime: 2019-08-16T07:56:00
+    HRMin: 76
+    HRMinTime: 2019-08-16T01:09:00
+    EpisodeCount: 21
+    EpisodeCountDay: 3
+    EpisodeCountNight: 18
+    EpisodeDurationMin: 00:00:08.6400000
+    EpisodeDurationMax: 01:03:24.2400000
+    EpisodeDurationAvg: 00:06:27.2940000
+    OriginalRhCodes:
+    - rFA
+    OriginalRhTitles:
+    - Трепетание предсердий
+  supravent:
+    CmpxCount: 670
+    CmpxPercent: 0.79
+    CmpxOccurence: Rare
+    TotalDuration: 00:05:16.5800000
+    TotalDurationPercent: 0.42
+    EpisodeCount: 621
+    EpisodeCountDay: 559
+    EpisodeCountNight: 62
+    EpisodeDurationMin: 00:00:00.4040000
+    EpisodeDurationMax: 00:00:02.3440000
+    EpisodeDurationAvg: 00:00:00.5100000
+    CustomName: Одиночные предсердные экстрасистолы
+    OriginalArrCodes:
+    - ®;rN;vS;@;rS;pP;nS
+    - ®;rN;vS;@;rS;pP;nD
+    - ®;rN;vS;@;rS;pP;nG
+    OriginalArrTitles:
+    - Одиночные предсердные экстрасистолы
+    - Парные предсердные экстрасистолы
+    - Групповые предсердные экстрасистолы
+    premature:
+      single:
+        CmpxCount: 588
+        CmpxPercent: 0.69
+        CmpxOccurence: Rare
+        TotalDuration: 00:04:31.7480000
+        TotalDurationPercent: 0.36
+        EpisodeCount: 588
+        EpisodeCountDay: 555
+        EpisodeCountNight: 33
+        EpisodeDurationMin: 00:00:00.4040000
+        EpisodeDurationMax: 00:00:00.7080000
+        EpisodeDurationAvg: 00:00:00.4620000
+        CustomName: Одиночные предсердные экстрасистолы
+        OriginalArrCodes:
+        - ®;rN;vS;@;rS;pP;nS
+        OriginalArrTitles:
+        - Одиночные предсердные экстрасистолы
+      pair:
+        CmpxCount: 44
+        CmpxPercent: 0.05
+        CmpxOccurence: Rare
+        TotalDuration: 00:00:24.9320000
+        TotalDurationPercent: 0.03
+        EpisodeCount: 22
+        EpisodeCountDay: 4
+        EpisodeCountNight: 18
+        EpisodeDurationMin: 00:00:00.9960000
+        EpisodeDurationMax: 00:00:01.3800000
+        EpisodeDurationAvg: 00:00:01.1330000
+        CustomName: Парные предсердные экстрасистолы
+        OriginalArrCodes:
+        - ®;rN;vS;@;rS;pP;nD
+        OriginalArrTitles:
+        - Парные предсердные экстрасистолы
+      group:
+        CmpxCount: 38
+        CmpxPercent: 0.04
+        CmpxOccurence: Rare
+        TotalDuration: 00:00:19.9000000
+        TotalDurationPercent: 0.03
+        EpisodeCount: 11
+        EpisodeCountDay: 0
+        EpisodeCountNight: 11
+        EpisodeDurationMin: 00:00:01.5000000
+        EpisodeDurationMax: 00:00:02.3440000
+        EpisodeDurationAvg: 00:00:01.8090000
+        CustomName: Групповые предсердные экстрасистолы
+        OriginalArrCodes:
+        - ®;rN;vS;@;rS;pP;nG
+        OriginalArrTitles:
+        - Групповые предсердные экстрасистолы
+Pause:
+  sinus-arrhythmia:
+    CmpxCount: 87
+    CmpxCountDay: 4
+    CmpxCountNight: 83
+    CmpxPercent: 0.1
+    CmpxOccurence: Rare
+    TotalDuration: 00:01:47.2080000
+    TotalDurationPercent: 0.14
+    HRIntervalSec: 10
+    HRAvg: 49
+    HRMax: 54
+    HRMaxTime: 2019-08-15T23:21:40
+    HRMin: 46
+    HRMinTime: 2019-08-16T02:53:50
+    EpisodeCount: 19
+    EpisodeCountDay: 1
+    EpisodeCountNight: 18
+    EpisodeDurationMin: 00:00:01.0280000
+    EpisodeDurationMax: 00:00:12.0920000
+    EpisodeDurationAvg: 00:00:05.6430000
+    CustomName: Паузы за счет синусовой аритмии
+    OriginalArrCodes:
+    - ®;rN;vS;@;rN;pE1;bN
+    OriginalArrTitles:
+    - Паузы за счет синусовой аритмии
+    RRMinMs: 1008
+    RRMaxMs: 1812
+    Cmpx2sCount: 0
+    Cmpx3sCount: 0
+VGradation:
+  Lown: 0
+  Ryan: 0
+Distribuition:
+  V:
+    DistrIvanov: NotAdvisable
+    DistrMakarov: NotAdvisableSmallQty
+  S:
+    DistrIvanov: EvenlyDistr24
+    DistrMakarov: MoreInDay
+  pause:
+    DistrIvanov: NotAdvisable
+    DistrMakarov: NotAdvisableSmallQty
+ST:
+  IschemiaIndex_mcV_mnt: 0
+  Elev:
+    Count: 0
+    MaxAmpl: 0
+    InLoadQty: 0
+    InRestQty: 0
+    TotalDur: 00:00:00
+    Locale:
+      Undefined: false
+      V1_V3: false
+      V4_V5: false
+      V6_I: false
+      III_avF: false
+      Other: false
+  Depr:
+    Count: 0
+    MaxAmpl: 0
+    InLoadQty: 0
+    InRestQty: 0
+    TotalDur: 00:00:00
+    Locale:
+      Undefined: false
+      V1_V3: false
+      V4_V5: false
+      V6_I: false
+      III_avF: false
+      Other: false
+  Comb:
+    Count: 0
+    MaxAmpl: 0
+    InLoadQty: 0
+    InRestQty: 0
+    TotalDur: 00:00:00
+    Locale:
+      Undefined: false
+      V1_V3: false
+      V4_V5: false
+      V6_I: false
+      III_avF: false
+      Other: false
+QT:
+  AnalysisImpossible: false
+  AnalysisDuration: 17:36:00
+  AnalysisDurationPercent: 83.15
+  QTForLowHR: 421
+  QTCorrectionMethod: Bazett
+  AverageQTc: 417
+  MaxQTc: 574
+  MinQTc: 366
+  ProlongedQTcCutoffMs: 450
+  ProlongedQTcDuration: 01:07:00
+  ProlongedQTcPercent: 6.345
+  SignProlongedQTcCutoffMs: 480
+  SignProlongedQTcDuration: 00:09:00
+  SignProlongedQTcPercent: 0.852
+  ShortQTcCutoffMs: 340
+  ShortQTcDuration: 00:00:00
+  ShortQTcPercent: 0
+  SlopeQTRR: 0.124604977589053
+PQ:
+  AnalysisImpossible: false
+  AnalysisDuration: 15:11:00
+  AnalysisDurationPercent: 71.73
+  MaxPQ: 188
+  MaxPQHR: 65
+  MinPQ: 140
+  MinPQHR: 80
+  MaxPQDay: 188
+  MaxPQNight: 176
+  MinPQDay: 140
+  MinPQNight: 156
+  ProlongedCutoff: 210
+  ProlongedDur: 00:00:00
+  ProlongedDurPercent: 0
+  ShortCutoff: 120
+  ShortDur: 00:00:00
+  ShortDurPercent: 0
+Breath:
+  StudyType: Screening
+  Apnoe:
+    Count: 138
+    CountPerHour: 34.38
+    DurMin_sec: 10
+    DurMax_sec: 28
+    ObstructCount: 0
+    CenterCount: 0
+    MixedCount: 0
+    OD_Count: 0
+    OD_Percent: 0
+  Hypopnoe:
+    Count: 11
+    DurMin_sec: 12
+    DurMax_sec: 18
+  DisordersTotal:
+    Count: 149
+    DurMin_sec: 10
+    DurMax_sec: 28
+  Hypoxemia:
+    DesaturationEpsCount: 0
+  Snore_Count: 0
+  Snore_Percent: 0
+  ApnoeHypoIndex: 37
+  Reo2Exists: true
+  NightBreathTime: 04:00:50
+  NightBreathTimePercent: 56.67

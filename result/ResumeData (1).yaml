@@ -1,0 +1,462 @@
+DataType: Analysis result data of Holter monitoring record
+Common:
+  FileCreator: KTResult 3
+  FileCreatorVersion: 3.252.36497.0
+Patient:
+  BirthDay: 1939-05-26T00:00:00
+  FIO: Мехнин Георгий Лаврентьевич
+  Sex: M
+Exam:
+  ExamStart: 2005-11-10T13:48:00
+  LeadNames:
+  - I
+  - II
+  - III
+  - AVR
+  - AVL
+  - AVF
+  - V1
+  - V2
+  - V3
+  - V4
+  - V5
+  - V6
+  PhysLoad: true
+  Breath: false
+  BP: false
+  Stimulator: true
+  GoodDuration: 22:53:00
+  TotalDuration: 22:55:00
+  NightDuration: 09:30:00
+  ActDuration: 06:06:50
+  WalkDuration: 02:02:00
+  ActIntegral24_mg_min: 76193
+QRS:
+  CmpxCountTotal: 101208
+  V:
+    CmpxCount: 120
+    CmpxCountPercent: 0.119
+  V1:
+    CmpxCount: 94
+    CmpxCountPercent: 0.093
+  V2:
+    CmpxCount: 26
+    CmpxCountPercent: 0.026
+  F:
+    CmpxCount: 3
+    CmpxCountPercent: 0.003
+  A:
+    CmpxCount: 1
+    CmpxCountPercent: 0.001
+  S:
+    CmpxCount: 101084
+    CmpxCountPercent: 99.877
+HR:
+  IntervalSec: 60
+  AvgDaily: 73
+  AvgDay: 82
+  MaxDay: 103
+  MaxDayTime: 2005-11-10T20:32:00
+  MinDay: 63
+  MinDayTime: 2005-11-11T09:10:00
+  AvgNight: 60
+  MaxNight: 84
+  MaxNightTime: 2005-11-10T23:34:00
+  MinNight: 49
+  MinNightTime: 2005-11-11T06:02:00
+  MaxInFL: 103
+  MaxOutFL: 100
+  TachyCutoff: 110
+  TachyTotalDuration: 00:00:00
+  TachyDayDuration: 00:00:00
+  TachyNightDuration: 00:00:00
+  BradyCutoff: 55
+  BradyTotalDuration: 01:37:00
+  BradyDayDuration: 00:00:00
+  BradyNightDuration: 01:37:00
+  CI: 1.36666666666667
+RhythmArrs:
+  sinus:
+    CmpxCount: 101077
+    CmpxPercent: 99.87
+    CmpxOccurence: Frequent
+    TotalDuration: 22:53:45.6860000
+    TotalDurationPercent: 100.06
+    HRIntervalSec: 10
+    HRAvg: 73
+    HRMax: 106
+    HRMaxTime: 2005-11-10T20:32:10
+    HRMin: 45
+    HRMinTime: 2005-11-11T07:58:00
+    EpisodeCount: 62
+    EpisodeCountDay: 59
+    EpisodeCountNight: 3
+    EpisodeDurationMin: 00:00:00.6190000
+    EpisodeDurationMax: 06:40:17.1480000
+    EpisodeDurationAvg: 00:22:09.4470000
+    CustomName: Паузы за счет синусовой аритмии
+    OriginalRhCodes:
+    - rN;vS
+    OriginalRhTitles:
+    - Синусовый ритм
+    OriginalArrCodes:
+    - '@;rN;pE1;nS'
+    - '@;rN;pE4;nS;bV1'
+    OriginalArrTitles:
+    - Паузы за счет синусовой аритмии
+    - Клинически значимые паузы за счет атриовентрикулярной блокады 2 степени
+  atrial:
+    CmpxCount: 62
+    CmpxPercent: 0.06
+    CmpxOccurence: Rare
+    TotalDuration: 00:00:36.4280000
+    TotalDurationPercent: 0.04
+    EpisodeCount: 57
+    EpisodeCountDay: 38
+    EpisodeCountNight: 19
+    EpisodeDurationMin: 00:00:00.4470000
+    EpisodeDurationMax: 00:00:01.3970000
+    EpisodeDurationAvg: 00:00:00.6390000
+    CustomName: Одиночные предсердные экстрасистолы
+    OriginalArrCodes:
+    - '@;rSA;pP;nS'
+    - '@;rSA;pP;nD'
+    - '@;rSA;pP;nG'
+    OriginalArrTitles:
+    - Одиночные предсердные экстрасистолы
+    - Парные предсердные экстрасистолы
+    - Групповые предсердные экстрасистолы
+    premature:
+      single:
+        CmpxCount: 53
+        CmpxPercent: 0.05
+        CmpxOccurence: Rare
+        TotalDuration: 00:00:31.3580000
+        TotalDurationPercent: 0.04
+        EpisodeCount: 53
+        EpisodeCountDay: 36
+        EpisodeCountNight: 17
+        EpisodeDurationMin: 00:00:00.4470000
+        EpisodeDurationMax: 00:00:00.8290000
+        EpisodeDurationAvg: 00:00:00.5920000
+        CustomName: Одиночные предсердные экстрасистолы
+        OriginalArrCodes:
+        - '@;rSA;pP;nS'
+        OriginalArrTitles:
+        - Одиночные предсердные экстрасистолы
+      pair:
+        CmpxCount: 6
+        CmpxPercent: 0.01
+        CmpxOccurence: Rare
+        TotalDuration: 00:00:03.6730000
+        TotalDurationPercent: 0
+        EpisodeCount: 3
+        EpisodeCountDay: 1
+        EpisodeCountNight: 2
+        EpisodeDurationMin: 00:00:01.1210000
+        EpisodeDurationMax: 00:00:01.2840000
+        EpisodeDurationAvg: 00:00:01.2240000
+        CustomName: Парные предсердные экстрасистолы
+        OriginalArrCodes:
+        - '@;rSA;pP;nD'
+        OriginalArrTitles:
+        - Парные предсердные экстрасистолы
+      group:
+        CmpxCount: 3
+        CmpxPercent: 0
+        CmpxOccurence: Rare
+        TotalDuration: 00:00:01.3970000
+        TotalDurationPercent: 0
+        EpisodeCount: 1
+        EpisodeCountDay: 1
+        EpisodeCountNight: 0
+        EpisodeDurationMin: 00:00:01.3970000
+        EpisodeDurationMax: 00:00:01.3970000
+        EpisodeDurationAvg: 00:00:01.3970000
+        CustomName: Групповые предсердные экстрасистолы
+        OriginalArrCodes:
+        - '@;rSA;pP;nG'
+        OriginalArrTitles:
+        - Групповые предсердные экстрасистолы
+  vent-by-form:
+    CmpxCount: 123
+    CmpxPercent: 0.12
+    CmpxOccurence: Rare
+    TotalDuration: 00:00:54.7250000
+    TotalDurationPercent: 0.07
+    EpisodeCount: 123
+    EpisodeCountDay: 113
+    EpisodeCountNight: 10
+    EpisodeDurationMin: 00:00:00.3810000
+    EpisodeDurationMax: 00:00:00.9420000
+    EpisodeDurationAvg: 00:00:00.4450000
+    CustomName: Одиночные желудочковые экстрасистолы 1-го типа
+    OriginalArrCodes:
+    - '@;rVP;vV1;pP;nS'
+    - '@;rVP;vV2;pP;nS'
+    - '@;rVP;vF;pP;nS'
+    OriginalArrTitles:
+    - Одиночные желудочковые экстрасистолы 1-го типа
+    - Одиночные желудочковые экстрасистолы 2-го типа
+    - Одиночные сливные комплексы
+    V1:
+      CmpxCount: 94
+      CmpxPercent: 0.09
+      CmpxOccurence: Rare
+      TotalDuration: 00:00:39.0950000
+      TotalDurationPercent: 0.05
+      EpisodeCount: 94
+      EpisodeCountDay: 94
+      EpisodeCountNight: 0
+      EpisodeDurationMin: 00:00:00.3810000
+      EpisodeDurationMax: 00:00:00.4670000
+      EpisodeDurationAvg: 00:00:00.4160000
+      CustomName: Одиночные желудочковые экстрасистолы 1-го типа
+      OriginalArrCodes:
+      - '@;rVP;vV1;pP;nS'
+      - '@;rVP;vV2;pP;nS'
+      - '@;rVP;vF;pP;nS'
+      OriginalArrTitles:
+      - Одиночные желудочковые экстрасистолы 1-го типа
+      - Одиночные желудочковые экстрасистолы 2-го типа
+      - Одиночные сливные комплексы
+      premature:
+        single:
+          CmpxCount: 94
+          CmpxPercent: 0.09
+          CmpxOccurence: Rare
+          TotalDuration: 00:00:39.0950000
+          TotalDurationPercent: 0.05
+          EpisodeCount: 94
+          EpisodeCountDay: 94
+          EpisodeCountNight: 0
+          EpisodeDurationMin: 00:00:00.3810000
+          EpisodeDurationMax: 00:00:00.4670000
+          EpisodeDurationAvg: 00:00:00.4160000
+          CustomName: Одиночные желудочковые экстрасистолы 1-го типа
+          OriginalArrCodes:
+          - '@;rVP;vV1;pP;nS'
+          - '@;rVP;vV2;pP;nS'
+          - '@;rVP;vF;pP;nS'
+          OriginalArrTitles:
+          - Одиночные желудочковые экстрасистолы 1-го типа
+          - Одиночные желудочковые экстрасистолы 2-го типа
+          - Одиночные сливные комплексы
+    V2:
+      CmpxCount: 26
+      CmpxPercent: 0.03
+      CmpxOccurence: Rare
+      TotalDuration: 00:00:13.3650000
+      TotalDurationPercent: 0.02
+      EpisodeCount: 26
+      EpisodeCountDay: 17
+      EpisodeCountNight: 9
+      EpisodeDurationMin: 00:00:00.4400000
+      EpisodeDurationMax: 00:00:00.6960000
+      EpisodeDurationAvg: 00:00:00.5140000
+      CustomName: Одиночные желудочковые экстрасистолы 1-го типа
+      OriginalArrCodes:
+      - '@;rVP;vV1;pP;nS'
+      - '@;rVP;vV2;pP;nS'
+      - '@;rVP;vF;pP;nS'
+      OriginalArrTitles:
+      - Одиночные желудочковые экстрасистолы 1-го типа
+      - Одиночные желудочковые экстрасистолы 2-го типа
+      - Одиночные сливные комплексы
+      premature:
+        single:
+          CmpxCount: 26
+          CmpxPercent: 0.03
+          CmpxOccurence: Rare
+          TotalDuration: 00:00:13.3650000
+          TotalDurationPercent: 0.02
+          EpisodeCount: 26
+          EpisodeCountDay: 17
+          EpisodeCountNight: 9
+          EpisodeDurationMin: 00:00:00.4400000
+          EpisodeDurationMax: 00:00:00.6960000
+          EpisodeDurationAvg: 00:00:00.5140000
+          CustomName: Одиночные желудочковые экстрасистолы 1-го типа
+          OriginalArrCodes:
+          - '@;rVP;vV1;pP;nS'
+          - '@;rVP;vV2;pP;nS'
+          - '@;rVP;vF;pP;nS'
+          OriginalArrTitles:
+          - Одиночные желудочковые экстрасистолы 1-го типа
+          - Одиночные желудочковые экстрасистолы 2-го типа
+          - Одиночные сливные комплексы
+    F:
+      CmpxCount: 3
+      CmpxPercent: 0
+      CmpxOccurence: Rare
+      TotalDuration: 00:00:02.2650000
+      TotalDurationPercent: 0
+      EpisodeCount: 3
+      EpisodeCountDay: 2
+      EpisodeCountNight: 1
+      EpisodeDurationMin: 00:00:00.5760000
+      EpisodeDurationMax: 00:00:00.9420000
+      EpisodeDurationAvg: 00:00:00.7550000
+      CustomName: Одиночные желудочковые экстрасистолы 1-го типа
+      OriginalArrCodes:
+      - '@;rVP;vV1;pP;nS'
+      - '@;rVP;vV2;pP;nS'
+      - '@;rVP;vF;pP;nS'
+      OriginalArrTitles:
+      - Одиночные желудочковые экстрасистолы 1-го типа
+      - Одиночные желудочковые экстрасистолы 2-го типа
+      - Одиночные сливные комплексы
+      premature:
+        single:
+          CmpxCount: 3
+          CmpxPercent: 0
+          CmpxOccurence: Rare
+          TotalDuration: 00:00:02.2650000
+          TotalDurationPercent: 0
+          EpisodeCount: 3
+          EpisodeCountDay: 2
+          EpisodeCountNight: 1
+          EpisodeDurationMin: 00:00:00.5760000
+          EpisodeDurationMax: 00:00:00.9420000
+          EpisodeDurationAvg: 00:00:00.7550000
+          CustomName: Одиночные желудочковые экстрасистолы 1-го типа
+          OriginalArrCodes:
+          - '@;rVP;vV1;pP;nS'
+          - '@;rVP;vV2;pP;nS'
+          - '@;rVP;vF;pP;nS'
+          OriginalArrTitles:
+          - Одиночные желудочковые экстрасистолы 1-го типа
+          - Одиночные желудочковые экстрасистолы 2-го типа
+          - Одиночные сливные комплексы
+Pause:
+  sinus-arrhythmia:
+    CmpxCount: 416
+    CmpxCountDay: 59
+    CmpxCountNight: 357
+    CmpxPercent: 0.41
+    CmpxOccurence: Rare
+    TotalDuration: 00:08:34.1830000
+    TotalDurationPercent: 0.62
+    EpisodeCount: 408
+    EpisodeCountDay: 58
+    EpisodeCountNight: 350
+    EpisodeDurationMin: 00:00:00.8720000
+    EpisodeDurationMax: 00:00:02.8020000
+    EpisodeDurationAvg: 00:00:01.2600000
+    CustomName: Паузы за счет синусовой аритмии
+    OriginalArrCodes:
+    - '@;rN;pE1;nS'
+    OriginalArrTitles:
+    - Паузы за счет синусовой аритмии
+    RRMinMs: 872
+    RRMaxMs: 1482
+    Cmpx2sCount: 0
+    Cmpx3sCount: 0
+  AV-block-degree2-Mobitz-type1:
+    CmpxCount: 1
+    CmpxCountDay: 0
+    CmpxCountNight: 1
+    CmpxPercent: 0
+    CmpxOccurence: Rare
+    TotalDuration: 00:00:02.0970000
+    TotalDurationPercent: 0
+    EpisodeCount: 1
+    EpisodeCountDay: 0
+    EpisodeCountNight: 1
+    EpisodeDurationMin: 00:00:02.0970000
+    EpisodeDurationMax: 00:00:02.0970000
+    EpisodeDurationAvg: 00:00:02.0970000
+    CustomName: Клинически значимые паузы за счет атриовентрикулярной блокады 2 степени
+    OriginalArrCodes:
+    - '@;rN;pE4;nS;bV1'
+    OriginalArrTitles:
+    - Клинически значимые паузы за счет атриовентрикулярной блокады 2 степени
+    RRMinMs: 2097
+    RRMaxMs: 2097
+    Cmpx2sCount: 1
+    Cmpx3sCount: 0
+VGradation:
+  Lown: 3
+  Ryan: 3
+Distribuition:
+  V:
+    DistrIvanov: NotAdvisable
+    DistrMakarov: NotAdvisableSmallQty
+  S:
+    DistrIvanov: NotAdvisable
+    DistrMakarov: NotAdvisableSmallQty
+  pause:
+    DistrIvanov: NotAdvisable
+    DistrMakarov: NotAdvisableSmallQty
+ST:
+  Elev:
+    Count: 0
+    MaxAmpl: 0
+    InLoadQty: 0
+    InRestQty: 0
+    TotalDur: 00:00:00
+    Locale:
+      Undefined: false
+      V1_V3: false
+      V4_V5: false
+      V6_I: false
+      III_avF: false
+      Other: false
+  Depr:
+    Count: 4
+    MaxAmpl: 0
+    InLoadQty: 4
+    InRestQty: 0
+    TotalDur: 00:45:40
+    Locale:
+      Undefined: false
+      V1_V3: true
+      V4_V5: true
+      V6_I: true
+      III_avF: false
+      Other: false
+  Comb:
+    Count: 0
+    MaxAmpl: 0
+    InLoadQty: 0
+    InRestQty: 0
+    TotalDur: 00:00:00
+    Locale:
+      Undefined: false
+      V1_V3: false
+      V4_V5: false
+      V6_I: false
+      III_avF: false
+      Other: false
+QT:
+  AnalysisImpossible: false
+  AnalysisDuration: 20:27:00
+  AnalysisDurationPercent: 89.37
+  AverageQTc: 441
+  MaxQTc: 487
+  MinQTc: 378
+  ProlongedQTcCutoffMs: 450
+  ProlongedQTcDuration: 08:19:00
+  ProlongedQTcPercent: 40.668
+  ShortQTcCutoffMs: 340
+  ShortQTcDuration: 00:00:00
+  ShortQTcPercent: 0
+  SlopeQTRR: 0.210872800581878
+PQ:
+  AnalysisImpossible: false
+  AnalysisDuration: 21:56:00
+  AnalysisDurationPercent: 95.85
+  MaxPQ: 252
+  MaxPQHR: 64
+  MinPQ: 147
+  MinPQHR: 93
+  MaxPQDay: 249
+  MaxPQNight: 252
+  MinPQDay: 147
+  MinPQNight: 182
+  ProlongedCutoff: 210
+  ProlongedDur: 08:58:00
+  ProlongedDurPercent: 40.8814589665653
+  ShortCutoff: 120
+  ShortDur: 00:00:00
+  ShortDurPercent: 0
