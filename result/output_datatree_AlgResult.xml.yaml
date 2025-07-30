@@ -1,0 +1,42 @@
+Rhythms:
+  sinus:
+    CustomName: "rN"
+    code: "rN;pE"
+  vent-by-form:
+    CustomName: "(rV|rVM|rVP|rVD|rM)"
+    V:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+          code: "rV;pP;nD"
+        single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
+          code: "rV;pP;nS"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+        code: "rVM;vV;pP;nG"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
+        code: "rVM;vV;pP;nG;fR"
+    code: "rV"
+    F:
+      premature:
+        pair-mono:
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+          code: "rV;pP;nD"
+        single:
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
+          code: "rV;pP;nS"
+      tachy-unstable-mono:
+        CustomName: "(rV|rVM);nG;pP*;!fR"
+        code: "rVM;vV;pP;nG"
+      rhythm-unstable-mono:
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
+        code: "rVM;vV;pP;nG;fR"
+Pauses:
+  sinus_arr:
+    CustomName: "rN;pE*;(bN|!b*)"
+    code: "rN;pE"
+  AV-block-degree2-mobitz-type1:
+    CustomName: "bV1"
+    code: "rN;pE;bV1"
