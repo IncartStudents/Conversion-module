@@ -14,7 +14,7 @@ res = readxml_rhythms_arrs(filepath)
 
 arr_pairs = res[1]    # Rhythms in xml-file
 arr_tuples = res[2]   # Arrhythmias in xml-file
-metadata = res[3]     # timestart, fs, point_count
+meta = res[3]     # timestart, fs, point_count
 sleep_info = res[4]   # SleepFragments
 
 lens = [t.len for t in arr_tuples]
@@ -27,7 +27,7 @@ for (_, slp) in sleep_info
 end
 sleep_frag
 
-calc_cmpx_stats(arr_tuples, sleep_frag, metadata.fs)
+calc_cmpx_stats(arr_tuples, sleep_frag, meta.fs)
 
 
 pqrst = readxml_pqrst_anz(filepath)
@@ -46,6 +46,9 @@ input_tree = "C:/incart_dev/Myproject/data/datatree_v2.yaml"
 output_tree = "C:/incart_dev/Myproject/result/output_datatree.yaml"
 
 data = YAML.load(open(input_tree, "r"))
+
+new_input_tree = "C:/incart_dev/Myproject/data/new_datatree.yaml"
+new_data = YAML.load(open(input_tree, "r"))
 
 codes = [t.code for t in arr_tuples]
 formes = [String(f) for f in form_stats.form]
@@ -66,7 +69,7 @@ result[1]
 length(lens[1])
 length(starts[1])
 
-calc = calc_cmpx_stats(result, sleep_frag, metadata.fs)
+calc = calc_cmpx_stats(result, sleep_frag, meta.fs)
 
 stats_dicts = [item[2] for item in calc]
 
@@ -76,7 +79,7 @@ select!(df, new_column_order)
 
 println(df)
 
-calc1 = calc_episode_stats(result, sleep_frag, metadata.fs)
+calc1 = calc_episode_stats(result, sleep_frag, meta.fs)
 stats_dicts1 = [item[2] for item in calc1]
 
 df1 = DataFrame(stats_dicts1)
@@ -382,9 +385,10 @@ end
 
 transformed_data = transform_custom_names_to_regex(data)
 
+trans_d = transform_custom_names_to_regex(data)
+
 @btime find_nodes_v2($transformed_data, $new_codes, $formes)
 
 open(output_file, "w") do f
-        YAML.write(f, transformed_data)
+        YAML.write(f, trans_d)
 end
-

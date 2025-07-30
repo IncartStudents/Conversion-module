@@ -201,16 +201,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     VR:
       Form: "VR"
@@ -253,16 +253,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     VL:
       Form: "VL"
@@ -305,16 +305,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     V1:
       Form: "V1"
@@ -357,16 +357,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     V2:
       Form: "V2"
@@ -409,16 +409,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     V3:
       Form: "V3"
@@ -461,16 +461,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     V4:
       Form: "V4"
@@ -513,16 +513,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     V5:
       Form: "V5"
@@ -565,16 +565,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     V6:
       Form: "V6"
@@ -617,16 +617,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     F:
       Form: "F"
@@ -669,16 +669,16 @@ Rhythms:
         CustomName: "(rVP|rVD);nP;pP*;!fR"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nG;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
    
       rhythm-unstable-poly: # V* в эпизодах неустойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
-        CustomName: "(rV|rVM);nP;fR|(pP*&!fT)"
+        CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
 
     poly: # Полиморфные желудочковые (отдельно)
       premature-pair-F: # парные полиморфные экстрасистолы со сливным комплексом
@@ -694,9 +694,9 @@ Rhythms:
       tachy-stable: # все эпизоды устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"   
       rhythm-unstable: # все эпизоды устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nG;fR|(pP*&!fT)"   
+        CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"   
       rhythm-stable: # все эпизоды устойчивого полиморфного желудочкового ритма
-        CustomName: "(rVP|rVD);nP;fR|(pP*&!fT)"
+        CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
    
 
   # vent-classic # желудочковые (без группировки по формам - классический вариант) - пока не делаем

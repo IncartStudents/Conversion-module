@@ -15,14 +15,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "V3"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*V3).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -33,7 +33,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -56,14 +56,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "V"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*V).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -74,7 +74,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -97,14 +97,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "V1"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*V1).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -115,7 +115,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -138,14 +138,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "VL"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*VL).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -156,7 +156,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -179,14 +179,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "V2"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*V2).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -197,7 +197,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -221,14 +221,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "V5"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*V5).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -239,7 +239,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -262,14 +262,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "V4"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*V4).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -280,7 +280,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -303,14 +303,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "V6"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*V6).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -321,7 +321,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -333,13 +333,13 @@ Rhythms:
       tachy-stable:
         CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       rhythm-stable:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       premature-pair:
         CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nD)(?:(?=.*pP.*)|(?!.*pE.*))(?!.*vF).*$"
       escape-pair-F:
         CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nD)(?=.*pE.*)(?=.*vF).*$"
       rhythm-unstable:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       escape-pair:
         CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nD)(?=.*pE.*)(?!.*vF).*$"
       tachy-unstable:
@@ -361,14 +361,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "VR"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*VR).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -379,7 +379,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -402,14 +402,14 @@ Rhythms:
           bi:
             CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?:(?=.*pP.*)|(?!.*pE.*))(?=.*gB).*$"
       rhythm-stable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-unstable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?=.*pP.*)(?!.*fR).*$"
       rhythm-unstable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
-      Form: "F"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
+      Form: r"^(?=.*F).*$"
       rhythm-unstable-mono:
-        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nG)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       tachy-stable-mono:
         CustomName: r"^(?:(?=.*rV)|(?=.*rVM))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
       escape:
@@ -420,7 +420,7 @@ Rhythms:
         single:
           CustomName: r"^(?:(?=.*rV)|(?=.*rVM)|(?=.*rVP)|(?=.*rVD))(?=.*nS)(?=.*pE.*).*$"
       rhythm-stable-poly:
-        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?=.*pP.*)(?!.*fT)).*$"
+        CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?:(?=.*fR)|(?!.*pP.*)(?!.*fT)).*$"
       combined-VS:
         pair:
           CustomName: r"^(?=.*rM)(?=.*nD).*$"
@@ -429,7 +429,7 @@ Rhythms:
       tachy-stable-poly:
         CustomName: r"^(?:(?=.*rVP)|(?=.*rVD))(?=.*nP)(?=.*pP.*)(?!.*fR).*$"
   supravent:
-    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    Form: r"^(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*$"
     CustomName: r"^(?:(?=.*rS)|(?=.*rM)).*$"
     premature:
       blocked:
@@ -469,7 +469,7 @@ Rhythms:
   atrial-poly:
     CustomName: r"^(?:(?=.*rSM)|(?=.*rSP))(?=.*nP).*$"
   sinus:
-    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    Form: r"^(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*$"
     CustomName: r"^(?=.*rN).*$"
   irregular:
     CustomName: r"^(?=.*rFN).*$"
@@ -480,7 +480,7 @@ Rhythms:
   atrial-flutter:
     CustomName: r"^(?=.*rFA).*$"
   nodal:
-    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    Form: r"^(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*$"
     CustomName: r"^(?:(?=.*rSN)|(?=.*rSR)).*$"
     premature:
       blocked:
@@ -520,7 +520,7 @@ Rhythms:
   paced-atrial:
     CustomName: r"^(?=.*rCA).*$"
   atrial:
-    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    Form: r"^(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*$"
     CustomName: r"^(?:(?=.*rSA)|(?=.*rSI)).*$"
     premature:
       blocked:

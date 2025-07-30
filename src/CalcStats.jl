@@ -138,7 +138,7 @@ end
 
 - `point_count`: общее количество точек экзамена, которое берется из metadata, Int
 """
-function calc_episode_stats(found_nodes_result, sleep, fs, point_count=metadata.point_count)
+function calc_episode_stats(found_nodes_result, sleep, fs, point_count=meta.point_count)
     _total = []
 
     for (path, custom_name, matched_tuple) in found_nodes_result

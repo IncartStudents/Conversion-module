@@ -130,33 +130,41 @@ end
 Объединяет все найденные узлы в единую структуру с сохранением их путей.
 """
 function build_structure(results)
-    merged = Dict()
-    # Если передан один узел, то оборачиваем в массив
-    results = isa(results, Tuple) ? [results] : results
+    if isempty(results)
+        return Dict()
+    end
+    if isa(results, Tuple)
+        results = [results]
+    end
+    merged = Dict{Any, Any}()
 
     for (path, custom_name, matched_tuple) in results
-        current = merged
+        current_level = merged
         for i in 1:length(path)-1
             key = path[i]
-            if !haskey(current, key) || !isa(current[key], Dict)
-                current[key] = Dict()
+            if !haskey(current_level, key)
+                current_level[key] = Dict{Any, Any}()
+            elseif !isa(current_level[key], Dict)
+                current_level[key] = Dict{Any, Any}()
             end
-            current = current[key]
+            current_level = current_level[key]
         end
-        # Устанавливаем конечное значение
+
         if length(path) > 0
-            node_info = Dict(
+            last_key = path[end]
+            node_info = Dict{String, Any}(
                 "CustomName" => custom_name,
-                "MatchedData" => Dict(
-                    "rhythm_code" => matched_tuple.rhythm_code,
-                    "code" => matched_tuple.code,
-                    # "bitvec" => matched_tuple.bitvec,
-                    "len" => matched_tuple.len,
-                    "starts" => matched_tuple.starts,
-                    "title" => matched_tuple.title
-                )
+                "code" => get(matched_tuple, :code, nothing)
+                # "MatchedData" => Dict{String, Any}(
+                #     "rhythm_code" => getproperty(matched_tuple, :rhythm_code, nothing),
+                #     "code" => getproperty(matched_tuple, :code, nothing),
+                #     # "bitvec" => getproperty(matched_tuple, :bitvec, nothing), # Исключено
+                #     "len" => getproperty(matched_tuple, :len, nothing),
+                #     "starts" => getproperty(matched_tuple, :starts, nothing),
+                #     "title" => getproperty(matched_tuple, :title, nothing)
+                # )
             )
-            current[path[end]] = node_info
+            current_level[last_key] = node_info
         end
     end
     return merged
