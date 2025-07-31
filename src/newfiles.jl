@@ -44,39 +44,43 @@ function process_file(filepath, data)
     println(formes)
     println("")
     result = find_all_nodes(data, arr_tuples, formes)
-    
+
     # @btime find_all_nodes($data, $arr_tuples, $formes)
-
-    output_tree = "C:/incart_dev/Myproject/result/output_datatree_$(basename(filepath)).yaml"
-    if !isempty(result)
-        result_data = build_structure(result)
-        open(output_tree, "w") do f
-            YAML.write(f, result_data)
-        end
-        println("Найдено $(length(result)) узлов. Результат сохранён в $output_tree")
-    else
-        println("Ни один узел не найден для файла $filepath")
-    end
-
+    
     # Cmpx Stats
     calc = calc_cmpx_stats(result, sleep_frag, meta.fs)
-    stats_dicts = [item[2] for item in calc]
-    df = DataFrame(stats_dicts)
-    new_column_order = vcat(["Path"], setdiff(names(df), ["Path"]))
-    select!(df, new_column_order)
-    println("=== Cmpx Stats for $filepath ===")
-    println(df)
+    # stats_dicts = [item[2] for item in calc]
+    # df = DataFrame(stats_dicts)
+    # new_column_order = vcat(["Path"], setdiff(names(df), ["Path"]))
+    # select!(df, new_column_order)
+    # println("=== Cmpx Stats for $filepath ===")
+    # println(calc)
 
     # Episodes Stats
-    # calc1 = calc_episode_stats(result, sleep_frag, meta.fs)
+    calc1 = calc_episode_stats(result, sleep_frag, meta.fs, meta.point_count)
     # stats_dicts1 = [item[2] for item in calc1]
     # df1 = DataFrame(stats_dicts1)
     # new_column_order1 = vcat(["Path"], setdiff(names(df1), ["Path"]))
     # select!(df1, new_column_order1)
     # println("=== Episodes Stats for $filepath ===")
-    # println(df1)
+    # println(calc1)
+    
+    # df_combined = outerjoin(df, df1, on=:Path, makeunique=false)
+    # println(df_combined)
 
-    # return df, df1
+    # return df_combined
+
+    output = complex_stats(result, sleep_frag, meta.fs, meta.point_count)
+    output_tree = "C:/incart_dev/Myproject/result/result_datatree_$(basename(filepath)).yaml"
+    if !isempty(output)
+        result_data = build_structure(output)
+        open(output_tree, "w") do f
+            YAML.write(f, result_data)
+        end
+        println("Найдено $(length(output)) узлов. Результат сохранён в $output_tree")
+    else
+        println("Ни один узел не найден для файла $filepath")
+    end
 end
 
 # Обработка всех файлов

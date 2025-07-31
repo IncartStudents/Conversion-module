@@ -7,8 +7,7 @@ include("CalcStats.jl")
 
 include("C:/incart_dev/ExtractMkp.jl/src/dict.jl")
 
-filepath = "C:/incart_dev/Myproject/data/AlgResult.xml"
-
+filepath = "C:/incart_dev/Myproject/data/AlgResult (3).xml"
 
 res = readxml_rhythms_arrs(filepath)
 
@@ -16,6 +15,8 @@ arr_pairs = res[1]    # Rhythms in xml-file
 arr_tuples = res[2]   # Arrhythmias in xml-file
 meta = res[3]     # timestart, fs, point_count
 sleep_info = res[4]   # SleepFragments
+
+sums = [sum(bitvec) for (key, bitvec) in arr_pairs]
 
 lens = [t.len for t in arr_tuples]
 starts = [t.starts for t in arr_tuples]
@@ -27,7 +28,7 @@ for (_, slp) in sleep_info
 end
 sleep_frag
 
-calc_cmpx_stats(arr_tuples, sleep_frag, meta.fs)
+# calc_cmpx_stats(arr_tuples, sleep_frag, meta.fs)
 
 
 pqrst = readxml_pqrst_anz(filepath)
@@ -54,9 +55,43 @@ codes = [t.code for t in arr_tuples]
 formes = [String(f) for f in form_stats.form]
 
 # result = find_all_nodes(data, codes, formes)
-result = find_all_nodes(data, arr_tuples, formes)
+result = find_all_nodes(data, arr_tuples, arr_pairs, formes)
+
+function build_struct(results)
+    root = Dict{String, Any}()
+
+    for (path_parts, node_data, _) in results
+        # Начинаем с корня
+        current_level = root
+        
+        # Проходим по всем частям пути
+        for i in 1:length(path_parts)
+            key = path_parts[i]
+            
+            # Если это последний элемент пути, записываем оригинальные данные узла
+            if i == length(path_parts)
+                # Создаем копию оригинальных данных узла
+                leaf_data = Dict{String, Any}()
+                for (k, v) in node_data
+                    leaf_data[k] = v
+                end
+                current_level[key] = leaf_data
+            else
+                # Создаем промежуточный узел, если нужно
+                if !haskey(current_level, key)
+                    current_level[key] = Dict{String, Any}()
+                end
+                # Переходим на следующий уровень
+                current_level = current_level[key]
+            end
+        end
+    end
+
+    return root
+end
+
 if !isempty(result)
-    result_data = build_structure(result)
+    result_data = build_struct(result)
     open(output_tree, "w") do f
         YAML.write(f, result_data)
     end
@@ -71,23 +106,25 @@ length(starts[1])
 
 calc = calc_cmpx_stats(result, sleep_frag, meta.fs)
 
-stats_dicts = [item[2] for item in calc]
+# stats_dicts = [item[2] for item in calc]
 
-df = DataFrame(stats_dicts)
-new_column_order = vcat(["Path"], setdiff(names(df), ["Path"]))
-select!(df, new_column_order)
+# df = DataFrame(stats_dicts)
+# new_column_order = vcat(["Path"], setdiff(names(df), ["Path"]))
+# select!(df, new_column_order)
 
-println(df)
+# println(df)
 
-calc1 = calc_episode_stats(result, sleep_frag, meta.fs)
-stats_dicts1 = [item[2] for item in calc1]
+calc1 = calc_episode_stats(result, sleep_frag, meta.fs, meta.point_count)
+# stats_dicts1 = [item[2] for item in calc1]
 
-df1 = DataFrame(stats_dicts1)
-new_column_order1 = vcat(["Path"], setdiff(names(df1), ["Path"]))
-select!(df1, new_column_order1)
+# df1 = DataFrame(stats_dicts1)
+# new_column_order1 = vcat(["Path"], setdiff(names(df1), ["Path"]))
+# select!(df1, new_column_order1)
 
-println(df1)
+# println(df1)
 
+
+output = complex_stats(result, sleep_frag, meta.fs, meta.point_count)
 
 # ================================================================================
 

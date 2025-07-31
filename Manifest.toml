@@ -2,7 +2,7 @@
 
 julia_version = "1.11.6"
 manifest_format = "2.0"
-project_hash = "f0732741e2f30524b1478d579dad094627154989"
+project_hash = "90f8185a1d65823859ed8bf60e0ccfa35742609a"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -115,6 +115,12 @@ repo-url = "https://github.com/IncartStudents/Descriptors.jl"
 uuid = "b2dd10be-c0b5-41fc-bf7d-fdb86be5b335"
 version = "1.3.7"
 
+[[deps.Dictionaries]]
+deps = ["Indexing", "Random", "Serialization"]
+git-tree-sha1 = "a86af9c4c4f33e16a2b2ff43c2113b2f390081fa"
+uuid = "85a47980-9c8c-11e8-2b9f-f7ca1fa99fb4"
+version = "0.4.5"
+
 [[deps.Downloads]]
 deps = ["ArgTools", "FileWatching", "LibCURL", "NetworkOptions"]
 uuid = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
@@ -212,6 +218,11 @@ repo-rev = "main"
 repo-url = "https://github.com/IncartStudents/IBoxAccess.jl"
 uuid = "1607262a-405a-4f9a-89bc-45a61e12db11"
 version = "0.1.1"
+
+[[deps.Indexing]]
+git-tree-sha1 = "ce1566720fd6b19ff3411404d4b977acd4814f9f"
+uuid = "313cdc1a-70c2-5d6a-ae34-0150d3930a38"
+version = "1.1.1"
 
 [[deps.IniFile]]
 git-tree-sha1 = "f550e6e32074c939295eb5ea6de31849ac2c9625"
