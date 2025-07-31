@@ -1,0 +1,393 @@
+Rhythms:
+  sinus:
+    EpisodeCountNight: 1830
+    CmpxCountNight: 0
+    InputCode: "rN;pE"
+    OriginalArrTitle: "Паузы при МА"
+    CmpxCount3s: 0
+    CmpxPercent: 3.733
+    CmpxCountDay: 0
+    CmpxCount2s: 0
+    TotalDurationPercent: 5.083
+    OriginalArrCodes: "rN"
+    EpisodeDurationMin: "00:00:00.5160000"
+    EpisodeDurationAvg: "00:00:00.9723726"
+    TotalDuration: "01:11:40.8040000"
+    EpisodeDurationMax: "00:00:03.8240000"
+    CmpxCount: 4973
+    EpisodeCountDay: 2593
+    EpisodeCount: 4423
+    Path: "Rhythms/sinus"
+    CmpxOccurence: "Moderate"
+  vent-by-form:
+    EpisodeCountNight: 360
+    CmpxCountNight: 0
+    InputCode: "rV"
+    V:
+      premature:
+        pair-mono:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rV|rVM);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/V/premature/pair-mono"
+          CmpxOccurence: "Rare"
+        pair-poly:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rVP|rVD);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/V/premature/pair-poly"
+          CmpxOccurence: "Rare"
+        single:
+          EpisodeCountNight: 359
+          CmpxCountNight: 0
+          InputCode: "rV;pP;nS"
+          OriginalArrTitle: "Одиночные желудочковые экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.417
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.31
+          OriginalArrCodes: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:00.3000000"
+          EpisodeDurationAvg: "00:00:00.4731676"
+          TotalDuration: "00:04:22.6080000"
+          EpisodeDurationMax: "00:00:01.0480000"
+          CmpxCount: 555
+          EpisodeCountDay: 196
+          EpisodeCount: 555
+          Path: "Rhythms/vent-by-form/V/premature/single"
+          CmpxOccurence: "Rare"
+    OriginalArrTitle: "Желудочковые эктопические комплексы"
+    CmpxCount3s: 0
+    V1:
+      premature:
+        pair-mono:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rV|rVM);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/V1/premature/pair-mono"
+          CmpxOccurence: "Rare"
+        pair-poly:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rVP|rVD);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/V1/premature/pair-poly"
+          CmpxOccurence: "Rare"
+        single:
+          EpisodeCountNight: 359
+          CmpxCountNight: 0
+          InputCode: "rV;pP;nS"
+          OriginalArrTitle: "Одиночные желудочковые экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.417
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.31
+          OriginalArrCodes: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:00.3000000"
+          EpisodeDurationAvg: "00:00:00.4731676"
+          TotalDuration: "00:04:22.6080000"
+          EpisodeDurationMax: "00:00:01.0480000"
+          CmpxCount: 555
+          EpisodeCountDay: 196
+          EpisodeCount: 555
+          Path: "Rhythms/vent-by-form/V1/premature/single"
+          CmpxOccurence: "Rare"
+    CmpxPercent: 0.42
+    CmpxCountDay: 0
+    CmpxCount2s: 0
+    TotalDurationPercent: 0.313
+    VL:
+      premature:
+        pair-mono:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rV|rVM);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/VL/premature/pair-mono"
+          CmpxOccurence: "Rare"
+        pair-poly:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rVP|rVD);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/VL/premature/pair-poly"
+          CmpxOccurence: "Rare"
+        single:
+          EpisodeCountNight: 359
+          CmpxCountNight: 0
+          InputCode: "rV;pP;nS"
+          OriginalArrTitle: "Одиночные желудочковые экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.417
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.31
+          OriginalArrCodes: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:00.3000000"
+          EpisodeDurationAvg: "00:00:00.4731676"
+          TotalDuration: "00:04:22.6080000"
+          EpisodeDurationMax: "00:00:01.0480000"
+          CmpxCount: 555
+          EpisodeCountDay: 196
+          EpisodeCount: 555
+          Path: "Rhythms/vent-by-form/VL/premature/single"
+          CmpxOccurence: "Rare"
+    OriginalArrCodes: "(rV|rVM|rVP|rVD|rM)"
+    V2:
+      premature:
+        pair-mono:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rV|rVM);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/V2/premature/pair-mono"
+          CmpxOccurence: "Rare"
+        pair-poly:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rVP|rVD);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/V2/premature/pair-poly"
+          CmpxOccurence: "Rare"
+        single:
+          EpisodeCountNight: 359
+          CmpxCountNight: 0
+          InputCode: "rV;pP;nS"
+          OriginalArrTitle: "Одиночные желудочковые экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.417
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.31
+          OriginalArrCodes: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:00.3000000"
+          EpisodeDurationAvg: "00:00:00.4731676"
+          TotalDuration: "00:04:22.6080000"
+          EpisodeDurationMax: "00:00:01.0480000"
+          CmpxCount: 555
+          EpisodeCountDay: 196
+          EpisodeCount: 555
+          Path: "Rhythms/vent-by-form/V2/premature/single"
+          CmpxOccurence: "Rare"
+    EpisodeDurationMin: "00:00:00.3000000"
+    EpisodeDurationAvg: "00:00:00.4751741"
+    TotalDuration: "00:04:24.6720000"
+    EpisodeDurationMax: "00:00:01.0880000"
+    CmpxCount: 559
+    EpisodeCountDay: 197
+    EpisodeCount: 557
+    Path: "Rhythms/vent-by-form"
+    poly:
+      premature-pair:
+        EpisodeCountNight: 1
+        CmpxCountNight: 0
+        InputCode: "rVD;vV;pP;nD"
+        OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+        CmpxCount3s: 0
+        CmpxPercent: 0.002
+        CmpxCountDay: 0
+        CmpxCount2s: 0
+        TotalDurationPercent: 0.001
+        OriginalArrCodes: "(rVP|rVD);nD;(pP*|!pE*);!vF"
+        EpisodeDurationMin: "00:00:01.0880000"
+        EpisodeDurationAvg: "00:00:01.0880000"
+        TotalDuration: "00:00:01.0880000"
+        EpisodeDurationMax: "00:00:01.0880000"
+        CmpxCount: 2
+        EpisodeCountDay: 0
+        EpisodeCount: 1
+        Path: "Rhythms/vent-by-form/poly/premature-pair"
+        CmpxOccurence: "Rare"
+    VR:
+      premature:
+        pair-mono:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rV|rVM);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/VR/premature/pair-mono"
+          CmpxOccurence: "Rare"
+        pair-poly:
+          EpisodeCountNight: 1
+          CmpxCountNight: 0
+          InputCode: "rVD;vV;pP;nD"
+          OriginalArrTitle: "Парные желудочковые разнонаправленные экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.002
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.001
+          OriginalArrCodes: "(rVP|rVD);nD;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:01.0880000"
+          EpisodeDurationAvg: "00:00:01.0880000"
+          TotalDuration: "00:00:01.0880000"
+          EpisodeDurationMax: "00:00:01.0880000"
+          CmpxCount: 2
+          EpisodeCountDay: 0
+          EpisodeCount: 1
+          Path: "Rhythms/vent-by-form/VR/premature/pair-poly"
+          CmpxOccurence: "Rare"
+        single:
+          EpisodeCountNight: 359
+          CmpxCountNight: 0
+          InputCode: "rV;pP;nS"
+          OriginalArrTitle: "Одиночные желудочковые экстрасистолы"
+          CmpxCount3s: 0
+          CmpxPercent: 0.417
+          CmpxCountDay: 0
+          CmpxCount2s: 0
+          TotalDurationPercent: 0.31
+          OriginalArrCodes: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
+          EpisodeDurationMin: "00:00:00.3000000"
+          EpisodeDurationAvg: "00:00:00.4731676"
+          TotalDuration: "00:04:22.6080000"
+          EpisodeDurationMax: "00:00:01.0480000"
+          CmpxCount: 555
+          EpisodeCountDay: 196
+          EpisodeCount: 555
+          Path: "Rhythms/vent-by-form/VR/premature/single"
+          CmpxOccurence: "Rare"
+    CmpxOccurence: "Rare"
+Pauses:
+  sinus_arr:
+    EpisodeCountNight: 1830
+    CmpxCountNight: 0
+    InputCode: "rN;pE"
+    OriginalArrTitle: "Паузы при МА"
+    CmpxCount3s: 10
+    CmpxPercent: 3.733
+    CmpxCountDay: 1
+    CmpxCount2s: 99
+    TotalDurationPercent: 5.083
+    OriginalArrCodes: "rN;pE*;(bN|!b*)"
+    EpisodeDurationMin: "00:00:00.5160000"
+    EpisodeDurationAvg: "00:00:00.9723726"
+    TotalDuration: "01:11:40.8040000"
+    EpisodeDurationMax: "00:00:03.8240000"
+    CmpxCount: 4973
+    EpisodeCountDay: 2593
+    EpisodeCount: 4423
+    Path: "Pauses/sinus_arr"
+    CmpxOccurence: "Moderate"

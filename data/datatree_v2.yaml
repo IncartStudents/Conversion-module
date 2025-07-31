@@ -3,6 +3,7 @@ Rhythms:
   sinus: # Синусовый ритм
     Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
     CustomName: "rN"
+    RhythmCode: "rN"
 
   paced-undefined: # ритм стимуляции (неуточненный)
     CustomName: "rC"
@@ -24,20 +25,24 @@ Rhythms:
  
   atrial-fib: # Фибрилляция предсердий
     CustomName: "rF"
+    RhythmCode: "rF"
  
   atrial-flutter: # Трепетание предсердий
     CustomName: "rFA"
+    RhythmCode: "rFA"
  
   irregular: # Нерегулярный
     CustomName: "rFN"
+    RhythmCode: "rFN"
  
   atrial-poly: # Миграция водителя ритма по предсердиям (в т.ч. полиморфный предсердный)
     CustomName: "(rSM|rSP);nP"
- 
+    RhythmCode: "(rSM|rSP)"
 
   atrial: # Предсердный
     Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
     CustomName: "(rSA|rSI)"
+    RhythmCode: "(rSA|rSI)"
     premature:
       single: # одиночные
         CustomName: "(rSA|rSI);nS;pP*"
@@ -68,16 +73,20 @@ Rhythms:
     
     tachy: # тахикардии
       CustomName: "rSA;nP;pP*;!fR"
+      RhythmCode: "rSA;(pP*|fT)"
         
     rhythm: # ритм
       CustomName: "rSA;nP;fR|(!pP*&!fT)"
+      RhythmCode: "rSA;(!pP*&!fT)"
         
     rhythm-low: # Нижнепредсердный ритм (без деления на ритм и тахи)
       CustomName: "rSI;nP"
+      RhythmCode: "rSI"
         
   nodal: # Узловой
     Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
     CustomName: "(rSN|rSR)"
+    RhythmCode: "(rSN|rSR)"
     premature:
       single: # одиночные
         aberrant: # с аберрантным проведением
@@ -107,16 +116,20 @@ Rhythms:
     
     tachy:
       CustomName: "rSN;nP;pP*;!fR"
+      RhythmCode: "rSN;(pP*|fT)"
         
     rhythm:
       CustomName: "rSN;nP;fR|(!pP*&!fT)"
+      RhythmCode: "rSN;(!pP*&!fT)"
         
     rhythm-reentry:
-      CustomName: "rSR;nP"   
+      CustomName: "rSR;nP"
+      RhythmCode: "rSR"   
 
   supravent: # Наджелудочковый "так описанный"
     Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
     CustomName: "(rS|rM)"
+    RhythmCode: "rS"
     premature:
       single: # одиночные
         CustomName: "(rS|rM);nS;pP*"
@@ -147,9 +160,11 @@ Rhythms:
    
     tachy:
       CustomName: "rS;nP;pP*;!fR"
+      RhythmCode: "rS;(pP*|fT)"
     
     rhythm:
-      CustomName: "rS;nP;fR|(pP*&!fT)"  
+      CustomName: "rS;nP;fR|(pP*&!fT)"
+      RhythmCode: "rS;(!pP*&!fT)"  
 
     combined-VS:
       pair:
@@ -160,6 +175,7 @@ Rhythms:
   vent-by-form: # Желудочковые с группировкой по морфологиям
     # Form: "(?:(?=.*V.*)|(?=.*F.*)).*"
     CustomName: "(rV|rVM|rVP|rVD|rM)"
+    RhythmCode: "(rV|rVM|rVP|rVD|rM)"
     V:
       Form: "V"
       premature: # экстрасистолы
@@ -196,9 +212,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -208,9 +226,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     VR:
       Form: "VR"
@@ -248,9 +268,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -260,9 +282,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     VL:
       Form: "VL"
@@ -300,9 +324,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -312,9 +338,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     V1:
       Form: "V1"
@@ -352,9 +380,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -364,9 +394,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     V2:
       Form: "V2"
@@ -404,9 +436,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -416,9 +450,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     V3:
       Form: "V3"
@@ -456,9 +492,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -468,9 +506,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     V4:
       Form: "V4"
@@ -508,9 +548,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -520,9 +562,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     V5:
       Form: "V5"
@@ -560,9 +604,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -572,9 +618,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     V6:
       Form: "V6"
@@ -612,9 +660,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -624,9 +674,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     F:
       Form: "F"
@@ -664,9 +716,11 @@ Rhythms:
       
       tachy-stable-mono: # V* эпизоды устойчивой мономорфной желудочковой тахикардии
         CustomName: "(rV|rVM);nP;pP*;!fR"
+        RhythmCode: "(rV|rVM);(pP*|fT)"
    
       tachy-stable-poly: # V* в эпизодах устойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"
       
       rhythm-unstable-mono: # V* эпизоды неустойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
@@ -676,9 +730,11 @@ Rhythms:
       
       rhythm-stable-mono: # V* эпизоды устойчивого мономорфного желудочкового ритма
         CustomName: "(rV|rVM);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rV|rVM);(!pP*&!fT)"
    
       rhythm-stable-poly: # V* в эпизодах устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)"
 
     poly: # Полиморфные желудочковые (отдельно)
       premature-pair-F: # парные полиморфные экстрасистолы со сливным комплексом
@@ -692,11 +748,13 @@ Rhythms:
       tachy-unstable: # все эпизоды неустойчивой полиморфной желудочковой тахикардии
         CustomName: "(rVP|rVD);nG;pP*;!fR"   
       tachy-stable: # все эпизоды устойчивой полиморфной желудочковой тахикардии
-        CustomName: "(rVP|rVD);nP;pP*;!fR"   
+        CustomName: "(rVP|rVD);nP;pP*;!fR"
+        RhythmCode: "(rVP|rVD);(pP*|fT)"  
       rhythm-unstable: # все эпизоды устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nG;fR|(!pP*&!fT)"   
       rhythm-stable: # все эпизоды устойчивого полиморфного желудочкового ритма
         CustomName: "(rVP|rVD);nP;fR|(!pP*&!fT)"
+        RhythmCode: "(rVP|rVD);(!pP*&!fT)" 
    
 
   # vent-classic # желудочковые (без группировки по формам - классический вариант) - пока не делаем
@@ -722,6 +780,7 @@ Pauses:
     CustomName: "(bVS|bVT)"
   AV-varying-supravent-tachy:
     CustomName: "bT*"
+    RhythmCode: "bT*"
   paced-high-rate:
     CustomName: "pSL"
   miopotential-inhibition:
