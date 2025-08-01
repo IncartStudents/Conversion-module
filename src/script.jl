@@ -28,11 +28,86 @@ for (_, slp) in sleep_info
 end
 sleep_frag
 
-# calc_cmpx_stats(arr_tuples, sleep_frag, meta.fs)
-
-
 pqrst = readxml_pqrst_anz(filepath)
 form_stats = calc_qrs_stats(pqrst[1])
+
+function find_nodes(data, input_arr_tuples, input_arr_pairs, forms, path=[], form_context=nothing)
+    results = []
+
+    if isa(data, Dict)
+        current_form = form_context
+
+        if haskey(data, "Form")
+            form_value = data["Form"]
+            if isa(form_value, String)
+                form_ok = false
+                for f in forms
+                    if occursin(build_regex_pattern_v2(form_value), f)
+                        form_ok = true
+                        break
+                    end
+                end
+                if form_ok
+                    current_form = form_value
+                else
+                    # Форма не совпала — пропускаем этот узел
+                    return results
+                end
+            else
+                # Form не строка — пропускаем
+                return results
+            end
+        end
+
+        # Теперь проверяем CustomName, если форма подошла или её нет
+        if haskey(data, "CustomName")
+            custom_value = data["CustomName"]
+            if isa(custom_value, String)
+                for nt in input_arr_tuples
+                    code = nt.code
+                    if occursin(build_regex_pattern_v2(custom_value), code)
+                        # Сохраняем весь кортеж
+                        push!(results, (path, custom_value, nt))
+                        break
+                    end
+                end
+            end
+        end
+
+        # Теперь проверяем RhythmCode
+        if haskey(data, "RhythmCode")
+            rhytm_value = data["RhythmCode"]
+            if isa(custom_value, String)
+                for pair in input_arr_pairs
+                    rhytm = pair.first
+                    if occursin(build_regex_pattern_v2(rhytm_value), rhytm)
+                        # Сохраняем весь кортеж
+                        push!(results, (path, rhytm_value, pair))
+                        break
+                    end
+                end
+            end
+        end
+
+        # Рекурсивно обрабатываем дочерние элементы, кроме Form и CustomName
+        for (key, value) in data
+            if key in ["Form", "CustomName", "RhythmCode"]
+                continue
+            end
+            child_path = [path..., key]
+            child_results = find_nodes(value, input_arr_tuples, input_arr_pairs, forms, child_path, current_form)
+            append!(results, child_results)
+        end
+
+    elseif isa(data, Vector)
+        for (i, item) in enumerate(data)
+            child_results = find_nodes(item, input_arr_tuples, input_arr_pairs, forms, [path..., i], form_context)
+            append!(results, child_results)
+        end
+    end
+
+    return results
+end
 
 
 # ================================================================================
@@ -55,7 +130,9 @@ codes = [t.code for t in arr_tuples]
 formes = [String(f) for f in form_stats.form]
 
 # result = find_all_nodes(data, codes, formes)
-result = find_all_nodes(data, arr_tuples, arr_pairs, formes)
+# result = find_all_nodes(data, arr_tuples, arr_pairs, formes)
+
+result = find_nodes(data, arr_tuples, arr_pairs, formes)
 
 function build_struct(results)
     root = Dict{String, Any}()
@@ -91,7 +168,7 @@ function build_struct(results)
 end
 
 if !isempty(result)
-    result_data = build_struct(result)
+    result_data = build_structure(result)
     open(output_tree, "w") do f
         YAML.write(f, result_data)
     end
