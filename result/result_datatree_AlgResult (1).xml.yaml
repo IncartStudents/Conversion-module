@@ -104,28 +104,6 @@ Rhythms:
     EpisodeCountNight: 10
     CmpxCountNight: 0
     InputCode: "rV;pP"
-    V:
-      premature:
-        single:
-          EpisodeCountNight: 0
-          CmpxCountNight: 0
-          InputCode: "rVP;vV1;pP;nS"
-          OriginalArrTitle: "Одиночные желудочковые экстрасистолы 1-го типа"
-          CmpxCount3s: 0
-          CmpxPercent: 0.092
-          CmpxCountDay: 0
-          CmpxCount2s: 0
-          TotalDurationPercent: 0.047
-          OriginalArrCodes: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
-          EpisodeDurationMin: "00:00:00.3813230"
-          EpisodeDurationAvg: "00:00:00.4159699"
-          TotalDuration: "00:00:39.1011673"
-          EpisodeDurationMax: "00:00:00.4669261"
-          CmpxCount: 94
-          EpisodeCountDay: 94
-          EpisodeCount: 94
-          Path: "Rhythms/vent-by-form/V/premature/single"
-          CmpxOccurence: "Rare"
     OriginalArrTitle: "Желудочковые экстрасистолы"
     CmpxCount3s: 0
     V1:
@@ -235,7 +213,7 @@ Rhythms:
       single:
         EpisodeCountNight: 17
         CmpxCountNight: 0
-        InputCode: "rSA;pP;nS"
+        InputCode: "rS;pP;nS"
         OriginalArrTitle: "Одиночные предсердные экстрасистолы"
         CmpxCount3s: 0
         CmpxPercent: 0.052

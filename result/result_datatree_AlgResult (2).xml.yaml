@@ -103,8 +103,8 @@ Rhythms:
   atrial-fib:
     EpisodeCountNight: 5
     CmpxCountNight: 0
-    InputCode: "rFA;pP;nP"
-    OriginalArrTitle: "Короткие эпизоды трепетания предсердий"
+    InputCode: "rF"
+    OriginalArrTitle: "Фибрилляция предсердий"
     CmpxCount3s: 0
     CmpxPercent: 0.044
     CmpxCountDay: 0

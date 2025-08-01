@@ -22,6 +22,7 @@ filepaths = [
 function process_file(filepath, data)
     res = readxml_rhythms_arrs(filepath)
 
+    arr_pairs = res[1] 
     arr_tuples = res[2]   # Arrhythmias in xml-file
     meta = res[3]         # timestart, fs, point_count
     sleep_info = res[4]   # SleepFragments
@@ -42,7 +43,12 @@ function process_file(filepath, data)
     formes = [String(f) for f in form_stats.form]
     println("Forms $(basename(filepath)): ")
     println(formes)
+    println("")   
+    keys_list = [pair.first for pair in arr_pairs]
+    println("Rhytms $(basename(filepath)): ")
+    println(keys_list)
     println("")
+
     result = find_all_nodes(data, arr_tuples, formes)
 
     # @btime find_all_nodes($data, $arr_tuples, $formes)

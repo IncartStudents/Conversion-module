@@ -1,7 +1,7 @@
 Rhythms:
 
   sinus: # Синусовый ритм
-    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    Form: "(S*|B*|A*|W*)"
     CustomName: "rN"
     RhythmCode: "rN"
 
@@ -40,7 +40,7 @@ Rhythms:
     RhythmCode: "(rSM|rSP)"
 
   atrial: # Предсердный
-    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    Form: "(S*|B*|A*|W*)"
     CustomName: "(rSA|rSI)"
     RhythmCode: "(rSA|rSI)"
     premature:
@@ -84,7 +84,7 @@ Rhythms:
       RhythmCode: "rSI"
         
   nodal: # Узловой
-    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    Form: "(S*|B*|A*|W*)"
     CustomName: "(rSN|rSR)"
     RhythmCode: "(rSN|rSR)"
     premature:
@@ -127,7 +127,7 @@ Rhythms:
       RhythmCode: "rSR"   
 
   supravent: # Наджелудочковый "так описанный"
-    Form: "(?:(?=.*S.*)|(?=.*B.*)|(?=.*A.*)|(?=.*W.*)).*"
+    Form: "(S*|B*|A*|W*)"
     CustomName: "(rS|rM)"
     RhythmCode: "rS"
     premature:
