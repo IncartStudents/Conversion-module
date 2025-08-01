@@ -58,6 +58,58 @@ function build_regex_pattern(custom_name)
     return Regex(full_regex)
 end
 
+function build_regex_pattern_v2(custom_name)
+    # Функция для экранирования спецсимволов в регулярных выражениях
+    function regex_escape(s)
+        replace(s, r"([-\\\{\}\(\)\*\+\?\.\^\$])" => s"\\\1")
+    end
+
+    # Функция построения шаблона для целого слова
+    function build_word_pattern(part)
+        if endswith(part, "*")
+            base = regex_escape(part[1:end-1])
+            return "(?:^|;)$base[^;]*(?:;|\$)"
+        else
+            escaped = regex_escape(part)
+            return "(?:^|;)$escaped(?:;|\$)"
+        end
+    end
+
+    # Обработка группы с операторами
+    function process_group(group)
+        variants = split(group, "|")
+        variant_regexes = []
+        for variant in variants
+            if occursin("&", variant)
+                subparts = split(variant, "&")
+                sub_regex = join([process_part(subpart) for subpart in subparts], "")
+                push!(variant_regexes, sub_regex)
+            else
+                push!(variant_regexes, process_part(variant))
+            end
+        end
+        return "(?:" * join(variant_regexes, "|") * ")"
+    end
+
+    # Обработка отдельной части (элемент, отрицание или группа)
+    function process_part(part)
+        if startswith(part, "!")
+            word_pattern = build_word_pattern(part[2:end])
+            return "(?!.*$word_pattern)"
+        elseif startswith(part, "(") && endswith(part, ")")
+            return process_group(part[2:end-1])
+        else
+            word_pattern = build_word_pattern(part)
+            return "(?=.*?$word_pattern)"
+        end
+    end
+
+    parts = split(custom_name, ";")
+    regex_components = [process_part(part) for part in parts]
+    full_regex = "^" * join(regex_components) * ".*\$"
+    return Regex(full_regex)
+end
+
 """
 Рекурсивно ищет все узлы, где `CustomName` соответствует коду из `input_arr_tuples` и `input_arr_pairs`.
 Проверка `Form` идёт сверху вниз: если узел имеет `Form`, он должен быть в `forms`,
@@ -69,12 +121,13 @@ function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=not
 
     if isa(data, Dict)
         current_form = form_context
+
         if haskey(data, "Form")
             form_value = data["Form"]
             if isa(form_value, String)
                 form_ok = false
                 for f in forms
-                    if occursin(Regex(form_value), f)
+                    if occursin(build_regex_pattern_v2(form_value), f)
                         form_ok = true
                         break
                     end
@@ -97,7 +150,7 @@ function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=not
             if isa(custom_value, String)
                 for nt in input_arr_tuples
                     code = nt.code
-                    if occursin(build_regex_pattern(custom_value), code)
+                    if occursin(build_regex_pattern_v2(custom_value), code)
                         # Сохраняем весь кортеж
                         push!(results, (path, custom_value, nt))
                         break
@@ -125,102 +178,6 @@ function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=not
 
     return results
 end
-
-# function find_all_nodes(data, input_arr_tuples, input_arr_pairs::Vector{Pair{String, BitVector}}, forms, path=[], form_context=nothing)
-#     results = []
-
-#     if isa(data, Dict)
-#         current_form = form_context
-#         if haskey(data, "Form")
-#             form_value = data["Form"]
-#             if isa(form_value, String)
-#                 form_ok = false
-#                 for f in forms
-#                     if occursin(Regex(form_value), f)
-#                         form_ok = true
-#                         break
-#                     end
-#                 end
-#                 if form_ok
-#                     current_form = form_value
-#                 else
-#                     return results
-#                 end
-#             else
-#                 return results
-#             end
-#         end
-
-#         # Обработка RhythmCode (высший приоритет)
-#         rhythm_bitvec = nothing
-#         if haskey(data, "RhythmCode")
-#             rhythm_pattern = data["RhythmCode"]
-#             rhythm_regex = build_regex_pattern(rhythm_pattern)
-            
-#             for (code, bitvec) in input_arr_pairs
-#                 if occursin(rhythm_regex, code)
-#                     rhythm_bitvec = copy(bitvec)
-#                     break
-#                 end
-#             end
-#         end
-
-#         # Обработка CustomName (низший приоритет)
-#         custom_bitvec = nothing
-#         if haskey(data, "CustomName") && rhythm_bitvec === nothing
-#             custom_pattern = data["CustomName"]
-#             custom_regex = build_regex_pattern(custom_pattern)
-            
-#             for (code, bitvec) in input_arr_pairs
-#                 if occursin(custom_regex, code)
-#                     custom_bitvec = copy(bitvec)
-#                     break
-#                 end
-#             end
-#         end
-
-#         # Сохраняем результат с учетом приоритета
-#         final_bitvec = nothing
-#         if rhythm_bitvec !== nothing
-#             final_bitvec = rhythm_bitvec
-#         elseif custom_bitvec !== nothing
-#             final_bitvec = custom_bitvec
-#         end
-
-#         # Вычитание аритмий для ритма
-#         if final_bitvec !== nothing
-#             # Создаем копию для модификации
-#             result_bitvec = copy(final_bitvec)
-            
-#             # Вычитаем все аритмии из input_arr_tuples
-#             for arr_tuple in input_arr_tuples
-#                 # Предполагаем, что arr_tuple содержит битовый вектор
-#                 arr_bitvec = arr_tuple.bitvec  # Замените на фактическое поле
-#                 result_bitvec .&= .!arr_bitvec
-#             end
-            
-#             push!(results, (path, data, result_bitvec))
-#         end
-
-#         # Рекурсивный обход
-#         for (key, value) in data
-#             if key in ["Form", "CustomName", "RhythmCode"]
-#                 continue
-#             end
-#             child_path = [path..., key]
-#             child_results = find_all_nodes(value, input_arr_tuples, input_arr_pairs, forms, child_path, current_form)
-#             append!(results, child_results)
-#         end
-
-#     elseif isa(data, Vector)
-#         for (i, item) in enumerate(data)
-#             child_results = find_all_nodes(item, input_arr_tuples, input_arr_pairs, forms, [path..., i], form_context)
-#             append!(results, child_results)
-#         end
-#     end
-
-#     return results
-# end
 
 """
 Объединяет все найденные узлы в единую структуру с сохранением их путей.
