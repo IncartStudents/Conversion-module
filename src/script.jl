@@ -1,13 +1,9 @@
 using FileUtils
-using Printf
-using ExtractMkp
-
 
 include("CalcStats.jl")
 
-include("C:/incart_dev/ExtractMkp.jl/src/dict.jl")
 
-filepath = "C:/incart_dev/Myproject/data/AlgResult (3).xml"
+filepath = "C:/incart_dev/Myproject/data/AlgResult.xml"
 
 res = readxml_rhythms_arrs(filepath)
 
@@ -16,7 +12,38 @@ arr_tuples = res[2]   # Arrhythmias in xml-file
 meta = res[3]     # timestart, fs, point_count
 sleep_info = res[4]   # SleepFragments
 
+
+function exclude_artifacts(arr_pairs)
+    rZ_index = findfirst(p -> p.rhythm_code == "rZ", arr_pairs)
+    
+    if rZ_index === nothing
+        return arr_pairs
+    end
+    
+    rZ_bitvec = arr_pairs[rZ_index].bitvec
+    new_pairs = []
+    
+    for pair in arr_pairs
+        if pair.rhythm_code == "rZ"
+            push!(new_pairs, pair)
+        else
+            cleaned_bitvec = (pair.bitvec .& .~rZ_bitvec)
+            new_pair = (
+                rhythm_code = pair.rhythm_code,
+                bitvec = cleaned_bitvec,
+                title = pair.title
+            )
+            push!(new_pairs, new_pair)
+        end
+    end
+    
+    return new_pairs
+end
+
+arr_pairs = exclude_artifacts(arr_pairs)
+
 sums = [sum(bitvec) for (key, bitvec) in arr_pairs]
+l_b = [length(bitvec) for (key, bitvec) in arr_pairs]
 
 lens = [t.len for t in arr_tuples]
 starts = [t.starts for t in arr_tuples]
@@ -31,83 +58,6 @@ sleep_frag
 pqrst = readxml_pqrst_anz(filepath)
 form_stats = calc_qrs_stats(pqrst[1])
 
-function find_nodes(data, input_arr_tuples, input_arr_pairs, forms, path=[], form_context=nothing)
-    results = []
-
-    if isa(data, Dict)
-        current_form = form_context
-
-        if haskey(data, "Form")
-            form_value = data["Form"]
-            if isa(form_value, String)
-                form_ok = false
-                for f in forms
-                    if occursin(build_regex_pattern_v2(form_value), f)
-                        form_ok = true
-                        break
-                    end
-                end
-                if form_ok
-                    current_form = form_value
-                else
-                    # Форма не совпала — пропускаем этот узел
-                    return results
-                end
-            else
-                # Form не строка — пропускаем
-                return results
-            end
-        end
-
-        # Теперь проверяем CustomName, если форма подошла или её нет
-        if haskey(data, "CustomName")
-            custom_value = data["CustomName"]
-            if isa(custom_value, String)
-                for nt in input_arr_tuples
-                    code = nt.code
-                    if occursin(build_regex_pattern_v2(custom_value), code)
-                        # Сохраняем весь кортеж
-                        push!(results, (path, custom_value, nt))
-                        break
-                    end
-                end
-            end
-        end
-
-        # Теперь проверяем RhythmCode
-        if haskey(data, "RhythmCode")
-            rhytm_value = data["RhythmCode"]
-            if isa(custom_value, String)
-                for pair in input_arr_pairs
-                    rhytm = pair.first
-                    if occursin(build_regex_pattern_v2(rhytm_value), rhytm)
-                        # Сохраняем весь кортеж
-                        push!(results, (path, rhytm_value, pair))
-                        break
-                    end
-                end
-            end
-        end
-
-        # Рекурсивно обрабатываем дочерние элементы, кроме Form и CustomName
-        for (key, value) in data
-            if key in ["Form", "CustomName", "RhythmCode"]
-                continue
-            end
-            child_path = [path..., key]
-            child_results = find_nodes(value, input_arr_tuples, input_arr_pairs, forms, child_path, current_form)
-            append!(results, child_results)
-        end
-
-    elseif isa(data, Vector)
-        for (i, item) in enumerate(data)
-            child_results = find_nodes(item, input_arr_tuples, input_arr_pairs, forms, [path..., i], form_context)
-            append!(results, child_results)
-        end
-    end
-
-    return results
-end
 
 
 # ================================================================================
@@ -119,8 +69,6 @@ include("FindNodes.jl")
 
 
 input_tree = "C:/incart_dev/Myproject/data/datatree_v2.yaml"
-output_tree = "C:/incart_dev/Myproject/result/output_datatree.yaml"
-
 data = YAML.load(open(input_tree, "r"))
 
 new_input_tree = "C:/incart_dev/Myproject/data/new_datatree.yaml"
@@ -129,10 +77,29 @@ new_data = YAML.load(open(input_tree, "r"))
 codes = [t.code for t in arr_tuples]
 formes = [String(f) for f in form_stats.form]
 
-# result = find_all_nodes(data, codes, formes)
-# result = find_all_nodes(data, arr_tuples, arr_pairs, formes)
+result = find_all_nodes_v2(data, arr_tuples, arr_pairs, formes)
 
-result = find_nodes(data, arr_tuples, arr_pairs, formes)
+combined_result = combine_rhythm_arr_bitvecs(result)
+
+calc_hr(combined_result, pqrst)
+
+output = complex_stats(combined_result, sleep_frag, meta.fs, meta.point_count)
+
+output_tree = "C:/incart_dev/Myproject/result/new_datatree_1.yaml"
+if !isempty(output)
+    result_data = build_structure(output)
+    open(output_tree, "w") do f
+        YAML.write(f, result_data)
+    end
+    println("Найдено $(length(output)) узлов. Результат сохранён в $output_tree")
+else
+    println("Ни один узел не найден для файла $filepath")
+end
+
+
+
+
+
 
 function build_struct(results)
     root = Dict{String, Any}()

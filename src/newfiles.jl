@@ -44,39 +44,16 @@ function process_file(filepath, data)
     println("Forms $(basename(filepath)): ")
     println(formes)
     println("")   
-    keys_list = [pair.first for pair in arr_pairs]
+    keys_list = [pair.rhythm_code for pair in arr_pairs]
     println("Rhytms $(basename(filepath)): ")
     println(keys_list)
     println("")
 
-    result = find_all_nodes(data, arr_tuples, formes)
+    result = find_all_nodes_v2(data, arr_tuples, arr_pairs, formes)
+    combined_result = combine_rhythm_arr_bitvecs(result)
 
-    # @btime find_all_nodes($data, $arr_tuples, $formes)
-    
-    # Cmpx Stats
-    calc = calc_cmpx_stats(result, sleep_frag, meta.fs)
-    # stats_dicts = [item[2] for item in calc]
-    # df = DataFrame(stats_dicts)
-    # new_column_order = vcat(["Path"], setdiff(names(df), ["Path"]))
-    # select!(df, new_column_order)
-    # println("=== Cmpx Stats for $filepath ===")
-    # println(calc)
+    output = complex_stats(combined_result, sleep_frag, meta.fs, meta.point_count)
 
-    # Episodes Stats
-    calc1 = calc_episode_stats(result, sleep_frag, meta.fs, meta.point_count)
-    # stats_dicts1 = [item[2] for item in calc1]
-    # df1 = DataFrame(stats_dicts1)
-    # new_column_order1 = vcat(["Path"], setdiff(names(df1), ["Path"]))
-    # select!(df1, new_column_order1)
-    # println("=== Episodes Stats for $filepath ===")
-    # println(calc1)
-    
-    # df_combined = outerjoin(df, df1, on=:Path, makeunique=false)
-    # println(df_combined)
-
-    # return df_combined
-
-    output = complex_stats(result, sleep_frag, meta.fs, meta.point_count)
     output_tree = "C:/incart_dev/Myproject/result/result_datatree_$(basename(filepath)).yaml"
     if !isempty(output)
         result_data = build_structure(output)
