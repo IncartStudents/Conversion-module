@@ -1,63 +1,6 @@
 """
 Функция преобразования `CustomName` в регулярное выражение
 """
-function build_regex_pattern(custom_name)
-    parts = split(custom_name, ";")
-    regex_components = []
-
-    for part in parts
-        # Обработка отрицания       
-        if startswith(part, "!")
-            neg_pattern = replace(part[2:end], "*" => ".*")
-            push!(regex_components, "(?!.*$(neg_pattern))")
-        
-        # Обработка ИЛИ / И
-        elseif occursin("|", part) || occursin("&", part)
-            # Обработка ИЛИ
-            if startswith(part, "(") && endswith(part, ")")      
-                disj = split(part[2:end-1] , "|")       
-            else
-                disj = split(part, "|")  
-            end
-
-            disj_reg = []
-
-            for d in disj
-                conj = split(d, "&")
-                conj = [strip(String(c), ['(', ')']) for c in conj]
-                conj_reg = []
-
-                # Обработка И
-                for c in conj
-                    if startswith(c, "!")
-                        c_f = replace(c[2:end], "*" => ".*")
-                        push!(conj_reg, "(?!.*$(c_f))") 
-                    else
-                        c_f = replace(c, "*" => ".*")
-                        push!(conj_reg, "(?=.*$(c_f))")
-                    end    
-                end
-                push!(disj_reg, join(conj_reg, ""))
-            end
-            
-
-            if length(disj_reg) > 1
-                comb = "(?:" * join(disj_reg, "|") * ")"
-                push!(regex_components, comb)
-            else
-                push!(regex_components, disj_reg[1])
-            end 
-        
-        else # остальные части без символов + символ `*`
-            part_final = replace(part, "*" => ".*")
-            push!(regex_components, "(?=.*$(part_final))")
-        end
-    end
-
-    full_regex = "^" * join(regex_components, "") * ".*\$"   
-    return Regex(full_regex)
-end
-
 function build_regex_pattern_v2(custom_name)
     # Функция для экранирования спецсимволов в регулярных выражениях
     function regex_escape(s)
@@ -116,7 +59,7 @@ end
 иначе он наследует контекст от родителя.
 Возвращает список кортежей: [(path, custom_name, matched_arr_tuple), ...]
 """
-function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=nothing)
+function find_all_nodes_v2(data, input_arr_tuples, input_arr_pairs, forms, path=[], form_context=nothing)
     results = []
 
     if isa(data, Dict)
@@ -159,19 +102,34 @@ function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=not
             end
         end
 
+        # Теперь проверяем RhythmCode
+        if haskey(data, "RhythmCode")
+            rhytm_value = data["RhythmCode"]
+            if isa(rhytm_value, String)
+                for rhythm_nt in input_arr_pairs
+                    rhytm = rhythm_nt.rhythm_code
+                    if occursin(build_regex_pattern_v2(rhytm_value), rhytm)
+                        # Сохраняем весь кортеж
+                        push!(results, (path, rhytm_value, rhythm_nt))
+                        break
+                    end
+                end
+            end
+        end
+
         # Рекурсивно обрабатываем дочерние элементы, кроме Form и CustomName
         for (key, value) in data
-            if key in ["Form", "CustomName"]
+            if key in ["Form", "CustomName", "RhythmCode"]
                 continue
             end
             child_path = [path..., key]
-            child_results = find_all_nodes(value, input_arr_tuples, forms, child_path, current_form)
+            child_results = find_all_nodes_v2(value, input_arr_tuples, input_arr_pairs, forms, child_path, current_form)
             append!(results, child_results)
         end
 
     elseif isa(data, Vector)
         for (i, item) in enumerate(data)
-            child_results = find_all_nodes(item, input_arr_tuples, forms, [path..., i], form_context)
+            child_results = find_all_nodes_v2(item, input_arr_tuples, input_arr_pairs, forms, [path..., i], form_context)
             append!(results, child_results)
         end
     end
@@ -180,46 +138,85 @@ function find_all_nodes(data, input_arr_tuples, forms, path=[], form_context=not
 end
 
 """
+Объединяет битовые векторы ритмов с битовыми векторами аритмий для корректного отображения 
+в иерархической структуре.
+Возвращает список кортежей: [(path, custom_name, matched_arr_tuple), ...]
+"""
+function combine_rhythm_arr_bitvecs(result::Vector)
+    # Словарь для группировки по пути (path) и matched_string
+    groups = Dict{Tuple{Vector{String}, String}, Vector{Any}}()
+    
+    # Группируем результаты по (path, matched_string)
+    for item in result
+        path, matched_str, data = item
+        key = (path, matched_str)
+        if haskey(groups, key)
+            push!(groups[key], data)
+        else
+            groups[key] = [data]
+        end
+    end
+
+    new_result = []
+    for (key, data_list) in groups
+        path, matched_str = key
+        
+        # Разделяем данные на аритмии (NamedTuple) и ритмы (Pair)
+        arrs = filter(x -> x isa NamedTuple && hasproperty(x, :code), data_list)
+        rhythms = filter(x -> x isa NamedTuple && hasproperty(x, :rhythm_code), data_list)
+        
+        # Объединяем битовые векторы ритмов
+        if !isempty(rhythms)
+            combined_rhythm = reduce((x, y) -> x .| y.bitvec, rhythms, init=falses(length(first(rhythms).bitvec)))
+            rhythm_titles = join(unique([r.title for r in rhythms]), " & ")
+            # Обновляем битовые векторы аритмий
+            for arr in arrs
+                new_bitvec = arr.bitvec .| combined_rhythm
+                new_arr = (; arr..., bitvec = new_bitvec, title = rhythm_titles)
+                push!(new_result, (path, matched_str, new_arr))
+            end
+        else
+            # Если нет ритмов, просто добавляем аритмии
+            for arr in arrs
+                push!(new_result, (path, matched_str, arr))
+            end
+        end
+        
+        # Ритмы не добавляем в результат
+    end
+    
+    return new_result
+end
+
+"""
 Объединяет все найденные узлы в единую структуру с сохранением их путей.
 """
 function build_structure(data::Vector{Any})
-    root = Dict{String, Any}()
-    
-    for item in data
-        path = item[1]       # Вектор строк пути
-        pattern = item[2]    # Строка шаблона
-        tags = item[3]       # Строка входного кода
-        description = item[4] # Описание
-        metrics = item[5]    # Словарь с метриками
-        
-        # Создаем объединенный словарь для узла
-        node_data = Dict{String, Any}()
-        node_data["OriginalArrCodes"] = pattern
-        node_data["InputCode"] = tags
-        node_data["OriginalArrTitle"] = description
-        
-        # Добавляем все метрики в основной словарь
-        for (k, v) in metrics
-            node_data[k] = v
-        end
-        
-        # Построение иерархии в словаре
-        current_level = root
-        for i in 1:length(path)
-            key = path[i]
-            
-            # Если достигнут конечный элемент пути
-            if i == length(path)
-                current_level[key] = node_data
-            else
-                # Создаем подуровень если нужно
-                if !haskey(current_level, key) || !(current_level[key] isa Dict)
-                    current_level[key] = Dict{String, Any}()
-                end
-                current_level = current_level[key]
+    result = Dict{String, Any}()
+    for el in data
+        path_arr = el[1]
+        orig_codes = el[2]
+        in_code = el[3]
+        title = el[4]
+        stats = el[5]
+
+        current = result
+        for key in path_arr
+            if !haskey(current, key)
+                current[key] = Dict{String, Any}()
             end
+            current = current[key]
         end
+
+        # Добавляем поля из stats (включая Path)
+        for (k, v) in stats
+            current[k] = v
+        end
+
+        # Добавляем дополнительные поля
+        current["InputCode"] = in_code
+        current["OriginalArrTitle"] = title
+        current["OriginalArrCodes"] = orig_codes
     end
-    
-    return root
+    return result
 end
