@@ -81,23 +81,23 @@ Rhythms:
     Path: "Rhythms/atrial"
     CmpxOccurence: "Rare"
   sinus:
-    EpisodeCountNight: 1
+    EpisodeCountNight: 0
     CmpxCountNight: 0
-    InputCode: "rN;pE4;nS;bV1"
-    OriginalArrTitle: "Клинически значимые паузы за счет атриовентрикулярной блокады 2 степени & Синусовый ритм"
+    InputCode: "rN;vS"
+    OriginalArrTitle: "Синусовый ритм"
     CmpxCount3s: 0
     CmpxPercent: 99.075
     CmpxCountDay: 0
     CmpxCount2s: 0
-    TotalDurationPercent: 0.003
+    TotalDurationPercent: 0.477
     OriginalArrCodes: "rN"
-    EpisodeDurationMin: "00:00:02.0972763"
-    EpisodeDurationAvg: "00:00:02.0972763"
-    TotalDuration: "00:00:02.0972763"
-    EpisodeDurationMax: "00:00:02.0972763"
+    EpisodeDurationMin: "00:00:00.0038911"
+    EpisodeDurationAvg: "00:00:00.4326797"
+    TotalDuration: "00:06:34.1712062"
+    EpisodeDurationMax: "00:00:14.4474708"
     CmpxCount: 101302
-    EpisodeCountDay: 0
-    EpisodeCount: 1
+    EpisodeCountDay: 911
+    EpisodeCount: 911
     Path: "Rhythms/sinus"
     CmpxOccurence: "Frequent"
   vent-by-form:

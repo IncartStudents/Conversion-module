@@ -1,9 +1,11 @@
 using FileUtils
 
+using TimeSamplings
+
 include("CalcStats.jl")
 
 
-filepath = "C:/incart_dev/Myproject/data/AlgResult.xml"
+filepath = "C:/incart_dev/Myproject/data/AlgResult (3).xml"
 
 res = readxml_rhythms_arrs(filepath)
 
@@ -13,37 +15,52 @@ meta = res[3]     # timestart, fs, point_count
 sleep_info = res[4]   # SleepFragments
 
 
-function exclude_artifacts(arr_pairs)
-    rZ_index = findfirst(p -> p.rhythm_code == "rZ", arr_pairs)
+# function exclude_artifacts(arr_pairs)
+#     rZ_index = findfirst(p -> p.rhythm_code == "rZ", arr_pairs)
     
-    if rZ_index === nothing
-        return arr_pairs
-    end
+#     if rZ_index === nothing
+#         return arr_pairs
+#     end
     
-    rZ_bitvec = arr_pairs[rZ_index].bitvec
-    new_pairs = []
+#     rZ_bitvec = arr_pairs[rZ_index].bitvec
+#     new_pairs = []
     
-    for pair in arr_pairs
-        if pair.rhythm_code == "rZ"
-            push!(new_pairs, pair)
-        else
-            cleaned_bitvec = (pair.bitvec .& .~rZ_bitvec)
-            new_pair = (
-                rhythm_code = pair.rhythm_code,
-                bitvec = cleaned_bitvec,
-                title = pair.title
-            )
-            push!(new_pairs, new_pair)
-        end
-    end
+#     for pair in arr_pairs
+#         if pair.rhythm_code == "rZ"
+#             push!(new_pairs, pair)
+#         else
+#             cleaned_bitvec = (pair.bitvec .& .~rZ_bitvec)
+#             new_pair = (
+#                 rhythm_code = pair.rhythm_code,
+#                 bitvec = cleaned_bitvec,
+#                 title = pair.title
+#             )
+#             push!(new_pairs, new_pair)
+#         end
+#     end
     
-    return new_pairs
-end
+#     return new_pairs
+# end
 
-arr_pairs = exclude_artifacts(arr_pairs)
+# arr_pairs = exclude_artifacts(arr_pairs)
 
 sums = [sum(bitvec) for (key, bitvec) in arr_pairs]
 l_b = [length(bitvec) for (key, bitvec) in arr_pairs]
+
+bitvec_s = [bitvec2seg(bitvec) for (key, bitvec) in arr_pairs]
+
+# Обогащаем arr_pairs новыми полями
+arr_pairs = [
+    (
+        rhythm_code = pair.rhythm_code,
+        bitvec = pair.bitvec,
+        title = pair.title,
+        starts = [first(seg) for seg in segs],
+        len = [length(seg) for seg in segs]
+    )
+    for (pair, segs) in zip(arr_pairs, bitvec_s)
+]
+
 
 lens = [t.len for t in arr_tuples]
 starts = [t.starts for t in arr_tuples]
@@ -81,9 +98,9 @@ result = find_all_nodes_v2(data, arr_tuples, arr_pairs, formes)
 
 combined_result = combine_rhythm_arr_bitvecs(result)
 
-calc_hr(combined_result, pqrst)
+# calc_ = calc_hr(combined_result, pqrst)
 
-output = complex_stats(combined_result, sleep_frag, meta.fs, meta.point_count)
+output = complex_stats(combined_result, sleep_frag, meta.fs, meta.point_count, pqrst)
 
 output_tree = "C:/incart_dev/Myproject/result/new_datatree_1.yaml"
 if !isempty(output)
@@ -95,8 +112,6 @@ if !isempty(output)
 else
     println("Ни один узел не найден для файла $filepath")
 end
-
-
 
 
 

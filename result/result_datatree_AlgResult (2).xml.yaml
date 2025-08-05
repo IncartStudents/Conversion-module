@@ -1,22 +1,22 @@
 Rhythms:
   sinus:
-    EpisodeCountNight: 19
+    EpisodeCountNight: 0
     CmpxCountNight: 0
-    InputCode: "rN;pE1;bN"
-    OriginalArrTitle: "Паузы за счет синусовой аритмии & Синусовый ритм"
+    InputCode: "rN;vS"
+    OriginalArrTitle: "Синусовый ритм"
     CmpxCount3s: 0
     CmpxPercent: 79.931
     CmpxCountDay: 0
     CmpxCount2s: 0
-    TotalDurationPercent: 0.14
+    TotalDurationPercent: 0.378
     OriginalArrCodes: "rN"
-    EpisodeDurationMin: "00:00:01.0280000"
-    EpisodeDurationAvg: "00:00:04.8730909"
-    TotalDuration: "00:01:47.2080000"
-    EpisodeDurationMax: "00:00:12.0920000"
+    EpisodeDurationMin: "00:00:00.0040000"
+    EpisodeDurationAvg: "00:00:00.0676261"
+    TotalDuration: "00:04:48.6280000"
+    EpisodeDurationMax: "00:00:05.6880000"
     CmpxCount: 72157
-    EpisodeCountDay: 3
-    EpisodeCount: 22
+    EpisodeCountDay: 4268
+    EpisodeCount: 4268
     Path: "Rhythms/sinus"
     CmpxOccurence: "Frequent"
   supravent:
@@ -101,23 +101,23 @@ Rhythms:
     Path: "Rhythms/supravent"
     CmpxOccurence: "Rare"
   atrial-flutter:
-    EpisodeCountNight: 5
+    EpisodeCountNight: 0
     CmpxCountNight: 0
-    InputCode: "rFA;pP;nP"
-    OriginalArrTitle: "Короткие эпизоды трепетания предсердий & Трепетание предсердий"
+    InputCode: "rFA"
+    OriginalArrTitle: "Трепетание предсердий"
     CmpxCount3s: 0
-    CmpxPercent: 14.092
+    CmpxPercent: 14.047
     CmpxCountDay: 0
     CmpxCount2s: 0
-    TotalDurationPercent: 0.027
+    TotalDurationPercent: 0.066
     OriginalArrCodes: "rFA"
-    EpisodeDurationMin: "00:00:01.1200000"
-    EpisodeDurationAvg: "00:00:04.1712000"
-    TotalDuration: "00:00:20.8560000"
-    EpisodeDurationMax: "00:00:07.7240000"
-    CmpxCount: 12721
-    EpisodeCountDay: 0
-    EpisodeCount: 5
+    EpisodeDurationMin: "00:00:00.0040000"
+    EpisodeDurationAvg: "00:00:00.0486328"
+    TotalDuration: "00:00:50.7240000"
+    EpisodeDurationMax: "00:00:01.8640000"
+    CmpxCount: 12681
+    EpisodeCountDay: 1043
+    EpisodeCount: 1043
     Path: "Rhythms/atrial-flutter"
     CmpxOccurence: "Frequent"
 Pauses:

@@ -1,7 +1,7 @@
 using FileUtils
 using YAML
 using DataFrames
-using BenchmarkTools
+using TimeSamplings
 
 include("CalcStats.jl")
 include("FindNodes.jl")
@@ -31,6 +31,19 @@ function process_file(filepath, data)
     for (_, slp) in sleep_info
         push!(sleep_frag, (slp["ECGStartPoints"][1], slp["ECGStartPoints"][1] + slp["ECGDurationPoints"][1]))
     end
+
+    bitvec_s = [bitvec2seg(bitvec) for (key, bitvec) in arr_pairs]
+
+    arr_pairs = [
+    (
+        rhythm_code = pair.rhythm_code,
+        bitvec = pair.bitvec,
+        title = pair.title,
+        starts = [first(seg) for seg in segs],
+        len = [length(seg) for seg in segs]
+    )
+    for (pair, segs) in zip(arr_pairs, bitvec_s)
+]
 
     pqrst = readxml_pqrst_anz(filepath)
     form_stats = calc_qrs_stats(pqrst[1])

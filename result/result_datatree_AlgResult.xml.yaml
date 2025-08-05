@@ -1,22 +1,22 @@
 Rhythms:
   sinus:
-    EpisodeCountNight: 14
+    EpisodeCountNight: 0
     CmpxCountNight: 0
-    InputCode: "rN;pE4;bV1"
-    OriginalArrTitle: "Паузы за счёт АВ блокады 2-й степени 1 типа & Синусовый ритм"
+    InputCode: "rN;vS"
+    OriginalArrTitle: "Синусовый ритм"
     CmpxCount3s: 0
     CmpxPercent: 92.323
     CmpxCountDay: 0
     CmpxCount2s: 0
-    TotalDurationPercent: 0.038
+    TotalDurationPercent: 0.478
     OriginalArrCodes: "rN"
-    EpisodeDurationMin: "00:00:01.7640000"
-    EpisodeDurationAvg: "00:00:01.9012500"
-    TotalDuration: "00:00:30.4200000"
-    EpisodeDurationMax: "00:00:02.3000000"
+    EpisodeDurationMin: "00:00:00.0040000"
+    EpisodeDurationAvg: "00:00:00.0692838"
+    TotalDuration: "00:06:25.9800000"
+    EpisodeDurationMax: "00:00:08.9960000"
     CmpxCount: 96495
-    EpisodeCountDay: 2
-    EpisodeCount: 16
+    EpisodeCountDay: 5571
+    EpisodeCount: 5571
     Path: "Rhythms/sinus"
     CmpxOccurence: "Frequent"
   vent-by-form:

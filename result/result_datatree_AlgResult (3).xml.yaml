@@ -228,6 +228,26 @@ Rhythms:
           Path: "Rhythms/vent-by-form/VR/premature/single"
           CmpxOccurence: "Rare"
     CmpxOccurence: "Rare"
+  atrial-fib:
+    EpisodeCountNight: 0
+    CmpxCountNight: 0
+    InputCode: "rF"
+    OriginalArrTitle: "Фибрилляция предсердий"
+    CmpxCount3s: 0
+    CmpxPercent: 99.652
+    CmpxCountDay: 0
+    CmpxCount2s: 0
+    TotalDurationPercent: 0.627
+    OriginalArrCodes: "rF"
+    EpisodeDurationMin: "00:00:00.0040000"
+    EpisodeDurationAvg: "00:00:01.1467732"
+    TotalDuration: "00:08:50.9560000"
+    EpisodeDurationMax: "00:00:24.6240000"
+    CmpxCount: 132739
+    EpisodeCountDay: 463
+    EpisodeCount: 463
+    Path: "Rhythms/atrial-fib"
+    CmpxOccurence: "Frequent"
 Pauses:
   sinus_arr:
     EpisodeCountNight: 1830
