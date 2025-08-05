@@ -143,10 +143,9 @@ end
 Возвращает список кортежей: [(path, custom_name, matched_arr_tuple), ...]
 """
 function combine_rhythm_arr_bitvecs(result::Vector)
-    # Словарь для группировки по пути (path) и matched_string
+    # Группируем по (path, matched_string)
     groups = Dict{Tuple{Vector{String}, String}, Vector{Any}}()
     
-    # Группируем результаты по (path, matched_string)
     for item in result
         path, matched_str, data = item
         key = (path, matched_str)
@@ -160,31 +159,37 @@ function combine_rhythm_arr_bitvecs(result::Vector)
     new_result = []
     for (key, data_list) in groups
         path, matched_str = key
-        
-        # Разделяем данные на аритмии (NamedTuple) и ритмы (Pair)
+
+        # Разделяем на аритмии и ритмы
         arrs = filter(x -> x isa NamedTuple && hasproperty(x, :code), data_list)
-        rhythms = filter(x -> x isa NamedTuple && hasproperty(x, :rhythm_code), data_list)
-        
-        # Объединяем битовые векторы ритмов
-        if !isempty(rhythms)
-            combined_rhythm = reduce((x, y) -> x .| y.bitvec, rhythms, init=falses(length(first(rhythms).bitvec)))
-            rhythm_titles = join(unique([r.title for r in rhythms]), " & ")
-            # Обновляем битовые векторы аритмий
-            for arr in arrs
-                new_bitvec = arr.bitvec .| combined_rhythm
-                new_arr = (; arr..., bitvec = new_bitvec, title = rhythm_titles)
-                push!(new_result, (path, matched_str, new_arr))
+        pure_rhythms = filter(x -> x isa NamedTuple && hasproperty(x, :rhythm_code) && !hasproperty(x, :code), data_list)
+
+        if !isempty(arrs) && !isempty(pure_rhythms)
+            # Объединяем все битовые векторы чистых ритмов через ИЛИ
+            combined_rhythm_bitvec = reduce(
+                (acc, r) -> acc .| r.bitvec,
+                pure_rhythms,
+                init = falses(length(first(pure_rhythms).bitvec))
+            )
+            
+            # Берем первый ритм и обновляем его битовый вектор
+            first_rhythm = first(pure_rhythms)
+            updated_rhythm = (; first_rhythm..., bitvec = combined_rhythm_bitvec)
+            push!(new_result, (path, matched_str, updated_rhythm))
+            
+        elseif isempty(arrs) && !isempty(pure_rhythms)
+            # сохраняем ритмы без изменений
+            for rhythm in pure_rhythms
+                push!(new_result, (path, matched_str, rhythm))
             end
-        else
-            # Если нет ритмов, просто добавляем аритмии
+        elseif !isempty(arrs) && isempty(pure_rhythms)
+            # сохраняем аритмии без изменений
             for arr in arrs
                 push!(new_result, (path, matched_str, arr))
             end
         end
-        
-        # Ритмы не добавляем в результат
     end
-    
+
     return new_result
 end
 
