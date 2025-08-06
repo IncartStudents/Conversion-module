@@ -1,54 +1,43 @@
 using FileUtils
 
 using TimeSamplings
+using Statistics
 
 include("CalcStats.jl")
 
 
+function calc_episode_durations(segs, pqrst_vector, fs)
+    durations = Float64[]
+    for seg in segs
+        start_idx = first(seg)
+        end_idx = last(seg)
+        start_time = pqrst_vector[start_idx].timeQ
+        end_time = pqrst_vector[end_idx].timeS
+        duration_sec = (end_time - start_time) / fs
+        push!(durations, duration_sec)
+    end
+
+    total_dur_s = sum(durations)
+    max_dur_s = maximum(durations)
+    min_dur_s = minimum(durations)
+    dur_avg_s = mean(durations)
+
+    return durations
+end
+
 filepath = "C:/incart_dev/Myproject/data/AlgResult (3).xml"
 
 res = readxml_rhythms_arrs(filepath)
+
+pqrst = readxml_pqrst_anz(filepath)
+form_stats = calc_qrs_stats(pqrst[1])
 
 arr_pairs = res[1]    # Rhythms in xml-file
 arr_tuples = res[2]   # Arrhythmias in xml-file
 meta = res[3]     # timestart, fs, point_count
 sleep_info = res[4]   # SleepFragments
 
-
-# function exclude_artifacts(arr_pairs)
-#     rZ_index = findfirst(p -> p.rhythm_code == "rZ", arr_pairs)
-    
-#     if rZ_index === nothing
-#         return arr_pairs
-#     end
-    
-#     rZ_bitvec = arr_pairs[rZ_index].bitvec
-#     new_pairs = []
-    
-#     for pair in arr_pairs
-#         if pair.rhythm_code == "rZ"
-#             push!(new_pairs, pair)
-#         else
-#             cleaned_bitvec = (pair.bitvec .& .~rZ_bitvec)
-#             new_pair = (
-#                 rhythm_code = pair.rhythm_code,
-#                 bitvec = cleaned_bitvec,
-#                 title = pair.title
-#             )
-#             push!(new_pairs, new_pair)
-#         end
-#     end
-    
-#     return new_pairs
-# end
-
-# arr_pairs = exclude_artifacts(arr_pairs)
-
-sums = [sum(bitvec) for (key, bitvec) in arr_pairs]
-l_b = [length(bitvec) for (key, bitvec) in arr_pairs]
-
 bitvec_s = [bitvec2seg(bitvec) for (key, bitvec) in arr_pairs]
-
 # Обогащаем arr_pairs новыми полями
 arr_pairs = [
     (
@@ -56,11 +45,37 @@ arr_pairs = [
         bitvec = pair.bitvec,
         title = pair.title,
         starts = [first(seg) for seg in segs],
-        len = [length(seg) for seg in segs]
+        len = [length(seg) for seg in segs],
+        segm = segs,
+        len_segm = length(segs),
+        dur = calc_episode_durations(segs, pqrst[1], meta.fs),
+        total_dur_s = sum(calc_episode_durations(segs, pqrst[1], meta.fs)),
+        max_dur_s = maximum(calc_episode_durations(segs, pqrst[1], meta.fs)),
+        min_dur_s = minimum(calc_episode_durations(segs, pqrst[1], meta.fs)),
+        dur_avg_s = mean(calc_episode_durations(segs, pqrst[1], meta.fs))
     )
     for (pair, segs) in zip(arr_pairs, bitvec_s)
 ]
 
+bitvec_s_arrs = [bitvec2seg(t.bitvec) for t in arr_tuples]
+length(bitvec_s_arrs)
+arr_tuples = [
+    (
+        code = t.code,
+        title = t.title,
+        bitvec = t.bitvec,
+        starts = t.starts,
+        len = t.len,
+        segm = segs,
+        len_segm = length(segs),
+        dur = calc_episode_durations(segs, pqrst[1], meta.fs),
+        total_dur_s = sum(calc_episode_durations(segs, pqrst[1], meta.fs)),
+        max_dur_s = maximum(calc_episode_durations(segs, pqrst[1], meta.fs)),
+        min_dur_s = minimum(calc_episode_durations(segs, pqrst[1], meta.fs)),
+        dur_avg_s = mean(calc_episode_durations(segs, pqrst[1], meta.fs))
+    )
+    for (t, segs) in zip(arr_tuples, bitvec_s_arrs)
+]
 
 lens = [t.len for t in arr_tuples]
 starts = [t.starts for t in arr_tuples]
@@ -72,8 +87,7 @@ for (_, slp) in sleep_info
 end
 sleep_frag
 
-pqrst = readxml_pqrst_anz(filepath)
-form_stats = calc_qrs_stats(pqrst[1])
+
 
 
 
@@ -97,6 +111,8 @@ formes = [String(f) for f in form_stats.form]
 result = find_all_nodes_v2(data, arr_tuples, arr_pairs, formes)
 
 combined_result = combine_rhythm_arr_bitvecs(result)
+
+calc_episode_stats(combined_result, pqrst[1], sleep_frag, meta.fs, meta.point_count)
 
 # calc_ = calc_hr(combined_result, pqrst)
 

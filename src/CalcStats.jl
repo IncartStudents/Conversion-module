@@ -138,17 +138,18 @@ end
     "TotalDuration" => "",
     "TotalDurationPercent" => 0.0.
 
+- `pqrst_vector`: StructArray, который является первым элементом результата функции `readxml_pqrst_anz`
 - `point_count`: общее количество точек экзамена, которое берется из metadata, Int
 
 Возвращает вектор кортежей: Vector{Tuple{String, Dict{String, Any}}}, где первый элемент - путь,
 второй - словарь со статистиками эпизодов.
 """
-function calc_episode_stats(found_nodes_result, sleep, fs, point_count)
+function calc_episode_stats(found_nodes_result, pqrst_vector, sleep, fs, point_count)
     _total = []
 
     for (path, custom_name, matched_tuple) in found_nodes_result
         
-        len_array = matched_tuple.len
+        len_array = matched_tuple.len_segm
         starts_array = matched_tuple.starts
 
         EpisodeCount = length(len_array)
@@ -175,14 +176,22 @@ function calc_episode_stats(found_nodes_result, sleep, fs, point_count)
         
         end
 
-        durations_sec = len_array / fs
+        durations = Float64[]
+        for seg in matched_tuple.segm
+            start_idx = first(seg)
+            end_idx = last(seg)
+            start_time = pqrst_vector[start_idx].timeQ
+            end_time = pqrst_vector[end_idx].timeS
+            duration_sec = (end_time - start_time) / fs
+            push!(durations, duration_sec)
+        end
 
-        EpisodeDurationAvg = mean(durations_sec)
-        EpisodeDurationMax = maximum(durations_sec)
-        EpisodeDurationMin = minimum(durations_sec)
-        
+        TotalDuration = sum(durations)
+        EpisodeDurationMax = maximum(durations)
+        EpisodeDurationMin = minimum(durations)
+        EpisodeDurationAvg = mean(durations)
+   
         _time = point_count / fs
-        TotalDuration = EpisodeCount * EpisodeDurationAvg
         TotalDurationPercent = round((TotalDuration / _time) * 100, digits=3)
         
         path_key = join(path, "/")
@@ -228,7 +237,7 @@ function calc_hr(found_nodes_result, pqrst_data)
     fs = metadata.fs
 
     for (path_vec, custom_name, matched_tuple) in found_nodes_result
-        len_array = matched_tuple.len
+        len_array = matched_tuple.len_segm
         starts_array = matched_tuple.starts
         
         # Инициализация результатов по умолчанию
@@ -357,7 +366,7 @@ function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data)
     
     for (path, custom_name, matched_tuple) in found_nodes_result
         bitvec = matched_tuple.bitvec
-        len_array = matched_tuple.len
+        len_array = matched_tuple.len_segm
         starts_array = matched_tuple.starts
 
         # Расчёт статистик комплексов и эпизодов (существующая логика)
@@ -392,23 +401,44 @@ function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data)
         EpisodeCount = length(len_array)
         EpisodeCountDay = 0
         EpisodeCountNight = 0
-        for i in eachindex(len_array)
-            start_point = starts_array[i]
-            end_point = starts_array[i] + len_array[i]
-            is_night = any(sleep) do (sleep_start, sleep_end)
-                start_point < sleep_end && end_point > sleep_start
-            end
-            is_night ? (EpisodeCountNight += 1) : (EpisodeCountDay += 1)
+
+        for i in 1:length(len_array)
+                start_point = starts_array[i]
+                end_point = starts_array[i] + len_array[i]
+
+                is_night = false
+                for (sleep_start, sleep_end) in sleep
+                    if start_point < sleep_end && end_point > sleep_start
+                         is_night = true
+                         break
+                    end
+                end
+
+                if is_night
+                    EpisodeCountNight += 1
+                else
+                    EpisodeCountDay += 1
+                end
+        
         end
 
-        durations_sec = len_array / fs
-        EpisodeDurationAvg = mean(durations_sec)
-        EpisodeDurationMax = maximum(durations_sec)
-        EpisodeDurationMin = minimum(durations_sec)
-        
-        total_exam_time = point_count / fs
-        TotalDuration = sum(durations_sec)
-        TotalDurationPercent = round((TotalDuration / total_exam_time) * 100, digits=3)
+        durations = Float64[]
+        for seg in matched_tuple.segm
+            start_idx = first(seg)
+            end_idx = last(seg)
+            start_time = pqrst_vector[start_idx].timeQ
+            end_time = pqrst_vector[end_idx].timeS
+            duration_sec = (end_time - start_time) / fs
+            push!(durations, duration_sec)
+        end
+
+        TotalDuration = sum(durations)
+        EpisodeDurationMax = maximum(durations)
+        EpisodeDurationMin = minimum(durations)
+        EpisodeDurationAvg = mean(durations)
+   
+        _time = point_count / fs
+        TotalDurationPercent = round((TotalDuration / _time) * 100, digits=3)
         
         # Расчёт статистик ЧСС (логика из calc_hr)
         hr_interval_sec = 0.0
