@@ -144,7 +144,7 @@ end
 Возвращает вектор кортежей: Vector{Tuple{String, Dict{String, Any}}}, где первый элемент - путь,
 второй - словарь со статистиками эпизодов.
 """
-function calc_episode_stats(found_nodes_result, pqrst_vector, sleep, fs, point_count)
+function calc_episode_stats(found_nodes_result, fs, point_count)
     _total = []
 
     for (path, custom_name, matched_tuple) in found_nodes_result
@@ -152,44 +152,15 @@ function calc_episode_stats(found_nodes_result, pqrst_vector, sleep, fs, point_c
         len_array = matched_tuple.len_segm
         starts_array = matched_tuple.starts
 
-        EpisodeCount = length(len_array)
-        EpisodeCountDay = 0
-        EpisodeCountNight = 0
-
-        for i in 1:length(len_array)
-                start_point = starts_array[i]
-                end_point = starts_array[i] + len_array[i]
-
-                is_night = false
-                for (sleep_start, sleep_end) in sleep
-                    if start_point < sleep_end && end_point > sleep_start
-                         is_night = true
-                         break
-                    end
-                end
-
-                if is_night
-                    EpisodeCountNight += 1
-                else
-                    EpisodeCountDay += 1
-                end
+        EpisodeCount = len_array
+        EpisodeCountDay = matched_tuple.is_day
+        EpisodeCountNight = matched_tuple.is_night
         
-        end
 
-        durations = Float64[]
-        for seg in matched_tuple.segm
-            start_idx = first(seg)
-            end_idx = last(seg)
-            start_time = pqrst_vector[start_idx].timeQ
-            end_time = pqrst_vector[end_idx].timeS
-            duration_sec = (end_time - start_time) / fs
-            push!(durations, duration_sec)
-        end
-
-        TotalDuration = sum(durations)
-        EpisodeDurationMax = maximum(durations)
-        EpisodeDurationMin = minimum(durations)
-        EpisodeDurationAvg = mean(durations)
+        TotalDuration = sum(matched_tuple.dur)
+        EpisodeDurationMax = matched_tuple.max_dur_s
+        EpisodeDurationMin = matched_tuple.min_dur_s
+        EpisodeDurationAvg = matched_tuple.dur_avg_s
    
         _time = point_count / fs
         TotalDurationPercent = round((TotalDuration / _time) * 100, digits=3)
