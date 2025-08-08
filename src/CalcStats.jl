@@ -2,7 +2,6 @@ using DataFrames
 using Statistics
 using Printf
 
-include("struct.jl")
 
 """
 Функция для преобразования секунд в строку формата HH:MM:SS.sssssss
@@ -107,7 +106,13 @@ function calc_cmpx_stats(found_nodes_result, sleep, fs)
             end
         end
 
-        
+        code = ""
+        if hasproperty(matched_tuple, :code)
+            code = matched_tuple.code
+        elseif hasproperty(matched_tuple, :rhythm_code)
+            code = matched_tuple.rhythm_code
+        end
+
         path_key = join(path, "/")
         result_dict = Dict{String, Any}(
             "Path" => path_key,
@@ -120,10 +125,68 @@ function calc_cmpx_stats(found_nodes_result, sleep, fs)
             "CmpxCount3s" => CmpxCount3s,
         )
 
-        push!(_total, (path, custom_name, matched_tuple.code, matched_tuple.title,result_dict))
+        push!(_total, (path, custom_name, code, matched_tuple.title,result_dict))
     end
 
     return _total
+end
+
+
+"""
+Вычисляет длительности эпизодов в секундах.
+- `segs`: Вектор сегментов (диапазонов индексов)
+- `pqrst_vector`: Данные PQRST
+- `fs`: Частота дискретизации
+
+Возвращает вектор длительностей в секундах для каждого сегмента.
+"""
+function calc_episode_durations(segs, pqrst_vector, fs)
+    durations = Float64[]
+    for seg in segs
+        start_idx = first(seg)
+        end_idx = last(seg)
+        start_time = pqrst_vector[start_idx].timeQ
+        end_time = pqrst_vector[end_idx].timeS
+        duration_sec = (end_time - start_time) / fs
+        push!(durations, duration_sec)
+    end
+    return durations
+end
+
+
+"""
+Подсчитывает количество дневных и ночных эпизодов.
+- `segs`: Вектор сегментов
+- `pqrst_vector`: Данные PQRST
+- `sleep`: Вектор периодов сна в формате [(start1, end1), (start2, end2)]
+
+Возвращает кортеж (количество_ночных_эпизодов, количество_дневных_эпизодов)
+"""
+function calc_episode_night(segs, pqrst_vector, sleep)
+    is_night = 0
+    is_day = 0
+    for seg in segs
+        start_idx = first(seg)
+        end_idx = last(seg)
+
+        start_time = pqrst_vector[start_idx].timeQ
+        end_time = pqrst_vector[end_idx].timeS
+
+        is_night_flag = false
+        for (sleep_start, sleep_end) in sleep
+            if start_time < sleep_end && end_time > sleep_start
+                is_night_flag = true
+                break
+            end
+        end
+
+        if is_night_flag
+            is_night += 1
+        else
+            is_day += 1
+        end
+    end
+    return is_night, is_day
 end
 
 
@@ -196,111 +259,116 @@ P   "RRMinMs" => 0.0,
 P   "RRMaxMs" => 0.0
 
 - `found_nodes_result`: Результат функции `find_all_nodes`, Vector{Tuple{Vector{Any}, String, NamedTuple}}.
+- `hr_trend`: Словарь с полями `MeasureInterval` и `Trend`, Dict{String, Any}.
 - `pqrst_data`: Данные PQRST из `readxml_pqrst_anz`, (Vector{NamedTuple}, NamedTuple{timestart, fs}).
 
 Возвращает вектор кортежей: Vector{Tuple{String, Dict{String, Any}}}, где первый элемент - путь,
 второй - словарь со статистиками ЧСС.
 """
-function calc_hr(found_nodes_result, pqrst_data)
+function calc_hr(found_nodes_result, hr_trend, pqrst_data)
     results = []
     pqrst_vector = pqrst_data[1] 
     metadata = pqrst_data[2]
     fs = metadata.fs
+    measure_interval = hr_trend["MeasureInterval"][1]
 
     for (path_vec, custom_name, matched_tuple) in found_nodes_result
-        len_array = matched_tuple.len_segm
-        starts_array = matched_tuple.starts
-        
-        # Инициализация результатов по умолчанию
-        hr_interval_sec = 0.0
-        episode_hr_avg_bpm = 0.0
-        episode_hr_max_bpm = 0.0
-        episode_hr_min_bpm = 0.0
-        episode_hr_max_time_str = ""
-        episode_hr_min_time_str = ""
-        
-        if !isempty(len_array) && !isempty(starts_array) && fs > 0 && !isempty(pqrst_vector)
-            rr_ms_values = Float64[]
-            rr_times = Float64[]
+        hr_ind = Dict("start_hr" => [], "end_hr" => [])
+        rr_ms = Float64[]
+
+        for seg in matched_tuple.segm
+            start_idx = first(seg)
+            end_idx = last(seg)
+            start_ = pqrst_vector[start_idx].timeQ
+            end_ = pqrst_vector[end_idx].timeS
+
+            # Сбор RR интервалов для текущего сегмента
+            for n in start_idx:end_idx
+                rr_value = pqrst_vector[n].RR_ms
+                if rr_value > 0
+                    push!(rr_ms, rr_value)
+                end
+            end
+
+            # Определение индексов в HR тренде
+            start_hr_index = -1
+            end_hr_index = -1
             
-            # Сбор RR-интервалов в эпизодах
-            for i in eachindex(len_array)
-                start_point = starts_array[i]
-                end_point = start_point + len_array[i]
-                
-                for qrs in pqrst_vector
-                    qrs_time = qrs.timeQ
-                    if start_point <= qrs_time < end_point
-                        rr = qrs.RR_ms
-                        if rr > 0
-                            push!(rr_ms_values, rr)
-                            push!(rr_times, qrs_time / fs)
-                        end
-                    end
+            for i in 1:length(hr_trend["Trend"])
+                trend_time_points = i * measure_interval * fs
+                if start_hr_index == -1 && trend_time_points >= start_
+                    start_hr_index = i - 1
+                end
+                if trend_time_points <= end_
+                    end_hr_index = i - 1
                 end
             end
             
-            # Расчет статистик при наличии данных
-            if !isempty(rr_ms_values)
-                rr_sec = rr_ms_values ./ 1000.0
-                hr_interval = mean(rr_sec)
-                hr_interval_sec = round(hr_interval, digits=3)
-                
-                if hr_interval > 0
-                    episode_hr_avg_bpm = round(60.0 / hr_interval, digits=3)
-                end
-                
-                # Мин макс значения ЧСС
-                min_rr, min_idx = findmin(rr_sec)
-                max_rr, max_idx = findmax(rr_sec)
-                
-                if min_rr > 0
-                    episode_hr_max_bpm = round(60.0 / min_rr, digits=3)
-                    episode_hr_max_time_str = dur_s_to_hhmmss(rr_times[min_idx])
-                end
-                
-                if max_rr > 0
-                    episode_hr_min_bpm = round(60.0 / max_rr, digits=3)
-                    episode_hr_min_time_str = dur_s_to_hhmmss(rr_times[max_idx])
-                end
+            if start_hr_index != -1
+                push!(hr_ind["start_hr"], start_hr_index)
+            end
+            if end_hr_index != -1
+                push!(hr_ind["end_hr"], end_hr_index)
             end
         end
-        
+
+        hr_avg_bpm = 0.0
+        hr_max_bpm = 0.0
+        hr_min_bpm = 0.0
+        episode_hr_max_time = ""
+        episode_hr_min_time = ""
+        rr_min_ms = 0.0
+        rr_max_ms = 0.0
+
+        hr_values_bpm = Float64[]
+        hr_indices = Int[]
+
+        # Собираем все значения ЧСС для найденных индексов
+        for i in 1:min(length(hr_ind["start_hr"]), length(hr_ind["end_hr"]))
+            start_idx_0 = hr_ind["start_hr"][i]
+            end_idx_0 = hr_ind["end_hr"][i]
+            
+            start_idx_1 = start_idx_0 + 1
+            end_idx_1 = end_idx_0 + 1
+            
+            if 1 <= start_idx_1 <= end_idx_1 <= length(hr_trend["Trend"])
+                append!(hr_values_bpm, hr_trend["Trend"][start_idx_1:end_idx_1])
+                append!(hr_indices, start_idx_1:end_idx_1)
+            end
+        end
+
+        if !isempty(hr_values_bpm)
+            hr_avg_bpm = round(mean(hr_values_bpm), digits=3)
+            hr_max_bpm, max_hr_idx = findmax(hr_values_bpm)
+            hr_min_bpm, min_hr_idx = findmin(hr_values_bpm)
+            
+            # Вычисляем временные метки для максимума и минимума
+            if 1 <= max_hr_idx <= length(hr_indices)
+                max_index_in_trend = hr_indices[max_hr_idx]
+                # Время в секундах от начала записи
+                time_in_seconds = (max_index_in_trend - 1) * measure_interval
+                episode_hr_max_time = dur_s_to_hhmmss(Float64(time_in_seconds))
+            end
+            
+            if 1 <= min_hr_idx <= length(hr_indices)
+                min_index_in_trend = hr_indices[min_hr_idx]
+                # Время в секундах от начала записи
+                time_in_seconds = (min_index_in_trend - 1) * measure_interval
+                episode_hr_min_time = dur_s_to_hhmmss(Float64(time_in_seconds))
+            end
+        end
+
+        # Расчет RRMinMs и RRMaxMs
+        if !isempty(rr_ms)
+            rr_min_ms = minimum(rr_ms)
+            rr_max_ms = maximum(rr_ms)
+        end
+
+        code = ""
         if hasproperty(matched_tuple, :code)
             code = matched_tuple.code
         elseif hasproperty(matched_tuple, :rhythm_code)
             code = matched_tuple.rhythm_code
-        else
-            code = ""
-        end
-
-        rr_min_ms = 0.0
-        rr_max_ms = 0.0
-
-        is_pause = !isempty(path_vec) && string(path_vec[1]) == "Pauses"
-        if is_pause && !isempty(len_array) && !isempty(starts_array) && !isempty(pqrst_vector)
-            rr_values_in_pause = Float64[]
-            for i in eachindex(len_array)
-                start_point = starts_array[i]
-                end_point = start_point + len_array[i]
-                # Проходим по всем QRS комплексам
-                for qrs in pqrst_vector
-                    qrs_time = qrs.timeQ
-                    # Проверяем, попал ли QRS внутрь текущего эпизода паузы
-                    if start_point <= qrs_time < end_point
-                        rr = qrs.RR_ms
-                        if rr > 0
-                            push!(rr_values_in_pause, rr)
-                        end
-                    end
-                end
-            end
-
-            # Если нашлись RR-интервалы внутри паузы, считаем минимум и максимум
-            if !isempty(rr_values_in_pause)
-                rr_min_ms = minimum(rr_values_in_pause)
-                rr_max_ms = maximum(rr_values_in_pause)
-            end
         end
 
         # Формирование результата
@@ -310,218 +378,70 @@ function calc_hr(found_nodes_result, pqrst_data)
             "CustomName" => custom_name,
             "Code" => code,
             "Title" => matched_tuple.title,
-            "HRIntervalSec" => hr_interval_sec,
-            "EpisodeHRAvg" => episode_hr_avg_bpm,
-            "EpisodeHRMax" => episode_hr_max_bpm,
-            "EpisodeHRMin" => episode_hr_min_bpm,
-            "EpisodeHRMaxTime" => episode_hr_max_time_str,
-            "EpisodeHRMinTime" => episode_hr_min_time_str,
+            "HRIntervalSec" => measure_interval,
+            "EpisodeHRAvg" => hr_avg_bpm,
+            "EpisodeHRMax" => hr_max_bpm,
+            "EpisodeHRMin" => hr_min_bpm,
+            "EpisodeHRMaxTime" => episode_hr_max_time,
+            "EpisodeHRMinTime" => episode_hr_min_time,
             "RRMinMs" => rr_min_ms,
             "RRMaxMs" => rr_max_ms
         )
-        
         push!(results, (path_vec, result_dict))
     end
-    
     return results
 end
 
 
 """
-Объединяет результаты расчета статистик для комплексов, эпизодов и ЧСС в лоб
+Объединяет результаты расчета статистик для комплексов, эпизодов и ЧСС вызовом функций
 """
-function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data)
-    _total = []
-    pqrst_vector = pqrst_data[1] 
-    metadata = pqrst_data[2]
+function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, hr_trend)
+    cmpx_results = calc_cmpx_stats(found_nodes_result, sleep, fs)
+    episode_results = calc_episode_stats(found_nodes_result, fs, point_count)
+    hr_results = calc_hr(found_nodes_result, hr_trend, pqrst_data)
     
-    for (path, custom_name, matched_tuple) in found_nodes_result
-        bitvec = matched_tuple.bitvec
-        len_array = matched_tuple.len_segm
-        starts_array = matched_tuple.starts
-
-        # Расчёт статистик комплексов и эпизодов (существующая логика)
-        CmpxCount = sum(bitvec)
-        CmpxPercent = round((CmpxCount / length(bitvec)) * 100, digits=3)
-        CmpxOccurence = CmpxPercent < 1.0 ? "Rare" :
-                        1.0 <= CmpxPercent < 10.0 ? "Moderate" : "Frequent"
-
-        is_pause = !isempty(path) && path[1] == "Pauses"
-        CmpxCount2s = 0
-        CmpxCount3s = 0
+    _total = []
+    
+    # Собираем результаты по каждому пути
+    for i in 1:length(found_nodes_result)
+        (path, custom_name, matched_tuple) = found_nodes_result[i]
         
-        if is_pause && !isempty(len_array)
-            durations_sec = len_array / fs
-            CmpxCount2s = sum(durations_sec .>= 2.0)
-            CmpxCount3s = sum(durations_sec .>= 3.0)
-        end
-
-        CmpxCountDay = 0
-        CmpxCountNight = 0
-        if is_pause
-            night_count = 0
-            for (sleep_start, sleep_end) in sleep
-                # Индексы комплексов в паузах
-                indices = findall(bitvec .== 1)
-                night_count += sum(idx -> sleep_start <= idx <= sleep_end, indices)
-            end
-            CmpxCountNight = night_count
-            CmpxCountDay = CmpxCount - night_count
-        end
-
-        EpisodeCount = length(len_array)
-        EpisodeCountDay = 0
-        EpisodeCountNight = 0
-
-        for i in 1:length(len_array)
-                start_point = starts_array[i]
-                end_point = starts_array[i] + len_array[i]
-
-                is_night = false
-                for (sleep_start, sleep_end) in sleep
-                    if start_point < sleep_end && end_point > sleep_start
-                         is_night = true
-                         break
-                    end
-                end
-
-                if is_night
-                    EpisodeCountNight += 1
-                else
-                    EpisodeCountDay += 1
-                end
+        cmpx_dict = cmpx_results[i][5]
+        episode_dict = episode_results[i][2]
+        hr_dict = hr_results[i][2]
         
-        end
-
-        durations = Float64[]
-        for seg in matched_tuple.segm
-            start_idx = first(seg)
-            end_idx = last(seg)
-            start_time = pqrst_vector[start_idx].timeQ
-            end_time = pqrst_vector[end_idx].timeS
-            duration_sec = (end_time - start_time) / fs
-            push!(durations, duration_sec)
-        end
-
-        TotalDuration = sum(durations)
-        EpisodeDurationMax = maximum(durations)
-        EpisodeDurationMin = minimum(durations)
-        EpisodeDurationAvg = mean(durations)
-   
-        _time = point_count / fs
-        TotalDurationPercent = round((TotalDuration / _time) * 100, digits=3)
+        merged_dict = Dict{String, Any}()
         
-        # Расчёт статистик ЧСС (логика из calc_hr)
-        hr_interval_sec = 0.0
-        episode_hr_avg_bpm = 0.0
-        episode_hr_max_bpm = 0.0
-        episode_hr_min_bpm = 0.0
-        episode_hr_max_time_str = ""
-        episode_hr_min_time_str = ""
-        rr_min_ms = 0.0
-        rr_max_ms = 0.0
-
-        if !isempty(len_array) && !isempty(starts_array) && fs > 0 && !isempty(pqrst_vector)
-            rr_ms_values = Float64[]
-            rr_times = Float64[]
-            
-            # Сбор RR-интервалов в эпизодах
-            for i in eachindex(len_array)
-                start_point = starts_array[i]
-                end_point = start_point + len_array[i]
-                for qrs in pqrst_vector
-                    qrs_time = qrs.timeQ
-                    if start_point <= qrs_time < end_point
-                        rr = qrs.RR_ms
-                        if rr > 0
-                            push!(rr_ms_values, rr)
-                            push!(rr_times, qrs_time / fs)
-                        end
-                    end
-                end
-            end
-            
-            # Расчёт статистик ЧСС
-            if !isempty(rr_ms_values)
-                rr_sec = rr_ms_values ./ 1000.0
-                hr_interval = mean(rr_sec)
-                hr_interval_sec = round(hr_interval, digits=3)
-                
-                if hr_interval > 0
-                    episode_hr_avg_bpm = round(60.0 / hr_interval, digits=3)
-                end
-                
-                min_rr, min_idx = findmin(rr_sec)
-                max_rr, max_idx = findmax(rr_sec)
-                
-                if min_rr > 0
-                    episode_hr_max_bpm = round(60.0 / min_rr, digits=3)
-                    episode_hr_max_time_str = dur_s_to_hhmmss(rr_times[min_idx])
-                end
-                
-                if max_rr > 0
-                    episode_hr_min_bpm = round(60.0 / max_rr, digits=3)
-                    episode_hr_min_time_str = dur_s_to_hhmmss(rr_times[max_idx])
-                end
-            end
-            
-            # Расчёт RRMinMs/RRMaxMs для пауз
-            if is_pause
-                rr_values_in_pause = Float64[]
-                for i in eachindex(len_array)
-                    start_point = starts_array[i]
-                    end_point = start_point + len_array[i]
-                    for qrs in pqrst_vector
-                        qrs_time = qrs.timeQ
-                        if start_point <= qrs_time < end_point
-                            rr = qrs.RR_ms
-                            rr > 0 && push!(rr_values_in_pause, rr)
-                        end
-                    end
-                end
-                
-                if !isempty(rr_values_in_pause)
-                    rr_min_ms = minimum(rr_values_in_pause)
-                    rr_max_ms = maximum(rr_values_in_pause)
-                end
+        # Добавляем данные из cmpx_dict (исключая "Path")
+        for (k, v) in cmpx_dict
+            k != "Path" && (merged_dict[k] = v)
+        end
+        
+        # Добавляем данные из episode_dict (исключая "Path")
+        for (k, v) in episode_dict
+            k != "Path" && (merged_dict[k] = v)
+        end
+        
+        # Добавляем данные из hr_dict (включая специальные поля)
+        for (k, v) in hr_dict
+            if k == "CustomName" || k == "Code" || k == "Title"
+                merged_dict[k] = v
+            elseif k != "Path"
+                merged_dict[k] = v
             end
         end
         
-        # Формирование итогового словаря
-        path_key = join(path, "/")
-        result_dict = Dict{String, Any}(
-            "Path" => path_key,
-            "CmpxCount" => CmpxCount,
-            "CmpxCountDay" => CmpxCountDay,
-            "CmpxCountNight" => CmpxCountNight,
-            "CmpxPercent" => CmpxPercent,
-            "CmpxOccurence" => CmpxOccurence,
-            "CmpxCount2s" => CmpxCount2s,
-            "CmpxCount3s" => CmpxCount3s,
-            "EpisodeCount" => EpisodeCount,
-            "EpisodeCountDay" => EpisodeCountDay,
-            "EpisodeCountNight" => EpisodeCountNight,
-            "EpisodeDurationAvg" => dur_s_to_hhmmss(EpisodeDurationAvg),
-            "EpisodeDurationMax" => dur_s_to_hhmmss(EpisodeDurationMax),
-            "EpisodeDurationMin" => dur_s_to_hhmmss(EpisodeDurationMin),
-            "TotalDuration" => dur_s_to_hhmmss(TotalDuration),
-            "TotalDurationPercent" => TotalDurationPercent,
-            "HRIntervalSec" => hr_interval_sec,
-            "EpisodeHRAvg" => episode_hr_avg_bpm,
-            "EpisodeHRMax" => episode_hr_max_bpm,
-            "EpisodeHRMin" => episode_hr_min_bpm,
-            "EpisodeHRMaxTime" => episode_hr_max_time_str,
-            "EpisodeHRMinTime" => episode_hr_min_time_str,
-            "RRMinMs" => rr_min_ms,
-            "RRMaxMs" => rr_max_ms
-        )
+        merged_dict["Path"] = hr_dict["Path"]
         
-        # Определение кода аритмии
-        code = hasproperty(matched_tuple, :code) ? matched_tuple.code :
-               hasproperty(matched_tuple, :rhythm_code) ? matched_tuple.rhythm_code : ""
-        
-        push!(_total, (path, custom_name, code, matched_tuple.title, result_dict))
+        push!(_total, (
+            path, 
+            custom_name, 
+            hr_dict["Code"], 
+            hr_dict["Title"], 
+            merged_dict
+        ))
     end
-
-    return _total   
+    
+    return _total
 end
