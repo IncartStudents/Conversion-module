@@ -1,3 +1,5 @@
+include("struct.jl")
+
 """
 Функция преобразования `CustomName` в регулярное выражение
 """
@@ -194,6 +196,65 @@ function combine_rhythm_arr_bitvecs(result::Vector)
 end
 
 """
+Объединяет близко расположенные сегменты `UnitRange` в один сегмент, 
+если расстояние между ними не превышает заданного порога `max_gap`.
+Возвращает новый вектор диапазонов `Vector{UnitRange{Int}}`
+"""
+# Без правил объединения эпизодов
+function merge_episodes(segments::Vector{UnitRange{Int}}, max_gap::Int)
+    isempty(segments) && return segments
+    
+    merged = [segments[1]]
+    for i in 2:length(segments)
+        prev_end = last(merged[end])
+        curr_beg = first(segments[i])
+        
+        # Проверяем длину разрыва
+        gap = curr_beg - prev_end - 1
+        if gap <= max_gap
+            # Объединяем сегменты
+            merged[end] = first(merged[end]) : last(segments[i])
+        else
+            push!(merged, segments[i])
+        end
+    end
+    return merged
+end
+
+# TODO: Реализовать правила объединения эпизодов
+function merge_episodes_v2(segments::Vector{UnitRange{Int}}, pqrst_vector)
+    isempty(segments) && return segments
+    
+	reg_vent = build_regex_pattern_v2("(S*|B*|A*|W*)")
+	reg_supravent = build_regex_pattern_v2("(V*|F)")
+	
+	max_gap = 0
+	for el in pqrst_vector
+		if occursin(reg_vent, String(el.form))
+			max_gap = 2
+		elseif occursin(reg_supravent, String(el.form))
+			max_gap = 4
+		end
+	end
+	
+    merged = [segments[1]]
+    for i in 2:length(segments)
+        prev_end = last(merged[end])
+        curr_beg = first(segments[i])
+        
+        # Проверяем длину разрыва
+        gap = curr_beg - prev_end - 1
+        if gap <= max_gap
+            # Объединяем сегменты
+            merged[end] = first(merged[end]) : last(segments[i])
+        else
+            push!(merged, segments[i])
+        end
+    end
+    return merged
+end
+
+"""
 Объединяет все найденные узлы в единую структуру с сохранением их путей.
 """
 function build_structure(data::Vector{Any})
@@ -205,6 +266,10 @@ function build_structure(data::Vector{Any})
         title = el[4]
         stats = el[5]
 
+        path_key = join(path_arr, "/")
+        template = get_stats_template(path_key)
+        merged_stats = merge(template, stats)
+
         current = result
         for key in path_arr
             if !haskey(current, key)
@@ -214,14 +279,11 @@ function build_structure(data::Vector{Any})
         end
 
         # Добавляем поля из stats (включая Path)
-        for (k, v) in stats
+        for (k, v) in merged_stats
             current[k] = v
         end
 
-        # Добавляем дополнительные поля
-        current["InputCode"] = in_code
         current["OriginalArrTitle"] = title
-        current["OriginalArrCodes"] = orig_codes
     end
     return result
 end

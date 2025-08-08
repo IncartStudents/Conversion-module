@@ -1,7 +1,17 @@
+# Функция для получения шаблона
+function get_stats_template(path::String)
+    if startswith(path, "Rhythms/")
+        return rhythms_defaults
+    elseif startswith(path, "Pauses/")
+        return pauses_defaults
+    else
+        return Dict{String, Any}()
+    end
+end
+
+
 # Словарь словарей для Rhythms с дефолтными значениями
 rhythms_defaults = Dict{String, Any}(
-    "CustomName" => "",
-    "OriginalArrTitles" => "",
     "TotalDuration" => "",
     "TotalDurationPercent" => 0.0,
     "CmpxCount" => 0,
@@ -23,8 +33,6 @@ rhythms_defaults = Dict{String, Any}(
 
 # Словарь словарей для Pauses с дефолтными значениями
 pauses_defaults = Dict{String, Any}(
-    "CustomName" => "",
-    "OriginalArrTitles" => "",
     "TotalDuration" => "",
     "TotalDurationPercent" => 0.0,
     "CmpxCount" => 0,
@@ -43,11 +51,3 @@ pauses_defaults = Dict{String, Any}(
     "RRMinMs" => 0.0,
     "RRMaxMs" => 0.0
 )
-
-
-res_struct = Dict{String, Dict{String, Any}}(
-    "Rhythms" => rhythms_defaults,
-    "Pauses" => pauses_defaults
-)
-
-
