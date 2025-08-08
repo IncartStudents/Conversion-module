@@ -1,143 +1,206 @@
 Rhythms:
   sinus:
-    EpisodeCountNight: 0
+    EpisodeCountNight: 20
     CmpxCountNight: 0
-    InputCode: "rN;vS"
+    Code: "rN;vS"
     OriginalArrTitle: "Синусовый ритм"
     CmpxCount3s: 0
+    EpisodeHRMinTime: "15:52:50.0000000"
+    TotalDurationPercent: 89.302
+    CmpxCount2s: 0
     CmpxPercent: 79.931
     CmpxCountDay: 0
-    CmpxCount2s: 0
-    TotalDurationPercent: 0.378
-    OriginalArrCodes: "rN"
-    EpisodeDurationMin: "00:00:00.0040000"
-    EpisodeDurationAvg: "00:00:00.0676261"
-    TotalDuration: "00:04:48.6280000"
-    EpisodeDurationMax: "00:00:05.6880000"
+    TotalDuration: "18:56:35.5560000"
+    EpisodeDurationAvg: "00:43:42.9060000"
+    EpisodeDurationMin: "00:00:03.0720000"
+    EpisodeHRMax: 97.0
     CmpxCount: 72157
-    EpisodeCountDay: 4268
-    EpisodeCount: 4268
+    EpisodeDurationMax: "03:57:09.4560000"
+    CustomName: "rN"
+    EpisodeCountDay: 6
+    HRIntervalSec: 10
+    EpisodeHRMin: 45.0
+    Title: "Синусовый ритм"
+    EpisodeCount: 26
+    RRMinMs: 156.0
+    RRMaxMs: 2504.0
+    EpisodeHRMaxTime: "15:27:00.0000000"
     Path: "Rhythms/sinus"
     CmpxOccurence: "Frequent"
+    EpisodeHRAvg: 63.49
   supravent:
     premature:
       pair:
-        EpisodeCountNight: 18
+        EpisodeCountNight: 16
         CmpxCountNight: 0
-        InputCode: "rS;pP;nD"
+        Code: "rS;pP;nD"
         OriginalArrTitle: "Парные предсердные экстрасистолы"
         CmpxCount3s: 0
+        EpisodeHRMinTime: "12:17:00.0000000"
+        TotalDurationPercent: 0.028
+        CmpxCount2s: 0
         CmpxPercent: 0.049
         CmpxCountDay: 0
-        CmpxCount2s: 0
-        TotalDurationPercent: 0.033
-        OriginalArrCodes: "(rS|rM);nD;pP*"
-        EpisodeDurationMin: "00:00:00.9960000"
-        EpisodeDurationAvg: "00:00:01.1332727"
-        TotalDuration: "00:00:24.9320000"
-        EpisodeDurationMax: "00:00:01.3800000"
+        TotalDuration: "00:00:21.0480000"
+        EpisodeDurationAvg: "00:00:01.0524000"
+        EpisodeDurationMin: "00:00:00.5800000"
+        EpisodeHRMax: 63.0
         CmpxCount: 44
+        EpisodeDurationMax: "00:00:08.1320000"
+        CustomName: "(rS|rM);nD;pP*"
         EpisodeCountDay: 4
-        EpisodeCount: 22
+        HRIntervalSec: 10
+        EpisodeHRMin: 63.0
+        Title: "Парные предсердные экстрасистолы"
+        EpisodeCount: 20
+        RRMinMs: 444.0
+        RRMaxMs: 1508.0
+        EpisodeHRMaxTime: "12:17:00.0000000"
         Path: "Rhythms/supravent/premature/pair"
         CmpxOccurence: "Rare"
+        EpisodeHRAvg: 63.0
       single:
-        EpisodeCountNight: 33
+        EpisodeCountNight: 30
         CmpxCountNight: 0
-        InputCode: "rS;pP;nS"
+        Code: "rS;pP;nS"
         OriginalArrTitle: "Одиночные предсердные экстрасистолы"
         CmpxCount3s: 0
+        EpisodeHRMinTime: "19:29:30.0000000"
+        TotalDurationPercent: 0.361
+        CmpxCount2s: 0
         CmpxPercent: 0.651
         CmpxCountDay: 0
-        CmpxCount2s: 0
-        TotalDurationPercent: 0.356
-        OriginalArrCodes: "(rS|rM);nS;pP*"
-        EpisodeDurationMin: "00:00:00.4040000"
-        EpisodeDurationAvg: "00:00:00.4621565"
-        TotalDuration: "00:04:31.7480000"
-        EpisodeDurationMax: "00:00:00.7080000"
+        TotalDuration: "00:04:35.9600000"
+        EpisodeDurationAvg: "00:00:00.5666530"
+        EpisodeDurationMin: "00:00:00.0800000"
+        EpisodeHRMax: 84.0
         CmpxCount: 588
-        EpisodeCountDay: 555
-        EpisodeCount: 588
+        EpisodeDurationMax: "00:00:17.2600000"
+        CustomName: "(rS|rM);nS;pP*"
+        EpisodeCountDay: 457
+        HRIntervalSec: 10
+        EpisodeHRMin: 55.0
+        Title: "Одиночные предсердные экстрасистолы"
+        EpisodeCount: 487
+        RRMinMs: 404.0
+        RRMaxMs: 1172.0
+        EpisodeHRMaxTime: "03:26:30.0000000"
         Path: "Rhythms/supravent/premature/single"
         CmpxOccurence: "Rare"
+        EpisodeHRAvg: 75.606
       group:
-        EpisodeCountNight: 11
+        EpisodeCountNight: 10
         CmpxCountNight: 0
-        InputCode: "rS;pP;nG"
+        Code: "rS;pP;nG"
         OriginalArrTitle: "Групповые предсердные экстрасистолы"
         CmpxCount3s: 0
+        EpisodeHRMinTime: "13:02:00.0000000"
+        TotalDurationPercent: 0.024
+        CmpxCount2s: 0
         CmpxPercent: 0.042
         CmpxCountDay: 0
-        CmpxCount2s: 0
-        TotalDurationPercent: 0.026
-        OriginalArrCodes: "(rS|rM);nG;pP*"
-        EpisodeDurationMin: "00:00:01.5000000"
-        EpisodeDurationAvg: "00:00:01.8090909"
-        TotalDuration: "00:00:19.9000000"
-        EpisodeDurationMax: "00:00:02.3440000"
+        TotalDuration: "00:00:17.9840000"
+        EpisodeDurationAvg: "00:00:01.7984000"
+        EpisodeDurationMin: "00:00:01.1120000"
+        EpisodeHRMax: 76.0
         CmpxCount: 38
+        EpisodeDurationMax: "00:00:05.0200000"
+        CustomName: "(rS|rM);nG;pP*"
         EpisodeCountDay: 0
-        EpisodeCount: 11
+        HRIntervalSec: 10
+        EpisodeHRMin: 60.0
+        Title: "Групповые предсердные экстрасистолы"
+        EpisodeCount: 10
+        RRMinMs: 424.0
+        RRMaxMs: 1288.0
+        EpisodeHRMaxTime: "12:19:30.0000000"
         Path: "Rhythms/supravent/premature/group"
         CmpxOccurence: "Rare"
-    EpisodeCountNight: 33
+        EpisodeHRAvg: 66.0
     CmpxCountNight: 0
-    InputCode: "rS;pP;nS"
+    EpisodeCountNight: 30
+    Code: "rS;pP;nS"
     OriginalArrTitle: "Одиночные предсердные экстрасистолы"
     CmpxCount3s: 0
+    EpisodeHRMinTime: "19:29:30.0000000"
+    TotalDurationPercent: 0.361
+    CmpxCount2s: 0
     CmpxPercent: 0.651
     CmpxCountDay: 0
-    CmpxCount2s: 0
-    TotalDurationPercent: 0.356
-    OriginalArrCodes: "(rS|rM)"
-    EpisodeDurationMin: "00:00:00.4040000"
-    EpisodeDurationAvg: "00:00:00.4621565"
-    TotalDuration: "00:04:31.7480000"
-    EpisodeDurationMax: "00:00:00.7080000"
+    TotalDuration: "00:04:35.9600000"
+    EpisodeDurationAvg: "00:00:00.5666530"
+    EpisodeDurationMin: "00:00:00.0800000"
+    EpisodeHRMax: 84.0
     CmpxCount: 588
-    EpisodeCountDay: 555
-    EpisodeCount: 588
+    EpisodeDurationMax: "00:00:17.2600000"
+    CustomName: "(rS|rM)"
+    EpisodeCountDay: 457
+    HRIntervalSec: 10
+    EpisodeHRMin: 55.0
+    Title: "Одиночные предсердные экстрасистолы"
+    EpisodeCount: 487
+    RRMinMs: 404.0
+    RRMaxMs: 1172.0
+    EpisodeHRMaxTime: "03:26:30.0000000"
     Path: "Rhythms/supravent"
     CmpxOccurence: "Rare"
+    EpisodeHRAvg: 75.606
   atrial-flutter:
-    EpisodeCountNight: 0
+    EpisodeCountNight: 18
     CmpxCountNight: 0
-    InputCode: "rFA"
+    Code: "rFA"
     OriginalArrTitle: "Трепетание предсердий"
     CmpxCount3s: 0
+    EpisodeHRMinTime: "12:39:20.0000000"
+    TotalDurationPercent: 10.629
+    CmpxCount2s: 0
     CmpxPercent: 14.047
     CmpxCountDay: 0
-    CmpxCount2s: 0
-    TotalDurationPercent: 0.066
-    OriginalArrCodes: "rFA"
-    EpisodeDurationMin: "00:00:00.0040000"
-    EpisodeDurationAvg: "00:00:00.0486328"
-    TotalDuration: "00:00:50.7240000"
-    EpisodeDurationMax: "00:00:01.8640000"
+    TotalDuration: "02:15:16.8960000"
+    EpisodeDurationAvg: "00:06:26.5188571"
+    EpisodeDurationMin: "00:00:07.9640000"
+    EpisodeHRMax: 139.0
     CmpxCount: 12681
-    EpisodeCountDay: 1043
-    EpisodeCount: 1043
+    EpisodeDurationMax: "01:03:23.1840000"
+    CustomName: "rFA"
+    EpisodeCountDay: 3
+    HRIntervalSec: 10
+    EpisodeHRMin: 53.0
+    Title: "Трепетание предсердий"
+    EpisodeCount: 21
+    RRMinMs: 200.0
+    RRMaxMs: 1500.0
+    EpisodeHRMaxTime: "20:55:00.0000000"
     Path: "Rhythms/atrial-flutter"
     CmpxOccurence: "Frequent"
+    EpisodeHRAvg: 93.076
 Pauses:
   sinus_arr:
-    EpisodeCountNight: 19
+    EpisodeCountNight: 17
     CmpxCountNight: 0
-    InputCode: "rN;pE1;bN"
+    Code: "rN;pE1;bN"
     OriginalArrTitle: "Паузы за счет синусовой аритмии"
     CmpxCount3s: 11
+    EpisodeHRMinTime: "15:52:50.0000000"
+    TotalDurationPercent: 0.112
+    CmpxCount2s: 14
     CmpxPercent: 0.096
     CmpxCountDay: 1
-    CmpxCount2s: 14
-    TotalDurationPercent: 0.14
-    OriginalArrCodes: "rN;pE*;(bN|!b*)"
-    EpisodeDurationMin: "00:00:01.0280000"
-    EpisodeDurationAvg: "00:00:04.8730909"
-    TotalDuration: "00:01:47.2080000"
-    EpisodeDurationMax: "00:00:12.0920000"
+    TotalDuration: "00:01:25.2120000"
+    EpisodeDurationAvg: "00:00:04.7340000"
+    EpisodeDurationMin: "00:00:00.0800000"
+    EpisodeHRMax: 96.0
     CmpxCount: 87
-    EpisodeCountDay: 3
-    EpisodeCount: 22
+    EpisodeDurationMax: "00:00:10.7640000"
+    CustomName: "rN;pE*;(bN|!b*)"
+    EpisodeCountDay: 1
+    HRIntervalSec: 10
+    EpisodeHRMin: 45.0
+    Title: "Паузы за счет синусовой аритмии"
+    EpisodeCount: 18
+    RRMinMs: 796.0
+    RRMaxMs: 1812.0
+    EpisodeHRMaxTime: "12:26:00.0000000"
     Path: "Pauses/sinus_arr"
     CmpxOccurence: "Rare"
+    EpisodeHRAvg: 71.333

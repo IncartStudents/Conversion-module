@@ -1,186 +1,267 @@
 Rhythms:
   sinus:
-    EpisodeCountNight: 0
+    EpisodeCountNight: 1
     CmpxCountNight: 0
-    InputCode: "rN;vS"
+    Code: "rN;vS"
     OriginalArrTitle: "Синусовый ритм"
     CmpxCount3s: 0
+    EpisodeHRMinTime: "05:52:00.0000000"
+    TotalDurationPercent: 97.357
+    CmpxCount2s: 0
     CmpxPercent: 92.323
     CmpxCountDay: 0
-    CmpxCount2s: 0
-    TotalDurationPercent: 0.478
-    OriginalArrCodes: "rN"
-    EpisodeDurationMin: "00:00:00.0040000"
-    EpisodeDurationAvg: "00:00:00.0692838"
-    TotalDuration: "00:06:25.9800000"
-    EpisodeDurationMax: "00:00:08.9960000"
+    TotalDuration: "21:50:58.8920000"
+    EpisodeDurationAvg: "02:11:05.8892000"
+    EpisodeDurationMin: "00:00:00.0600000"
+    EpisodeHRMax: 182.0
     CmpxCount: 96495
-    EpisodeCountDay: 5571
-    EpisodeCount: 5571
+    EpisodeDurationMax: "13:07:56.7880000"
+    CustomName: "rN"
+    EpisodeCountDay: 9
+    HRIntervalSec: 10
+    EpisodeHRMin: -2.147483648e9
+    Title: "Синусовый ритм"
+    EpisodeCount: 10
+    RRMinMs: 148.0
+    RRMaxMs: 15056.0
+    EpisodeHRMaxTime: "08:14:00.0000000"
     Path: "Rhythms/sinus"
     CmpxOccurence: "Frequent"
+    EpisodeHRAvg: -5.7612013818e7
   vent-by-form:
-    EpisodeCountNight: 35
+    EpisodeCountNight: 29
     CmpxCountNight: 0
-    InputCode: "rVM;vV;pP;nG;fR"
     V:
       premature:
         pair-mono:
-          EpisodeCountNight: 39
+          EpisodeCountNight: 35
           CmpxCountNight: 0
-          InputCode: "rVM;vV;pP;nD"
+          Code: "rVM;vV;pP;nD"
           OriginalArrTitle: "Парные желудочковые мономорфные эктопические комплексы"
           CmpxCount3s: 0
+          EpisodeHRMinTime: "21:31:20.0000000"
+          TotalDurationPercent: 0.085
+          CmpxCount2s: 0
           CmpxPercent: 0.09
           CmpxCountDay: 0
-          CmpxCount2s: 0
-          TotalDurationPercent: 0.152
-          OriginalArrCodes: "(rV|rVM);nD;(pP*|!pE*)"
-          EpisodeDurationMin: "00:00:01.0800000"
-          EpisodeDurationAvg: "00:00:02.3215094"
-          TotalDuration: "00:02:03.0400000"
-          EpisodeDurationMax: "00:00:03.0160000"
+          TotalDuration: "00:01:08.3360000"
+          EpisodeDurationAvg: "00:00:01.4855652"
+          EpisodeDurationMin: "00:00:01.1840000"
+          EpisodeHRMax: 59.0
           CmpxCount: 94
-          EpisodeCountDay: 14
-          EpisodeCount: 53
+          EpisodeDurationMax: "00:00:05.2800000"
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+          EpisodeCountDay: 11
+          HRIntervalSec: 10
+          EpisodeHRMin: 49.0
+          Title: "Парные желудочковые мономорфные эктопические комплексы"
+          EpisodeCount: 46
+          RRMinMs: 1080.0
+          RRMaxMs: 1632.0
+          EpisodeHRMaxTime: "14:43:30.0000000"
           Path: "Rhythms/vent-by-form/V/premature/pair-mono"
           CmpxOccurence: "Rare"
+          EpisodeHRAvg: 55.0
         single:
           EpisodeCountNight: 55
           CmpxCountNight: 0
-          InputCode: "rV;vV;pP;nS"
+          Code: "rV;vV;pP;nS"
           OriginalArrTitle: "Одиночные мономорфные желудочковые эктопические комплексы"
           CmpxCount3s: 0
+          EpisodeHRMinTime: "15:30:10.0000000"
+          TotalDurationPercent: 0.018
+          CmpxCount2s: 0
           CmpxPercent: 0.087
           CmpxCountDay: 0
-          CmpxCount2s: 0
-          TotalDurationPercent: 0.145
-          OriginalArrCodes: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
-          EpisodeDurationMin: "00:00:01.0720000"
-          EpisodeDurationAvg: "00:00:01.2889231"
-          TotalDuration: "00:01:57.2920000"
-          EpisodeDurationMax: "00:00:01.6320000"
+          TotalDuration: "00:00:14.6120000"
+          EpisodeDurationAvg: "00:00:00.1641798"
+          EpisodeDurationMin: "00:00:00.1000000"
+          EpisodeHRMax: 86.0
           CmpxCount: 91
-          EpisodeCountDay: 36
-          EpisodeCount: 91
+          EpisodeDurationMax: "00:00:02.3120000"
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
+          EpisodeCountDay: 34
+          HRIntervalSec: 10
+          EpisodeHRMin: 54.0
+          Title: "Одиночные мономорфные желудочковые эктопические комплексы"
+          EpisodeCount: 89
+          RRMinMs: 648.0
+          RRMaxMs: 1632.0
+          EpisodeHRMaxTime: "03:48:10.0000000"
           Path: "Rhythms/vent-by-form/V/premature/single"
           CmpxOccurence: "Rare"
+          EpisodeHRAvg: 70.0
       rhythm-unstable-mono:
-        EpisodeCountNight: 35
+        EpisodeCountNight: 29
         CmpxCountNight: 0
-        InputCode: "rVM;vV;pP;nG;fR"
+        Code: "rVM;vV;pP;nG;fR"
         OriginalArrTitle: "Эпизоды неустойчивых желудочковых мономорфных идиовентрикулярных ритмов"
         CmpxCount3s: 0
+        EpisodeHRMinTime: "19:33:00.0000000"
+        TotalDurationPercent: 0.551
+        CmpxCount2s: 0
         CmpxPercent: 0.416
         CmpxCountDay: 0
-        CmpxCount2s: 0
-        TotalDurationPercent: 0.64
-        OriginalArrCodes: "(rV|rVM);nG;fR|(!pP*&!fT)"
-        EpisodeDurationMin: "00:00:01.0440000"
-        EpisodeDurationAvg: "00:00:05.0709020"
-        TotalDuration: "00:08:37.2320000"
-        EpisodeDurationMax: "00:00:25.2520000"
+        TotalDuration: "00:07:25.0800000"
+        EpisodeDurationAvg: "00:00:06.7436364"
+        EpisodeDurationMin: "00:00:02.2840000"
+        EpisodeHRMax: 84.0
         CmpxCount: 435
-        EpisodeCountDay: 67
-        EpisodeCount: 102
+        EpisodeDurationMax: "00:00:24.2480000"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
+        EpisodeCountDay: 37
+        HRIntervalSec: 10
+        EpisodeHRMin: 48.0
+        Title: "Эпизоды неустойчивых желудочковых мономорфных идиовентрикулярных ритмов"
+        EpisodeCount: 66
+        RRMinMs: 912.0
+        RRMaxMs: 1536.0
+        EpisodeHRMaxTime: "04:19:00.0000000"
         Path: "Rhythms/vent-by-form/V/rhythm-unstable-mono"
         CmpxOccurence: "Rare"
+        EpisodeHRAvg: 56.362
+    Code: "rVM;vV;pP;nG;fR"
     OriginalArrTitle: "Эпизоды неустойчивых желудочковых мономорфных идиовентрикулярных ритмов"
     CmpxCount3s: 0
+    EpisodeHRMinTime: "19:33:00.0000000"
+    TotalDurationPercent: 0.551
+    CmpxCount2s: 0
     CmpxPercent: 0.416
     CmpxCountDay: 0
-    CmpxCount2s: 0
-    TotalDurationPercent: 0.64
-    OriginalArrCodes: "(rV|rVM|rVP|rVD|rM)"
-    EpisodeDurationMin: "00:00:01.0440000"
-    EpisodeDurationAvg: "00:00:05.0709020"
-    TotalDuration: "00:08:37.2320000"
-    EpisodeDurationMax: "00:00:25.2520000"
+    TotalDuration: "00:07:25.0800000"
+    EpisodeDurationAvg: "00:00:06.7436364"
+    EpisodeDurationMin: "00:00:02.2840000"
+    EpisodeHRMax: 84.0
+    EpisodeDurationMax: "00:00:24.2480000"
     CmpxCount: 435
-    EpisodeCountDay: 67
-    EpisodeCount: 102
+    CustomName: "(rV|rVM|rVP|rVD|rM)"
+    EpisodeCountDay: 37
+    HRIntervalSec: 10
+    EpisodeHRMin: 48.0
+    Title: "Эпизоды неустойчивых желудочковых мономорфных идиовентрикулярных ритмов"
+    EpisodeCount: 66
+    RRMinMs: 912.0
+    RRMaxMs: 1536.0
+    EpisodeHRMaxTime: "04:19:00.0000000"
     Path: "Rhythms/vent-by-form"
     CmpxOccurence: "Rare"
+    EpisodeHRAvg: 56.362
     F:
       premature:
         pair-mono:
-          EpisodeCountNight: 39
+          EpisodeCountNight: 35
           CmpxCountNight: 0
-          InputCode: "rVM;vV;pP;nD"
+          Code: "rVM;vV;pP;nD"
           OriginalArrTitle: "Парные желудочковые мономорфные эктопические комплексы"
           CmpxCount3s: 0
+          EpisodeHRMinTime: "21:31:20.0000000"
+          TotalDurationPercent: 0.085
+          CmpxCount2s: 0
           CmpxPercent: 0.09
           CmpxCountDay: 0
-          CmpxCount2s: 0
-          TotalDurationPercent: 0.152
-          OriginalArrCodes: "(rV|rVM);nD;(pP*|!pE*)"
-          EpisodeDurationMin: "00:00:01.0800000"
-          EpisodeDurationAvg: "00:00:02.3215094"
-          TotalDuration: "00:02:03.0400000"
-          EpisodeDurationMax: "00:00:03.0160000"
+          TotalDuration: "00:01:08.3360000"
+          EpisodeDurationAvg: "00:00:01.4855652"
+          EpisodeDurationMin: "00:00:01.1840000"
+          EpisodeHRMax: 59.0
           CmpxCount: 94
-          EpisodeCountDay: 14
-          EpisodeCount: 53
+          EpisodeDurationMax: "00:00:05.2800000"
+          CustomName: "(rV|rVM);nD;(pP*|!pE*)"
+          EpisodeCountDay: 11
+          HRIntervalSec: 10
+          EpisodeHRMin: 49.0
+          Title: "Парные желудочковые мономорфные эктопические комплексы"
+          EpisodeCount: 46
+          RRMinMs: 1080.0
+          RRMaxMs: 1632.0
+          EpisodeHRMaxTime: "14:43:30.0000000"
           Path: "Rhythms/vent-by-form/F/premature/pair-mono"
           CmpxOccurence: "Rare"
+          EpisodeHRAvg: 55.0
         single:
           EpisodeCountNight: 55
           CmpxCountNight: 0
-          InputCode: "rV;vV;pP;nS"
+          Code: "rV;vV;pP;nS"
           OriginalArrTitle: "Одиночные мономорфные желудочковые эктопические комплексы"
           CmpxCount3s: 0
+          EpisodeHRMinTime: "15:30:10.0000000"
+          TotalDurationPercent: 0.018
+          CmpxCount2s: 0
           CmpxPercent: 0.087
           CmpxCountDay: 0
-          CmpxCount2s: 0
-          TotalDurationPercent: 0.145
-          OriginalArrCodes: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
-          EpisodeDurationMin: "00:00:01.0720000"
-          EpisodeDurationAvg: "00:00:01.2889231"
-          TotalDuration: "00:01:57.2920000"
-          EpisodeDurationMax: "00:00:01.6320000"
+          TotalDuration: "00:00:14.6120000"
+          EpisodeDurationAvg: "00:00:00.1641798"
+          EpisodeDurationMin: "00:00:00.1000000"
+          EpisodeHRMax: 86.0
           CmpxCount: 91
-          EpisodeCountDay: 36
-          EpisodeCount: 91
+          EpisodeDurationMax: "00:00:02.3120000"
+          CustomName: "(rV|rVM|rVP|rVD);nS;(pP*|!pE*)"
+          EpisodeCountDay: 34
+          HRIntervalSec: 10
+          EpisodeHRMin: 54.0
+          Title: "Одиночные мономорфные желудочковые эктопические комплексы"
+          EpisodeCount: 89
+          RRMinMs: 648.0
+          RRMaxMs: 1632.0
+          EpisodeHRMaxTime: "03:48:10.0000000"
           Path: "Rhythms/vent-by-form/F/premature/single"
           CmpxOccurence: "Rare"
+          EpisodeHRAvg: 70.0
       rhythm-unstable-mono:
-        EpisodeCountNight: 35
+        EpisodeCountNight: 29
         CmpxCountNight: 0
-        InputCode: "rVM;vV;pP;nG;fR"
+        Code: "rVM;vV;pP;nG;fR"
         OriginalArrTitle: "Эпизоды неустойчивых желудочковых мономорфных идиовентрикулярных ритмов"
         CmpxCount3s: 0
+        EpisodeHRMinTime: "19:33:00.0000000"
+        TotalDurationPercent: 0.551
+        CmpxCount2s: 0
         CmpxPercent: 0.416
         CmpxCountDay: 0
-        CmpxCount2s: 0
-        TotalDurationPercent: 0.64
-        OriginalArrCodes: "(rV|rVM);nG;fR|(!pP*&!fT)"
-        EpisodeDurationMin: "00:00:01.0440000"
-        EpisodeDurationAvg: "00:00:05.0709020"
-        TotalDuration: "00:08:37.2320000"
-        EpisodeDurationMax: "00:00:25.2520000"
+        TotalDuration: "00:07:25.0800000"
+        EpisodeDurationAvg: "00:00:06.7436364"
+        EpisodeDurationMin: "00:00:02.2840000"
+        EpisodeHRMax: 84.0
         CmpxCount: 435
-        EpisodeCountDay: 67
-        EpisodeCount: 102
+        EpisodeDurationMax: "00:00:24.2480000"
+        CustomName: "(rV|rVM);nG;fR|(!pP*&!fT)"
+        EpisodeCountDay: 37
+        HRIntervalSec: 10
+        EpisodeHRMin: 48.0
+        Title: "Эпизоды неустойчивых желудочковых мономорфных идиовентрикулярных ритмов"
+        EpisodeCount: 66
+        RRMinMs: 912.0
+        RRMaxMs: 1536.0
+        EpisodeHRMaxTime: "04:19:00.0000000"
         Path: "Rhythms/vent-by-form/F/rhythm-unstable-mono"
         CmpxOccurence: "Rare"
+        EpisodeHRAvg: 56.362
 Pauses:
   AV-block-degree2-mobitz-type1:
     EpisodeCountNight: 14
     CmpxCountNight: 0
-    InputCode: "rN;pE4;bV1"
+    Code: "rN;pE4;bV1"
     OriginalArrTitle: "Паузы за счёт АВ блокады 2-й степени 1 типа"
     CmpxCount3s: 0
+    EpisodeHRMinTime: "20:22:10.0000000"
+    TotalDurationPercent: 0.002
+    CmpxCount2s: 2
     CmpxPercent: 0.015
     CmpxCountDay: 3
-    CmpxCount2s: 2
-    TotalDurationPercent: 0.038
-    OriginalArrCodes: "bV1"
-    EpisodeDurationMin: "00:00:01.7640000"
-    EpisodeDurationAvg: "00:00:01.9012500"
-    TotalDuration: "00:00:30.4200000"
-    EpisodeDurationMax: "00:00:02.3000000"
+    TotalDuration: "00:00:01.6080000"
+    EpisodeDurationAvg: "00:00:00.1005000"
+    EpisodeDurationMin: "00:00:00.0800000"
+    EpisodeHRMax: 48.0
     CmpxCount: 16
+    EpisodeDurationMax: "00:00:00.1440000"
+    CustomName: "bV1"
     EpisodeCountDay: 2
+    HRIntervalSec: 10
+    EpisodeHRMin: 48.0
+    Title: "Паузы за счёт АВ блокады 2-й степени 1 типа"
     EpisodeCount: 16
+    RRMinMs: 1764.0
+    RRMaxMs: 2300.0
+    EpisodeHRMaxTime: "20:22:10.0000000"
     Path: "Pauses/AV-block-degree2-mobitz-type1"
     CmpxOccurence: "Rare"
+    EpisodeHRAvg: 48.0

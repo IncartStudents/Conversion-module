@@ -4,54 +4,8 @@ using TimeSamplings
 using Statistics
 
 include("CalcStats.jl")
+include("FindNodes.jl")
 
-
-function calc_episode_durations(segs, pqrst_vector, fs)
-    durations = Float64[]
-    for seg in segs
-        start_idx = first(seg)
-        end_idx = last(seg)
-        start_time = pqrst_vector[start_idx].timeQ
-        end_time = pqrst_vector[end_idx].timeS
-        duration_sec = (end_time - start_time) / fs
-        push!(durations, duration_sec)
-    end
-
-    total_dur_s = sum(durations)
-    max_dur_s = maximum(durations)
-    min_dur_s = minimum(durations)
-    dur_avg_s = mean(durations)
-
-    return durations
-end
-
-function calc_episode_night(segs, pqrst_vector, sleep)
-    is_night = 0
-    is_day = 0
-    for seg in segs
-        start_idx = first(seg)
-        end_idx = last(seg)
-
-        start_time = pqrst_vector[start_idx].timeQ
-        end_time = pqrst_vector[end_idx].timeS
-
-        duration = (end_time - start_time)
-        is_night_flag = false
-        for (sleep_start, sleep_end) in sleep
-            if start_time < sleep_end && end_time > sleep_start
-                is_night_flag = true
-                break
-            end
-        end
-
-        if is_night_flag
-            is_night += 1
-        else
-            is_day += 1
-        end
-    end
-    return is_night, is_day
-end
 
 filepath = "C:/incart_dev/Myproject/data/AlgResult (3).xml"
 
@@ -64,38 +18,18 @@ arr_pairs = res[1]    # Rhythms in xml-file
 arr_tuples = res[2]   # Arrhythmias in xml-file
 meta = res[3]     # timestart, fs, point_count
 sleep_info = res[4]   # SleepFragments
-hr_trend = res[5]
+hr_trend = res[5]   # HR10 trend
 
-println(hr_trend)
+sleep_frag = []
+for (_, slp) in sleep_info
+    push!(sleep_frag, (slp["ECGStartPoints"][1], slp["ECGStartPoints"][1] + slp["ECGDurationPoints"][1]))
+end
+sleep_frag
 
 
 bitvec_s = [bitvec2seg(bitvec) for (key, bitvec) in arr_pairs]
-len_b = [length(el) for el in bitvec_s]
-
-function merge_episodes(segments::Vector{UnitRange{Int}}, max_gap::Int)
-    isempty(segments) && return segments
-    
-    merged = [segments[1]]
-    for i in 2:length(segments)
-        prev_end = last(merged[end])
-        curr_beg = first(segments[i])
-        
-        # Проверяем длину разрыва
-        gap = curr_beg - prev_end - 1
-        if gap <= max_gap
-            # Объединяем сегменты
-            merged[end] = first(merged[end]) : last(segments[i])
-        else
-            push!(merged, segments[i])
-        end
-    end
-    return merged
-end
-
-# 2. Применяем функцию к КАЖДОМУ элементу bitvec_s отдельно
 merged_s = [merge_episodes(segments, 1) for segments in bitvec_s] 
 
-# Обогащаем arr_pairs новыми полями
 arr_pairs = [
     (
         rhythm_code = pair.rhythm_code,
@@ -116,10 +50,10 @@ arr_pairs = [
     for (pair, segs) in zip(arr_pairs, merged_s)
 ]
 
+
 bitvec_s_arrs = [bitvec2seg(t.bitvec) for t in arr_tuples]
-l1 = [length(el) for el in bitvec_s_arrs]
 merged_arr_s = [merge_episodes(segments, 0) for segments in bitvec_s_arrs] 
-l2 = [length(el) for el in merged_arr_s]
+
 arr_tuples = [
     (
         code = t.code,
@@ -140,18 +74,6 @@ arr_tuples = [
     for (t, segs) in zip(arr_tuples, merged_arr_s)
 ]
 
-lens = [t.len for t in arr_tuples]
-starts = [t.starts for t in arr_tuples]
-titles = [t.title for t in arr_tuples]
-
-sleep_frag = []
-for (_, slp) in sleep_info
-    push!(sleep_frag, (slp["ECGStartPoints"][1], slp["ECGStartPoints"][1] + slp["ECGDurationPoints"][1]))
-end
-sleep_frag
-
-
-# HR_filtered = beats2trend_HR(timeR, is_included, fs, window_sec, step_sec, ref_time, min_valid)
 
 
 # ================================================================================
@@ -159,14 +81,12 @@ sleep_frag
 using YAML
 using DataFrames
 
-include("FindNodes.jl")
-
 
 input_tree = "C:/incart_dev/Myproject/data/datatree_v2.yaml"
 data = YAML.load(open(input_tree, "r"))
 
-new_input_tree = "C:/incart_dev/Myproject/data/new_datatree.yaml"
-new_data = YAML.load(open(input_tree, "r"))
+# new_input_tree = "C:/incart_dev/Myproject/data/new_datatree.yaml"
+# new_data = YAML.load(open(input_tree, "r"))
 
 codes = [t.code for t in arr_tuples]
 formes = [String(f) for f in form_stats.form]
@@ -175,59 +95,60 @@ result = find_all_nodes_v2(data, arr_tuples, arr_pairs, formes)
 
 combined_result = combine_rhythm_arr_bitvecs(result)
 
-res1 = calc_episode_stats(combined_result, meta.fs, meta.point_count)
+# res1 = calc_episode_stats(combined_result, meta.fs, meta.point_count)
+# calc_ = calc_hr(combined_result, hr_trend, pqrst)
 
-# calc_ = calc_hr(combined_result, pqrst)
-
-output = complex_stats(combined_result, sleep_frag, meta.fs, meta.point_count, pqrst)
+output = complex_stats(combined_result, sleep_frag, meta.fs, meta.point_count, pqrst, hr_trend)
 
 output_tree = "C:/incart_dev/Myproject/result/new_datatree_1.yaml"
-# if !isempty(res1)
-#     result_data = build_structure(res1)
-#     open(output_tree, "w") do f
-#         YAML.write(f, result_data)
-#     end
-#     println("Найдено $(length(res1)) узлов. Результат сохранён в $output_tree")
-# else
-#     println("Ни один узел не найден для файла $filepath")
-# end
 
-
-function save_arrhythmia_stats(data::Vector, filepath::AbstractString)
-    root = Dict{String, Any}()
-    
-    for (path, metrics) in data
-        if isempty(path)
-            continue
-        end
-        
-        current = root
-        for key in path[1:end-1]
-            if !haskey(current, key)
-                current[key] = Dict{String, Any}()
-            end
-            if !isa(current[key], Dict)
-                current[key] = Dict("data" => current[key])
-            end
-            current = current[key]::Dict{String, Any}
-        end
-        
-        last_key = path[end]
-        if !haskey(current, last_key)
-            current[last_key] = Dict{String, Any}()
-        end
-        
-        current[last_key] = metrics
+ot_d = "C:/incart_dev/Myproject/result/datatree_test.yaml"
+if !isempty(output)
+    result_data = build_structure(output)
+    open(ot_d, "w") do f
+        YAML.write(f, result_data)
     end
-    
-    open(filepath, "w") do io
-        YAML.write(io, root)
-    end
-    
-    println("Данные успешно сохранены в $filepath")
+    println("Найдено $(length(output)) узлов. Результат сохранён в $ot_d")
+else
+    println("Ни один узел не найден для файла $filepath")
 end
 
-save_arrhythmia_stats(res1, output_tree)
+
+# function save_arrhythmia_stats(data::Vector, filepath::AbstractString)
+#     root = Dict{String, Any}()
+    
+#     for (path, metrics) in data
+#         if isempty(path)
+#             continue
+#         end
+        
+#         current = root
+#         for key in path[1:end-1]
+#             if !haskey(current, key)
+#                 current[key] = Dict{String, Any}()
+#             end
+#             if !isa(current[key], Dict)
+#                 current[key] = Dict("data" => current[key])
+#             end
+#             current = current[key]::Dict{String, Any}
+#         end
+        
+#         last_key = path[end]
+#         if !haskey(current, last_key)
+#             current[last_key] = Dict{String, Any}()
+#         end
+        
+#         current[last_key] = metrics
+#     end
+    
+#     open(filepath, "w") do io
+#         YAML.write(io, root)
+#     end
+    
+#     println("Данные успешно сохранены в $filepath")
+# end
+
+# save_arrhythmia_stats(calc_, output_tree)
 
 
 
