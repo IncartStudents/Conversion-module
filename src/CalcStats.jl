@@ -21,6 +21,56 @@ end
 
 
 """
+Строит битовые векторы для родительских узлов на основе дочерних узлов.
+Возвращает словарь: Dict{String, BitVector} (ключ - путь, значение - битовый вектор)
+"""
+function build_parent_bitvectors(found_nodes_result)
+    # Собираем все битовые векторы
+    all_bitvecs = Dict{String, BitVector}()
+    for (path, _, matched_tuple) in found_nodes_result
+        path_key = join(path, "/")
+        all_bitvecs[path_key] = matched_tuple.bitvec
+    end
+
+    all_paths = Set{String}()
+    for (path, _, _) in found_nodes_result
+        path_str = ""
+        for part in path
+            path_str = isempty(path_str) ? part : path_str * "/" * part
+            push!(all_paths, path_str)
+        end
+    end
+
+    parent_bitvecs = Dict{String, BitVector}()
+    
+    sorted_paths = sort(collect(all_paths), by=p->length(split(p, "/")), rev=true)
+    
+    for path in sorted_paths
+        # Собираем всех потомков
+        children_bitvecs = []
+        for (child_path_key, child_bitvec) in all_bitvecs
+            if startswith(child_path_key, path * "/")
+                push!(children_bitvecs, child_bitvec)
+            end
+        end
+        
+        for (parent_path, parent_bitvec) in parent_bitvecs
+            if startswith(parent_path, path * "/")
+                push!(children_bitvecs, parent_bitvec)
+            end
+        end
+        
+        if !isempty(children_bitvecs)
+            combined_bitvec = reduce(.|, children_bitvecs)
+            parent_bitvecs[path] = combined_bitvec
+        end
+    end
+
+    return parent_bitvecs
+end
+
+
+"""
 Производит расчет статистики по формам QRS.
 Возвращает объект типа `DataFrame` с колонками: [form, CmpxCount, CmpxCountPercent]
 """
@@ -90,19 +140,19 @@ function calc_cmpx_stats(found_nodes_result, sleep, fs)
             for i in 1:length(bitvec)
                 if bitvec[i] == 1
                     push!(indx, i)
-                    break
+                    # break
                 end
             end
 
-            for (start_p, end_p) in sleep
-                for ind in indx
-                    if ind >= start_p && ind <= end_p
-                        CmpxCountNight += 1
-                    else
-                        CmpxCountDay += 1
+            for ind in indx
+                is_night = false
+                for (start_p, end_p) in sleep
+                    if start_p <= ind <= end_p
+                        is_night = true
+                        break
                     end
-
                 end
+                is_night ? (CmpxCountNight += 1) : (CmpxCountDay += 1)
             end
         end
 
@@ -174,7 +224,7 @@ function calc_episode_night(segs, pqrst_vector, sleep)
 
         is_night_flag = false
         for (sleep_start, sleep_end) in sleep
-            if start_time < sleep_end && end_time > sleep_start
+            if max(start_time, sleep_start) < min(end_time, sleep_end)
                 is_night_flag = true
                 break
             end
@@ -396,52 +446,235 @@ end
 """
 Объединяет результаты расчета статистик для комплексов, эпизодов и ЧСС вызовом функций
 """
+# function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, hr_trend)
+#     cmpx_results = calc_cmpx_stats(found_nodes_result, sleep, fs)
+#     episode_results = calc_episode_stats(found_nodes_result, fs, point_count)
+#     hr_results = calc_hr(found_nodes_result, hr_trend, pqrst_data)
+    
+#     _total = []
+    
+#     # Собираем результаты по каждому пути
+#     for i in 1:length(found_nodes_result)
+#         (path, custom_name, matched_tuple) = found_nodes_result[i]
+        
+#         cmpx_dict = cmpx_results[i][5]
+#         episode_dict = episode_results[i][2]
+#         hr_dict = hr_results[i][2]
+        
+#         merged_dict = Dict{String, Any}()
+        
+#         # Добавляем данные из cmpx_dict (исключая "Path")
+#         for (k, v) in cmpx_dict
+#             k != "Path" && (merged_dict[k] = v)
+#         end
+        
+#         # Добавляем данные из episode_dict (исключая "Path")
+#         for (k, v) in episode_dict
+#             k != "Path" && (merged_dict[k] = v)
+#         end
+        
+#         # Добавляем данные из hr_dict (включая специальные поля)
+#         for (k, v) in hr_dict
+#             if k == "CustomName" || k == "Code" || k == "Title"
+#                 merged_dict[k] = v
+#             elseif k != "Path"
+#                 merged_dict[k] = v
+#             end
+#         end
+        
+#         merged_dict["Path"] = hr_dict["Path"]
+        
+#         push!(_total, (
+#             path, 
+#             custom_name, 
+#             hr_dict["Code"], 
+#             hr_dict["Title"], 
+#             merged_dict
+#         ))
+#     end
+    
+#     return _total
+# end
+
+"""
+Объединяет результаты расчета статистик для комплексов, эпизодов и ЧСС
+"""
 function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, hr_trend)
+    # Рассчитываем базовые статистики для всех узлов
     cmpx_results = calc_cmpx_stats(found_nodes_result, sleep, fs)
     episode_results = calc_episode_stats(found_nodes_result, fs, point_count)
     hr_results = calc_hr(found_nodes_result, hr_trend, pqrst_data)
     
+    # Строим битовые векторы для родительских узлов
+    parent_bitvecs = build_parent_bitvectors(found_nodes_result)
+    
     _total = []
     
-    # Собираем результаты по каждому пути
+    # Обрабатываем все узлы
     for i in 1:length(found_nodes_result)
-        (path, custom_name, matched_tuple) = found_nodes_result[i]
+        (path, orig_codes, matched_tuple) = found_nodes_result[i]
+        path_key = join(path, "/")
         
-        cmpx_dict = cmpx_results[i][5]
-        episode_dict = episode_results[i][2]
-        hr_dict = hr_results[i][2]
+        # Получаем рассчитанные статистики
+        cmpx_data = cmpx_results[i][5]  # 5-й элемент содержит словарь статистик
+        episode_data = episode_results[i][2]  # 2-й элемент содержит словарь статистик
+        hr_data = hr_results[i][2]  # 2-й элемент содержит словарь статистик
         
-        merged_dict = Dict{String, Any}()
+        # Создаем объединенный словарь статистик
+        merged_stats = Dict{String, Any}()
         
-        # Добавляем данные из cmpx_dict (исключая "Path")
-        for (k, v) in cmpx_dict
-            k != "Path" && (merged_dict[k] = v)
+        # Добавляем все статистики
+        for (k, v) in cmpx_data
+            merged_stats[k] = v
         end
-        
-        # Добавляем данные из episode_dict (исключая "Path")
-        for (k, v) in episode_dict
-            k != "Path" && (merged_dict[k] = v)
+        for (k, v) in episode_data
+            merged_stats[k] = v
         end
-        
-        # Добавляем данные из hr_dict (включая специальные поля)
-        for (k, v) in hr_dict
-            if k == "CustomName" || k == "Code" || k == "Title"
-                merged_dict[k] = v
-            elseif k != "Path"
-                merged_dict[k] = v
+        for (k, v) in hr_data
+            # Некоторые поля могут дублироваться, поэтому сохраняем важные
+            if k in ["CustomName", "Code", "Title", "Path", "HRIntervalSec", 
+                     "EpisodeHRAvg", "EpisodeHRMax", "EpisodeHRMin", 
+                     "EpisodeHRMaxTime", "EpisodeHRMinTime", "RRMinMs", "RRMaxMs"]
+                merged_stats[k] = v
+            elseif !haskey(merged_stats, k)
+                merged_stats[k] = v
             end
         end
         
-        merged_dict["Path"] = hr_dict["Path"]
+        # Если это родительский узел, пересчитываем статистики
+        if haskey(parent_bitvecs, path_key)
+            
+            # Пересчитываем статистики комплексов для родительского узла
+            parent_cmpx_stats = calc_cmpx_for_bitvec(
+                parent_bitvecs[path_key],
+                path,
+                sleep,
+                fs,
+                get(matched_tuple, :starts, Int[]),
+                get(matched_tuple, :len, Int[])
+            )
+            
+            # Пересчитываем статистики эпизодов для родительского узла
+            parent_episode_stats = calc_episode_for_bitvec(
+                parent_bitvecs[path_key],
+                fs,
+                point_count,
+                pqrst_data[1]
+            )
+            
+            # Обновляем статистики
+            for (k, v) in parent_cmpx_stats
+                merged_stats[k] = v
+            end
+            for (k, v) in parent_episode_stats
+                merged_stats[k] = v
+            end
+        end
         
+        code = ""
+        if hasproperty(matched_tuple, :code)
+            code = matched_tuple.code
+        elseif hasproperty(matched_tuple, :rhythm_code)
+            code = matched_tuple.rhythm_code
+        end
+
         push!(_total, (
             path, 
-            custom_name, 
-            hr_dict["Code"], 
-            hr_dict["Title"], 
-            merged_dict
+            orig_codes, 
+            code, 
+            matched_tuple.title, 
+            merged_stats
         ))
     end
     
     return _total
+end
+
+"""
+Пересчитывает статистики комплексов для родительского узла
+"""
+function calc_cmpx_for_bitvec(bitvec, path, sleep, fs, starts_array, len_array)
+    CmpxCount = sum(bitvec)
+    CmpxPercent = round((CmpxCount / length(bitvec)) * 100, digits=3)
+    
+    # Определение частоты встречаемости
+    CmpxOccurence = if CmpxPercent < 1.0
+        "Rare"
+    elseif 1.0 <= CmpxPercent < 10.0
+        "Moderate"
+    else
+        "Frequent"
+    end
+
+    # Для пауз считаем дополнительные статистики
+    is_pause = !isempty(path) && string(path[1]) == "Pauses"
+    CmpxCount2s = 0
+    CmpxCount3s = 0
+    
+    if is_pause && !isempty(len_array)
+        durations_sec = len_array ./ fs
+        CmpxCount2s = sum(durations_sec .>= 2.0)
+        CmpxCount3s = sum(durations_sec .>= 3.0)
+    end
+
+    # Считаем дневные/ночные статистики
+    CmpxCountDay = 0
+    CmpxCountNight = 0
+    if is_pause && !isempty(sleep)
+        for idx in findall(bitvec)
+            is_night = false
+            for (start_p, end_p) in sleep
+                if start_p <= idx <= end_p
+                    is_night = true
+                    break
+                end
+            end
+            is_night ? (CmpxCountNight += 1) : (CmpxCountDay += 1)
+        end
+    end
+
+    return Dict{String, Any}(
+        "CmpxCount" => CmpxCount,
+        "CmpxCountDay" => CmpxCountDay,
+        "CmpxCountNight" => CmpxCountNight,
+        "CmpxPercent" => CmpxPercent,
+        "CmpxOccurence" => CmpxOccurence,
+        "CmpxCount2s" => CmpxCount2s,
+        "CmpxCount3s" => CmpxCount3s,
+    )
+end
+
+"""
+Пересчитывает статистики эпизодов для родительского узла
+"""
+function calc_episode_for_bitvec(bitvec, fs, point_count, pqrst_vector)
+    # Преобразуем битовый вектор в сегменты
+    segs = bitvec2seg(bitvec)
+    
+    # Объединяем близкие эпизоды (если функция merge_episodes доступна)
+    # merged_segs = merge_episodes(segs, 0)  # Предполагая, что эта функция существует
+    
+    EpisodeCount = length(segs)
+    
+    # Рассчитываем длительности
+    durations = Float64[]
+    if !isempty(segs) && !isempty(pqrst_vector)
+        durations = calc_episode_durations(segs, pqrst_vector, fs)
+    end
+    
+    TotalDuration = sum(durations)
+    EpisodeDurationAvg = isempty(durations) ? 0.0 : mean(durations)
+    EpisodeDurationMax = isempty(durations) ? 0.0 : maximum(durations)
+    EpisodeDurationMin = isempty(durations) ? 0.0 : minimum(durations)
+    
+    TotalDurationPercent = point_count > 0 ? round((TotalDuration / (point_count / fs)) * 100, digits=3) : 0.0
+
+    return Dict{String, Any}(
+        "EpisodeCount" => EpisodeCount,
+        "TotalDuration" => dur_s_to_hhmmss(TotalDuration),
+        "TotalDurationPercent" => TotalDurationPercent,
+        "EpisodeDurationAvg" => dur_s_to_hhmmss(EpisodeDurationAvg),
+        "EpisodeDurationMax" => dur_s_to_hhmmss(EpisodeDurationMax),
+        "EpisodeDurationMin" => dur_s_to_hhmmss(EpisodeDurationMin)
+    )
 end

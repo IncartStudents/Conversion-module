@@ -19,6 +19,7 @@ arr_tuples = res[2]   # Arrhythmias in xml-file
 meta = res[3]     # timestart, fs, point_count
 sleep_info = res[4]   # SleepFragments
 hr_trend = res[5]   # HR10 trend
+motion_trend = res[6]   #MotionBitSet10
 
 sleep_frag = []
 for (_, slp) in sleep_info
@@ -27,8 +28,18 @@ end
 sleep_frag
 
 
+typeof(motion_trend["Trend"])
+
 bitvec_s = [bitvec2seg(bitvec) for (key, bitvec) in arr_pairs]
-merged_s = [merge_episodes(segments, 1) for segments in bitvec_s] 
+merged_s = [merge_episodes_v2(segments, pqrst[1]) for segments in bitvec_s]
+merged_s = [merge_episodes(segments, 1) for segments in bitvec_s]
+
+
+pqrst[1][1103]
+pqrst[1][1104]
+
+pqrst[1][71004]
+pqrst[1][71005]
 
 arr_pairs = [
     (
@@ -94,6 +105,8 @@ formes = [String(f) for f in form_stats.form]
 result = find_all_nodes_v2(data, arr_tuples, arr_pairs, formes)
 
 combined_result = combine_rhythm_arr_bitvecs(result)
+
+build_parent_bitvectors(combined_result)
 
 # res1 = calc_episode_stats(combined_result, meta.fs, meta.point_count)
 # calc_ = calc_hr(combined_result, hr_trend, pqrst)
