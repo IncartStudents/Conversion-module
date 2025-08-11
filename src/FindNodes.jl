@@ -222,33 +222,47 @@ function merge_episodes(segments::Vector{UnitRange{Int}}, max_gap::Int)
 end
 
 # TODO: Реализовать правила объединения эпизодов
+# 1) Желудочковые 1-2 комплекса НЕ разбивают эпизод наджелудочкового ритма, а 3 и более разбивают и формируют свой эпизод ритма.
+# 2) Наджелудочковые 1-4 комплекса НЕ разбивают эпизод синусового ритма, а 5 и более разбивают и формируют свой эпизод ритма.
 function merge_episodes_v2(segments::Vector{UnitRange{Int}}, pqrst_vector)
     isempty(segments) && return segments
     
-	reg_vent = build_regex_pattern_v2("(S*|B*|A*|W*)")
-	reg_supravent = build_regex_pattern_v2("(V*|F)")
-	
-	max_gap = 0
-	for el in pqrst_vector
-		if occursin(reg_vent, String(el.form))
-			max_gap = 2
-		elseif occursin(reg_supravent, String(el.form))
-			max_gap = 4
-		end
-	end
-	
+    # Регулярные выражения для классификации комплексов
+    reg_vent = build_regex_pattern_v2("(S*|B*|A*|W*)")
+    reg_supravent = build_regex_pattern_v2("(V*|F)")
+    
     merged = [segments[1]]
     for i in 2:length(segments)
         prev_end = last(merged[end])
         curr_beg = first(segments[i])
+        gap_start = prev_end + 1
+        gap_end = curr_beg - 1
         
-        # Проверяем длину разрыва
-        gap = curr_beg - prev_end - 1
-        if gap <= max_gap
-            # Объединяем сегменты
-            merged[end] = first(merged[end]) : last(segments[i])
+        # Проверяем, есть ли промежуток между сегментами
+        if gap_start <= gap_end
+            vent_count = 0
+            supravent_count = 0
+            
+            # Анализируем каждый комплекс в промежутке
+            for idx in gap_start:gap_end
+                form = string(pqrst_vector[idx].form)
+                if occursin(reg_vent, form)
+                    vent_count += 1
+                elseif occursin(reg_supravent, form)
+                    supravent_count += 1
+                end
+            end
+            
+            # Применяем правила объединения
+            if vent_count >= 3 || supravent_count >= 5
+                # Не объединяем сегменты
+                push!(merged, segments[i])
+            else
+                # Объединяем сегменты
+                merged[end] = first(merged[end]):last(segments[i])
+            end
         else
-            push!(merged, segments[i])
+            merged[end] = first(merged[end]):last(segments[i])
         end
     end
     return merged
@@ -259,17 +273,23 @@ end
 """
 function build_structure(data::Vector{Any})
     result = Dict{String, Any}()
+    
+    # Группируем данные по путям
+    path_mapping = Dict{String, Vector{Any}}()
+    
     for el in data
-        path_arr = el[1]
-        orig_codes = el[2]
-        in_code = el[3]
-        title = el[4]
-        stats = el[5]
-
-        path_key = join(path_arr, "/")
-        template = get_stats_template(path_key)
-        merged_stats = merge(template, stats)
-
+        path_key = join(el[1], "/")
+        if !haskey(path_mapping, path_key)
+            path_mapping[path_key] = []
+        end
+        push!(path_mapping[path_key], el)
+    end
+    
+    # Обрабатываем каждый уникальный путь
+    for (path_key, elements) in path_mapping
+        path_arr = elements[1][1]  # Путь (одинаковый для всех элементов)
+        
+        # Создаем структуру
         current = result
         for key in path_arr
             if !haskey(current, key)
@@ -277,13 +297,46 @@ function build_structure(data::Vector{Any})
             end
             current = current[key]
         end
-
-        # Добавляем поля из stats (включая Path)
-        for (k, v) in merged_stats
-            current[k] = v
-        end
-
+        
+        # Используем данные первого элемента для основной информации
+        first_el = elements[1]
+        orig_codes = first_el[2]
+        in_code = first_el[3]
+        title = first_el[4]
+        
+        current["OriginalCodes"] = orig_codes
+        current["InternalCode"] = in_code
         current["OriginalArrTitle"] = title
+        
+        # Если есть несколько элементов, объединяем их статистики
+        if length(elements) > 1
+            # Создаем список всех элементов
+            current["items"] = []
+            for el in elements
+                stats = el[5]
+                template = get_stats_template(path_key)
+                merged_stats = merge(template, stats)
+                
+                item = Dict{String, Any}()
+                item["OriginalCodes"] = el[2]
+                item["InternalCode"] = el[3]
+                item["OriginalArrTitle"] = el[4]
+                for (k, v) in merged_stats
+                    item[k] = v
+                end
+                push!(current["items"], item)
+            end
+        else
+            # Один элемент - просто добавляем его статистику
+            stats = first_el[5]
+            template = get_stats_template(path_key)
+            merged_stats = merge(template, stats)
+            
+            for (k, v) in merged_stats
+                current[k] = v
+            end
+        end
     end
+    
     return result
 end
