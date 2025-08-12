@@ -197,40 +197,30 @@ end
 
 """
 Объединяет близко расположенные сегменты `UnitRange` в один сегмент, 
-если расстояние между ними не превышает заданного порога `max_gap`.
+если расстояние между ними не превышает порога, определяемого правилами:
+    1) Желудочковые 1-2 комплекса НЕ разбивают эпизод наджелудочкового ритма, а 3 и более разбивают и формируют свой эпизод ритма.
+    2) Наджелудочковые 1-4 комплекса НЕ разбивают эпизод синусового ритма, а 5 и более разбивают и формируют свой эпизод ритма.
+
 Возвращает новый вектор диапазонов `Vector{UnitRange{Int}}`
 """
-# Без правил объединения эпизодов
-function merge_episodes(segments::Vector{UnitRange{Int}}, max_gap::Int)
+function merge_episodes_v2(segments::Vector{UnitRange{Int64}}, form_pairs::Vector{Pair{Int, String}})
     isempty(segments) && return segments
     
-    merged = [segments[1]]
-    for i in 2:length(segments)
-        prev_end = last(merged[end])
-        curr_beg = first(segments[i])
-        
-        # Проверяем длину разрыва
-        gap = curr_beg - prev_end - 1
-        if gap <= max_gap
-            # Объединяем сегменты
-            merged[end] = first(merged[end]) : last(segments[i])
+    # Создаем словарь для быстрого доступа к форме по индексу
+    form_dict = Dict(form_pairs)
+    
+    # Функция для классификации комплексов
+    function classify_complex(form::String)
+        if startswith(form, 'S') || startswith(form, 'B') || 
+           startswith(form, 'A') || startswith(form, 'W')
+            return :ventricular
+        elseif startswith(form, 'V') || form == "F"
+            return :supraventricular
         else
-            push!(merged, segments[i])
+            return :invalid  # X, Z*
         end
     end
-    return merged
-end
 
-# TODO: Реализовать правила объединения эпизодов
-# 1) Желудочковые 1-2 комплекса НЕ разбивают эпизод наджелудочкового ритма, а 3 и более разбивают и формируют свой эпизод ритма.
-# 2) Наджелудочковые 1-4 комплекса НЕ разбивают эпизод синусового ритма, а 5 и более разбивают и формируют свой эпизод ритма.
-function merge_episodes_v2(segments::Vector{UnitRange{Int}}, pqrst_vector)
-    isempty(segments) && return segments
-    
-    # Регулярные выражения для классификации комплексов
-    reg_vent = build_regex_pattern_v2("(S*|B*|A*|W*)")
-    reg_supravent = build_regex_pattern_v2("(V*|F)")
-    
     merged = [segments[1]]
     for i in 2:length(segments)
         prev_end = last(merged[end])
@@ -238,38 +228,43 @@ function merge_episodes_v2(segments::Vector{UnitRange{Int}}, pqrst_vector)
         gap_start = prev_end + 1
         gap_end = curr_beg - 1
         
-        # Проверяем, есть ли промежуток между сегментами
+        should_merge = true
+        
         if gap_start <= gap_end
             vent_count = 0
             supravent_count = 0
             
-            # Анализируем каждый комплекс в промежутке
             for idx in gap_start:gap_end
-                form = string(pqrst_vector[idx].form)
-                if occursin(reg_vent, form)
+                # Получаем форму из словаря
+                form = get(form_dict, idx, "")
+                class = classify_complex(form)
+                
+                if class == :ventricular
                     vent_count += 1
-                elseif occursin(reg_supravent, form)
+                elseif class == :supraventricular
                     supravent_count += 1
                 end
             end
             
             # Применяем правила объединения
             if vent_count >= 3 || supravent_count >= 5
-                # Не объединяем сегменты
-                push!(merged, segments[i])
-            else
-                # Объединяем сегменты
-                merged[end] = first(merged[end]):last(segments[i])
+                should_merge = false
             end
-        else
+        end
+        
+        if should_merge
+            # Объединяем сегменты
             merged[end] = first(merged[end]):last(segments[i])
+        else
+            push!(merged, segments[i])
         end
     end
+    
     return merged
 end
 
 """
-Объединяет все найденные узлы в единую структуру с сохранением их путей.
+Объединяет все найденные узлы в единую структуру Dict с сохранением их путей.
 """
 function build_structure(data::Vector{Any})
     result = Dict{String, Any}()
