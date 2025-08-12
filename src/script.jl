@@ -28,18 +28,27 @@ end
 sleep_frag
 
 
+calculate_motion_statistics(motion_trend, sleep_frag, meta.fs)
+
 typeof(motion_trend["Trend"])
 
 bitvec_s = [bitvec2seg(bitvec) for (key, bitvec) in arr_pairs]
-merged_s = [merge_episodes_v2(segments, pqrst[1]) for segments in bitvec_s]
+
 merged_s = [merge_episodes(segments, 1) for segments in bitvec_s]
 
+
+form_pairs = [i => string(element.form) for (i, element) in enumerate(pqrst[1])]
+merged_s = [merge_episodes_v2(segments, form_pairs) for segments in bitvec_s]
 
 pqrst[1][1103]
 pqrst[1][1104]
 
 pqrst[1][71004]
 pqrst[1][71005]
+
+
+pqrst[1][791]
+pqrst[1][790]
 
 arr_pairs = [
     (
@@ -106,7 +115,7 @@ result = find_all_nodes_v2(data, arr_tuples, arr_pairs, formes)
 
 combined_result = combine_rhythm_arr_bitvecs(result)
 
-build_parent_bitvectors(combined_result)
+parent_bitv = build_parent_bitvectors(combined_result)
 
 # res1 = calc_episode_stats(combined_result, meta.fs, meta.point_count)
 # calc_ = calc_hr(combined_result, hr_trend, pqrst)

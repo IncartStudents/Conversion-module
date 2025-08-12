@@ -46,6 +46,9 @@ function build_parent_bitvectors(found_nodes_result)
     sorted_paths = sort(collect(all_paths), by=p->length(split(p, "/")), rev=true)
     
     for path in sorted_paths
+        if path == "Rhythms" || path == "Pauses"
+            continue
+        end
         # Собираем всех потомков
         children_bitvecs = []
         for (child_path_key, child_bitvec) in all_bitvecs
@@ -444,57 +447,59 @@ end
 
 
 """
-Объединяет результаты расчета статистик для комплексов, эпизодов и ЧСС вызовом функций
+Производит расчет статистик:
+    "TotalMotionArtfCount": Общее количество интервалов с движениями
+    "TotalMotionArtfPercent": Процент интервалов с движениями от общего количества интервалов (округлено до 3 знаков)
+    "DayMotionArtfCount": Количество интервалов с движениями в дневное время (вне периодов сна)
+    "NightMotionArtfCount": Количество интервалов с движениями в ночное время (в периоды сна)
+
+Возвращает словарь Duct со статистиками.
 """
-# function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, hr_trend)
-#     cmpx_results = calc_cmpx_stats(found_nodes_result, sleep, fs)
-#     episode_results = calc_episode_stats(found_nodes_result, fs, point_count)
-#     hr_results = calc_hr(found_nodes_result, hr_trend, pqrst_data)
+function calculate_motion_statistics(motion_trend, sleep_frag, fs)
+    motion_interval_sec = motion_trend["MeasureInterval"][1]  # 10 seconds
+    motion_string = motion_trend["Trend"]
+    total_intervals = length(motion_string)
     
-#     _total = []
+    motion_count = 0
+    day_motion_count = 0
+    night_motion_count = 0
     
-#     # Собираем результаты по каждому пути
-#     for i in 1:length(found_nodes_result)
-#         (path, custom_name, matched_tuple) = found_nodes_result[i]
-        
-#         cmpx_dict = cmpx_results[i][5]
-#         episode_dict = episode_results[i][2]
-#         hr_dict = hr_results[i][2]
-        
-#         merged_dict = Dict{String, Any}()
-        
-#         # Добавляем данные из cmpx_dict (исключая "Path")
-#         for (k, v) in cmpx_dict
-#             k != "Path" && (merged_dict[k] = v)
-#         end
-        
-#         # Добавляем данные из episode_dict (исключая "Path")
-#         for (k, v) in episode_dict
-#             k != "Path" && (merged_dict[k] = v)
-#         end
-        
-#         # Добавляем данные из hr_dict (включая специальные поля)
-#         for (k, v) in hr_dict
-#             if k == "CustomName" || k == "Code" || k == "Title"
-#                 merged_dict[k] = v
-#             elseif k != "Path"
-#                 merged_dict[k] = v
-#             end
-#         end
-        
-#         merged_dict["Path"] = hr_dict["Path"]
-        
-#         push!(_total, (
-#             path, 
-#             custom_name, 
-#             hr_dict["Code"], 
-#             hr_dict["Title"], 
-#             merged_dict
-#         ))
-#     end
+    for i in 1:total_intervals
+        if motion_string[i] == '1'
+            motion_count += 1
+            
+            # Вычисляем временные границы интервала
+            start_time_sec = (i-1) * motion_interval_sec
+            end_time_sec = i * motion_interval_sec
+            
+            # Проверяем, попадает ли интервал в период сна
+            is_night = false
+            # перевести sleep_start и в sleep_end в секунды а не в отсчеты
+            for (sleep_start, sleep_end) in sleep_frag
+                if max(start_time_sec, sleep_start / fs) < min(end_time_sec, sleep_end / fs)
+                    is_night = true
+                    break
+                end
+            end
+            
+            if is_night
+                night_motion_count += 1
+            else
+                day_motion_count += 1
+            end
+        end
+    end
     
-#     return _total
-# end
+    motion_percent = (motion_count / total_intervals) * 100
+    
+    return Dict(
+        "TotalMotionArtfCount" => motion_count,
+        "TotalMotionArtfPercent" => round(motion_percent, digits=3),
+        "DayMotionArtfCount" => day_motion_count,
+        "NightMotionArtfCount" => night_motion_count
+    )
+end
+
 
 """
 Объединяет результаты расчета статистик для комплексов, эпизодов и ЧСС
