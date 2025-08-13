@@ -186,60 +186,69 @@ end
 
 
 """
-Вычисляет длительности эпизодов в секундах.
-- `segs`: Вектор сегментов (диапазонов индексов)
-- `pqrst_vector`: Данные PQRST
-- `fs`: Частота дискретизации
-
-Возвращает вектор длительностей в секундах для каждого сегмента.
-"""
-function calc_episode_durations(segs, pqrst_vector, fs)
-    durations = Float64[]
-    for seg in segs
-        start_idx = first(seg)
-        end_idx = last(seg)
-        start_time = pqrst_vector[start_idx].timeQ
-        end_time = pqrst_vector[end_idx].timeS
-        duration_sec = (end_time - start_time) / fs
-        push!(durations, duration_sec)
-    end
-    return durations
-end
-
-
-"""
-Подсчитывает количество дневных и ночных эпизодов.
+Вычисляет длительности эпизодов в секундах и количество дневных и ночных эпизодов.
 - `segs`: Вектор сегментов
 - `pqrst_vector`: Данные PQRST
+- `fs`: Частота дискретизации
 - `sleep`: Вектор периодов сна в формате [(start1, end1), (start2, end2)]
 
-Возвращает кортеж (количество_ночных_эпизодов, количество_дневных_эпизодов)
+Возращает кортеж с данными.
 """
-function calc_episode_night(segs, pqrst_vector, sleep)
-    is_night = 0
-    is_day = 0
-    for seg in segs
+function compute_episode_stats(segs, pqrst_vector, fs, sleep_frag)
+    n = length(segs)
+    starts = Vector{Int}(undef, n)
+    lens = Vector{Int}(undef, n)
+    durations_sec = Vector{Float64}(undef, n)
+    night_count = 0
+    day_count = 0
+
+    total_dur = 0.0
+    max_dur = -Inf
+    min_dur = Inf
+
+    for (i, seg) in enumerate(segs)
         start_idx = first(seg)
         end_idx = last(seg)
-
+        
+        # Вычисление длительности эпизода
         start_time = pqrst_vector[start_idx].timeQ
         end_time = pqrst_vector[end_idx].timeS
-
-        is_night_flag = false
-        for (sleep_start, sleep_end) in sleep
+        dur_sec = (end_time - start_time) / fs
+        durations_sec[i] = dur_sec
+        starts[i] = start_idx
+        lens[i] = length(seg)
+        
+        # Обновление общей длительности, максимума и минимума
+        total_dur += dur_sec
+        max_dur = max(max_dur, dur_sec)
+        min_dur = min(min_dur, dur_sec)
+        
+        # Проверка на ночной/дневной эпизод
+        is_night = false
+        for (sleep_start, sleep_end) in sleep_frag
             if max(start_time, sleep_start) < min(end_time, sleep_end)
-                is_night_flag = true
+                is_night = true
                 break
             end
         end
-
-        if is_night_flag
-            is_night += 1
-        else
-            is_day += 1
-        end
+        is_night ? (night_count += 1) : (day_count += 1)
     end
-    return is_night, is_day
+
+    avg_dur = n > 0 ? total_dur / n : 0.0
+
+    return (
+        starts = starts,
+        len = lens,
+        segm = segs,
+        len_segm = n,
+        dur = durations_sec,
+        total_dur_s = total_dur,
+        max_dur_s = max_dur,
+        min_dur_s = min_dur,
+        dur_avg_s = avg_dur,
+        is_night = night_count,
+        is_day = day_count
+    )
 end
 
 
