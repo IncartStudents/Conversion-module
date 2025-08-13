@@ -1,33 +1,33 @@
 Rhythms:
   sinus:
-    EpisodeCountNight: 20
+    EpisodeCountNight: 19
     CmpxCountNight: 0
     Code: "rN;vS"
     OriginalArrTitle: "Синусовый ритм"
     CmpxCount3s: 0
     EpisodeHRMinTime: "15:52:50.0000000"
-    TotalDurationPercent: 89.302
+    TotalDurationPercent: 89.314
     CmpxCount2s: 0
     CmpxPercent: 79.931
     CmpxCountDay: 0
-    TotalDuration: "18:56:35.5560000"
-    EpisodeDurationAvg: "00:43:42.9060000"
-    EpisodeDurationMin: "00:00:03.0720000"
+    TotalDuration: "18:56:44.1440000"
+    EpisodeDurationAvg: "00:54:07.8163810"
+    EpisodeDurationMin: "00:00:23.5120000"
     EpisodeHRMax: 97.0
     CmpxCount: 72157
-    EpisodeDurationMax: "03:57:09.4560000"
+    EpisodeDurationMax: "06:34:38.8640000"
     CustomName: "rN"
-    EpisodeCountDay: 6
+    EpisodeCountDay: 2
     HRIntervalSec: 10
     EpisodeHRMin: 45.0
     Title: "Синусовый ритм"
-    EpisodeCount: 26
+    EpisodeCount: 21
     RRMinMs: 156.0
     RRMaxMs: 2504.0
     EpisodeHRMaxTime: "15:27:00.0000000"
     Path: "Rhythms/sinus"
     CmpxOccurence: "Frequent"
-    EpisodeHRAvg: 63.49
+    EpisodeHRAvg: 63.493
   supravent:
     premature:
       pair:
@@ -66,28 +66,28 @@ Rhythms:
         OriginalArrTitle: "Одиночные предсердные экстрасистолы"
         CmpxCount3s: 0
         EpisodeHRMinTime: "19:29:30.0000000"
-        TotalDurationPercent: 0.361
+        TotalDurationPercent: 0.386
         CmpxCount2s: 0
         CmpxPercent: 0.651
         CmpxCountDay: 0
-        TotalDuration: "00:04:35.9600000"
-        EpisodeDurationAvg: "00:00:00.5666530"
+        TotalDuration: "00:04:54.7480000"
+        EpisodeDurationAvg: "00:00:00.6166276"
         EpisodeDurationMin: "00:00:00.0800000"
-        EpisodeHRMax: 84.0
+        EpisodeHRMax: 87.0
         CmpxCount: 588
         EpisodeDurationMax: "00:00:17.2600000"
         CustomName: "(rS|rM);nS;pP*"
-        EpisodeCountDay: 457
+        EpisodeCountDay: 448
         HRIntervalSec: 10
         EpisodeHRMin: 55.0
         Title: "Одиночные предсердные экстрасистолы"
-        EpisodeCount: 487
+        EpisodeCount: 478
         RRMinMs: 404.0
         RRMaxMs: 1172.0
-        EpisodeHRMaxTime: "03:26:30.0000000"
+        EpisodeHRMaxTime: "03:10:40.0000000"
         Path: "Rhythms/supravent/premature/single"
         CmpxOccurence: "Rare"
-        EpisodeHRAvg: 75.606
+        EpisodeHRAvg: 76.0
       group:
         EpisodeCountNight: 10
         CmpxCountNight: 0
@@ -123,28 +123,28 @@ Rhythms:
     OriginalArrTitle: "Одиночные предсердные экстрасистолы"
     CmpxCount3s: 0
     EpisodeHRMinTime: "19:29:30.0000000"
-    TotalDurationPercent: 0.361
+    TotalDurationPercent: 0.114
     CmpxCount2s: 0
-    CmpxPercent: 0.651
+    CmpxPercent: 0.742
     CmpxCountDay: 0
-    TotalDuration: "00:04:35.9600000"
-    EpisodeDurationAvg: "00:00:00.5666530"
+    TotalDuration: "00:01:26.8440000"
+    EpisodeDurationAvg: "00:00:00.1398454"
     EpisodeDurationMin: "00:00:00.0800000"
-    EpisodeHRMax: 84.0
-    CmpxCount: 588
-    EpisodeDurationMax: "00:00:17.2600000"
+    EpisodeHRMax: 87.0
+    CmpxCount: 670
+    EpisodeDurationMax: "00:00:01.9080000"
     CustomName: "(rS|rM)"
-    EpisodeCountDay: 457
+    EpisodeCountDay: 448
     HRIntervalSec: 10
     EpisodeHRMin: 55.0
     Title: "Одиночные предсердные экстрасистолы"
-    EpisodeCount: 487
+    EpisodeCount: 621
     RRMinMs: 404.0
     RRMaxMs: 1172.0
-    EpisodeHRMaxTime: "03:26:30.0000000"
+    EpisodeHRMaxTime: "03:10:40.0000000"
     Path: "Rhythms/supravent"
     CmpxOccurence: "Rare"
-    EpisodeHRAvg: 75.606
+    EpisodeHRAvg: 76.0
   atrial-flutter:
     EpisodeCountNight: 18
     CmpxCountNight: 0
@@ -180,12 +180,12 @@ Pauses:
     CmpxCountNight: 0
     Code: "rN;pE1;bN"
     OriginalArrTitle: "Паузы за счет синусовой аритмии"
-    CmpxCount3s: 11
+    CmpxCount3s: 0
     EpisodeHRMinTime: "15:52:50.0000000"
     TotalDurationPercent: 0.112
-    CmpxCount2s: 14
+    CmpxCount2s: 0
     CmpxPercent: 0.096
-    CmpxCountDay: 1
+    CmpxCountDay: 87
     TotalDuration: "00:01:25.2120000"
     EpisodeDurationAvg: "00:00:04.7340000"
     EpisodeDurationMin: "00:00:00.0800000"

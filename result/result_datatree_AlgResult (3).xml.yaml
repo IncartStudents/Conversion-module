@@ -1,33 +1,33 @@
 Rhythms:
   sinus:
-    EpisodeCountNight: 1631
+    EpisodeCountNight: 1630
     CmpxCountNight: 0
     Code: "rN;pE;bN"
     OriginalArrTitle: "Паузы с нормальным СА и АВ-проведением"
     CmpxCount3s: 0
     EpisodeHRMinTime: "09:11:30.0000000"
-    TotalDurationPercent: 2.102
+    TotalDurationPercent: 2.126
     CmpxCount2s: 0
     CmpxPercent: 3.733
     CmpxCountDay: 0
-    TotalDuration: "00:29:38.9920000"
-    EpisodeDurationAvg: "00:00:00.4679095"
+    TotalDuration: "00:29:58.8640000"
+    EpisodeDurationAvg: "00:00:00.4742589"
     EpisodeDurationMin: "00:00:00.0800000"
     EpisodeHRMax: 138.0
     CmpxCount: 4973
     EpisodeDurationMax: "00:00:08.9760000"
     CustomName: "rN"
-    EpisodeCountDay: 2171
+    EpisodeCountDay: 2163
     HRIntervalSec: 10
     EpisodeHRMin: 74.0
     Title: "Паузы с нормальным СА и АВ-проведением"
-    EpisodeCount: 3802
-    RRMinMs: 376.0
+    EpisodeCount: 3793
+    RRMinMs: 312.0
     RRMaxMs: 1804.0
     EpisodeHRMaxTime: "18:08:10.0000000"
     Path: "Rhythms/sinus"
     CmpxOccurence: "Moderate"
-    EpisodeHRAvg: 104.821
+    EpisodeHRAvg: 104.799
   vent-by-form:
     EpisodeCountNight: 1
     CmpxCountNight: 0
@@ -95,7 +95,7 @@ Rhythms:
           CmpxOccurence: "Rare"
           EpisodeHRAvg: 80.0
     EpisodeHRMinTime: ""
-    TotalDurationPercent: 0.001
+    TotalDurationPercent: 0.02
     CmpxCount2s: 0
     V2:
       premature:
@@ -217,24 +217,23 @@ Rhythms:
           Path: "Rhythms/vent-by-form/VL/premature/single"
           CmpxOccurence: "Rare"
           EpisodeHRAvg: 80.0
-    CmpxPercent: 0.002
+    CmpxPercent: 0.076
     CmpxCountDay: 0
-    TotalDuration: "00:00:00.8120000"
-    EpisodeDurationAvg: "00:00:00.8120000"
-    EpisodeDurationMin: "00:00:00.8120000"
+    TotalDuration: "00:00:17.0080000"
+    EpisodeDurationAvg: "00:00:00.1700800"
+    EpisodeDurationMin: "00:00:00.1080000"
     EpisodeHRMax: 0.0
-    CmpxCount: 2
     EpisodeDurationMax: "00:00:00.8120000"
+    CmpxCount: 101
     CustomName: "(rV|rVM|rVP|rVD|rM)"
     EpisodeCountDay: 0
     HRIntervalSec: 10
     EpisodeHRMin: 0.0
     Title: "Парные желудочковые разнонаправленные экстрасистолы"
-    EpisodeCount: 1
+    EpisodeCount: 100
     RRMinMs: 460.0
     RRMaxMs: 628.0
     EpisodeHRMaxTime: ""
-    Path: "Rhythms/vent-by-form"
     poly:
       premature-pair:
         EpisodeCountNight: 1
@@ -265,6 +264,7 @@ Rhythms:
         Path: "Rhythms/vent-by-form/poly/premature-pair"
         CmpxOccurence: "Rare"
         EpisodeHRAvg: 0.0
+    Path: "Rhythms/vent-by-form"
     VR:
       premature:
         pair-poly:
@@ -358,31 +358,31 @@ Rhythms:
     EpisodeHRAvg: 94.132
 Pauses:
   sinus_arr:
-    EpisodeCountNight: 1631
+    EpisodeCountNight: 1630
     CmpxCountNight: 0
     Code: "rN;pE;bN"
     OriginalArrTitle: "Паузы с нормальным СА и АВ-проведением"
-    CmpxCount3s: 10
+    CmpxCount3s: 0
     EpisodeHRMinTime: "09:11:30.0000000"
-    TotalDurationPercent: 2.102
-    CmpxCount2s: 99
+    TotalDurationPercent: 2.126
+    CmpxCount2s: 0
     CmpxPercent: 3.733
-    CmpxCountDay: 1
-    TotalDuration: "00:29:38.9920000"
-    EpisodeDurationAvg: "00:00:00.4679095"
+    CmpxCountDay: 4973
+    TotalDuration: "00:29:58.8640000"
+    EpisodeDurationAvg: "00:00:00.4742589"
     EpisodeDurationMin: "00:00:00.0800000"
     EpisodeHRMax: 138.0
     CmpxCount: 4973
     EpisodeDurationMax: "00:00:08.9760000"
     CustomName: "rN;pE*;(bN|!b*)"
-    EpisodeCountDay: 2171
+    EpisodeCountDay: 2163
     HRIntervalSec: 10
     EpisodeHRMin: 74.0
     Title: "Паузы с нормальным СА и АВ-проведением"
-    EpisodeCount: 3802
-    RRMinMs: 376.0
+    EpisodeCount: 3793
+    RRMinMs: 312.0
     RRMaxMs: 1804.0
     EpisodeHRMaxTime: "18:08:10.0000000"
     Path: "Pauses/sinus_arr"
     CmpxOccurence: "Moderate"
-    EpisodeHRAvg: 104.821
+    EpisodeHRAvg: 104.799

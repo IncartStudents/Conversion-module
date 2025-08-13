@@ -1,7 +1,5 @@
 Rhythms:
   atrial:
-    EpisodeCountNight: 17
-    CmpxCountNight: 0
     premature:
       pair:
         EpisodeCountNight: 2
@@ -90,26 +88,28 @@ Rhythms:
         Path: "Rhythms/atrial/premature/group"
         CmpxOccurence: "Rare"
         EpisodeHRAvg: 0.0
+    CmpxCountNight: 0
+    EpisodeCountNight: 17
     Code: "rSA;pP;nS"
     OriginalArrTitle: "Одиночные предсердные экстрасистолы"
     CmpxCount3s: 0
     EpisodeHRMinTime: ""
-    TotalDurationPercent: 0.007
+    TotalDurationPercent: 0.009
     CmpxCount2s: 0
-    CmpxPercent: 0.052
+    CmpxPercent: 0.061
     CmpxCountDay: 0
-    TotalDuration: "00:00:05.6653696"
-    EpisodeDurationAvg: "00:00:00.1089494"
+    TotalDuration: "00:00:07.0311284"
+    EpisodeDurationAvg: "00:00:00.1212264"
     EpisodeDurationMin: "00:00:00.0622568"
     EpisodeHRMax: 0.0
-    CmpxCount: 53
-    EpisodeDurationMax: "00:00:01.4280156"
+    CmpxCount: 62
+    EpisodeDurationMax: "00:00:01.0389105"
     CustomName: "(rSA|rSI)"
     EpisodeCountDay: 35
     HRIntervalSec: 10
     EpisodeHRMin: 0.0
     Title: "Одиночные предсердные экстрасистолы"
-    EpisodeCount: 52
+    EpisodeCount: 58
     RRMinMs: 447.0
     RRMaxMs: 829.0
     EpisodeHRMaxTime: ""
@@ -183,7 +183,7 @@ Rhythms:
           CmpxOccurence: "Rare"
           EpisodeHRAvg: 100.1
     EpisodeHRMinTime: "06:47:10.0000000"
-    TotalDurationPercent: 0.127
+    TotalDurationPercent: 0.013
     CmpxCount2s: 0
     V2:
       premature:
@@ -218,18 +218,18 @@ Rhythms:
           EpisodeHRAvg: 100.1
     CmpxPercent: 0.092
     CmpxCountDay: 0
-    TotalDuration: "00:01:45.1634241"
-    EpisodeDurationAvg: "00:00:15.0233463"
-    EpisodeDurationMin: "00:00:00.1245136"
+    TotalDuration: "00:00:10.4824903"
+    EpisodeDurationAvg: "00:00:00.1115159"
+    EpisodeDurationMin: "00:00:00.0894942"
     EpisodeHRMax: 106.0
-    EpisodeDurationMax: "00:01:29.2840467"
+    EpisodeDurationMax: "00:00:00.1400778"
     CmpxCount: 94
     CustomName: "(rV|rVM|rVP|rVD|rM)"
     EpisodeCountDay: 7
     HRIntervalSec: 10
     EpisodeHRMin: 97.0
     Title: "Одиночные желудочковые экстрасистолы 1-го типа"
-    EpisodeCount: 7
+    EpisodeCount: 94
     RRMinMs: 381.0
     RRMaxMs: 934.0
     EpisodeHRMaxTime: "06:44:10.0000000"
@@ -276,9 +276,9 @@ Pauses:
     CmpxCount3s: 0
     EpisodeHRMinTime: "14:40:20.0000000"
     TotalDurationPercent: 0.186
-    CmpxCount2s: 7
+    CmpxCount2s: 0
     CmpxPercent: 0.407
-    CmpxCountDay: 1
+    CmpxCountDay: 416
     TotalDuration: "00:02:33.3813230"
     EpisodeDurationAvg: "00:00:00.4260592"
     EpisodeDurationMin: "00:00:00.0700389"
@@ -305,7 +305,7 @@ Pauses:
     CmpxCount3s: 0
     EpisodeHRMinTime: ""
     TotalDurationPercent: 0.0
-    CmpxCount2s: 1
+    CmpxCount2s: 0
     CmpxPercent: 0.001
     CmpxCountDay: 1
     TotalDuration: "00:00:00.0856031"

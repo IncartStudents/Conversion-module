@@ -5,29 +5,29 @@ Rhythms:
     Code: "rN;vS"
     OriginalArrTitle: "Синусовый ритм"
     CmpxCount3s: 0
-    EpisodeHRMinTime: "05:52:00.0000000"
-    TotalDurationPercent: 97.357
+    EpisodeHRMinTime: "05:51:10.0000000"
+    TotalDurationPercent: 99.651
     CmpxCount2s: 0
     CmpxPercent: 92.323
     CmpxCountDay: 0
-    TotalDuration: "21:50:58.8920000"
-    EpisodeDurationAvg: "02:11:05.8892000"
-    EpisodeDurationMin: "00:00:00.0600000"
+    TotalDuration: "22:21:52.6640000"
+    EpisodeDurationAvg: "11:10:56.3320000"
+    EpisodeDurationMin: "09:13:05.4520000"
     EpisodeHRMax: 182.0
     CmpxCount: 96495
-    EpisodeDurationMax: "13:07:56.7880000"
+    EpisodeDurationMax: "13:08:47.2120000"
     CustomName: "rN"
-    EpisodeCountDay: 9
+    EpisodeCountDay: 1
     HRIntervalSec: 10
     EpisodeHRMin: -2.147483648e9
     Title: "Синусовый ритм"
-    EpisodeCount: 10
-    RRMinMs: 148.0
-    RRMaxMs: 15056.0
+    EpisodeCount: 2
+    RRMinMs: 128.0
+    RRMaxMs: 106700.0
     EpisodeHRMaxTime: "08:14:00.0000000"
     Path: "Rhythms/sinus"
     CmpxOccurence: "Frequent"
-    EpisodeHRAvg: -5.7612013818e7
+    EpisodeHRAvg: -1.05893733351e8
   vent-by-form:
     EpisodeCountNight: 29
     CmpxCountNight: 0
@@ -124,22 +124,22 @@ Rhythms:
     OriginalArrTitle: "Эпизоды неустойчивых желудочковых мономорфных идиовентрикулярных ритмов"
     CmpxCount3s: 0
     EpisodeHRMinTime: "19:33:00.0000000"
-    TotalDurationPercent: 0.551
+    TotalDurationPercent: 0.59
     CmpxCount2s: 0
-    CmpxPercent: 0.416
+    CmpxPercent: 0.593
     CmpxCountDay: 0
-    TotalDuration: "00:07:25.0800000"
-    EpisodeDurationAvg: "00:00:06.7436364"
-    EpisodeDurationMin: "00:00:02.2840000"
+    TotalDuration: "00:07:56.9080000"
+    EpisodeDurationAvg: "00:00:01.9386504"
+    EpisodeDurationMin: "00:00:00.0920000"
     EpisodeHRMax: 84.0
+    CmpxCount: 620
     EpisodeDurationMax: "00:00:24.2480000"
-    CmpxCount: 435
     CustomName: "(rV|rVM|rVP|rVD|rM)"
     EpisodeCountDay: 37
     HRIntervalSec: 10
     EpisodeHRMin: 48.0
     Title: "Эпизоды неустойчивых желудочковых мономорфных идиовентрикулярных ритмов"
-    EpisodeCount: 66
+    EpisodeCount: 246
     RRMinMs: 912.0
     RRMaxMs: 1536.0
     EpisodeHRMaxTime: "04:19:00.0000000"
@@ -237,29 +237,29 @@ Rhythms:
         EpisodeHRAvg: 56.362
 Pauses:
   AV-block-degree2-mobitz-type1:
-    EpisodeCountNight: 14
+    EpisodeCountNight: 13
     CmpxCountNight: 0
     Code: "rN;pE4;bV1"
     OriginalArrTitle: "Паузы за счёт АВ блокады 2-й степени 1 типа"
     CmpxCount3s: 0
     EpisodeHRMinTime: "20:22:10.0000000"
-    TotalDurationPercent: 0.002
-    CmpxCount2s: 2
+    TotalDurationPercent: 0.006
+    CmpxCount2s: 0
     CmpxPercent: 0.015
-    CmpxCountDay: 3
-    TotalDuration: "00:00:01.6080000"
-    EpisodeDurationAvg: "00:00:00.1005000"
+    CmpxCountDay: 16
+    TotalDuration: "00:00:05.2400000"
+    EpisodeDurationAvg: "00:00:00.3493333"
     EpisodeDurationMin: "00:00:00.0800000"
     EpisodeHRMax: 48.0
     CmpxCount: 16
-    EpisodeDurationMax: "00:00:00.1440000"
+    EpisodeDurationMax: "00:00:03.8280000"
     CustomName: "bV1"
     EpisodeCountDay: 2
     HRIntervalSec: 10
     EpisodeHRMin: 48.0
     Title: "Паузы за счёт АВ блокады 2-й степени 1 типа"
-    EpisodeCount: 16
-    RRMinMs: 1764.0
+    EpisodeCount: 15
+    RRMinMs: 924.0
     RRMaxMs: 2300.0
     EpisodeHRMaxTime: "20:22:10.0000000"
     Path: "Pauses/AV-block-degree2-mobitz-type1"

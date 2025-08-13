@@ -1,8 +1,21 @@
-using ..MyProject
+using .MyProject
+using YAML
 
-filepath = "C:/incart_dev/Myproject/result/AlgResult.xml"
-output_path = "C:/incart_dev/Myproject/data/ResumeData.yaml"
 
-save_resumedata(filepath, output_path)
+INPUT_DIR = joinpath(@__DIR__, "data")
+OUTPUT_DIR = joinpath(@__DIR__, "result")
 
-println("Результаты успешно сохранены в $output_path")
+FILEPATHS = [
+    joinpath(INPUT_DIR, "AlgResult.xml"),
+    joinpath(INPUT_DIR, "AlgResult (1).xml"),
+    joinpath(INPUT_DIR, "AlgResult (2).xml"),
+    joinpath(INPUT_DIR, "AlgResult (3).xml")
+]
+
+# Загрузка дерева данных
+input_tree = "C:/incart_dev/Myproject/data/datatree_v2.yaml"
+data = YAML.load(open(input_tree, "r"))
+
+for filepath in FILEPATHS
+    MyProject.process_file(filepath, data)
+end
