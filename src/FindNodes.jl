@@ -299,8 +299,6 @@ function build_structure(data::Vector{Any})
         in_code = first_el[3]
         title = first_el[4]
         
-        current["OriginalCodes"] = orig_codes
-        current["InternalCode"] = in_code
         current["OriginalArrTitle"] = title
         
         # Если есть несколько элементов, объединяем их статистики
@@ -313,8 +311,6 @@ function build_structure(data::Vector{Any})
                 merged_stats = merge(template, stats)
                 
                 item = Dict{String, Any}()
-                item["OriginalCodes"] = el[2]
-                item["InternalCode"] = el[3]
                 item["OriginalArrTitle"] = el[4]
                 for (k, v) in merged_stats
                     item[k] = v
