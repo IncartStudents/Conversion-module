@@ -267,6 +267,27 @@ Rhythms:
           Path: "Rhythms/vent-by-form/F/premature/single"
           CmpxOccurence: "Rare"
           EpisodeHRAvg: 100.1
+HR:
+  MaxDay: 106.0
+  TachyNightDuration: "00:00:00.0000000"
+  MinDayTime: "2005-11-11T09:09:30"
+  AvgDay: 83.0
+  AvgNight: 61.0
+  TachyTotalDuration: "00:07:00.0000000"
+  BradyDayDuration: "00:00:00.0000000"
+  BradyCutoff: 48
+  MinNight: 45.0
+  IntervalSec: 10
+  AvgDaily: 74.0
+  MaxNight: 86.0
+  MinNightTime: "2005-11-11T07:58:00"
+  MaxNightTime: "2005-11-10T23:37:40"
+  TachyDayDuration: "00:07:00.0000000"
+  TachyCutoff: 100
+  BradyTotalDuration: "00:05:20.0000000"
+  BradyNightDuration: "00:05:20.0000000"
+  MaxDayTime: "2005-11-10T20:32:10"
+  MinDay: 62.0
 Pauses:
   sinus_arr:
     EpisodeCountNight: 312
@@ -326,3 +347,38 @@ Pauses:
     Path: "Pauses/AV-block-degree2-mobitz-type1"
     CmpxOccurence: "Rare"
     EpisodeHRAvg: 0.0
+QRS:
+  S:
+    CmpxCountPercent: 99.877
+    CmpxCount: 101084
+  A:
+    CmpxCountPercent: 0.001
+    CmpxCount: 1
+  V2:
+    CmpxCountPercent: 0.026
+    CmpxCount: 26
+  CmpxCountTotal: 101208
+  F:
+    CmpxCountPercent: 0.003
+    CmpxCount: 3
+  V1:
+    CmpxCountPercent: 0.093
+    CmpxCount: 94
+Motion:
+  EpisodeCountNight: 0
+  OriginalArrTitle: "Артефакты движений"
+  CmpxPercent: 26.659
+  TotalDurationPercent: 1.404
+  EpisodeDurationMin: "00:00:00.0428016"
+  EpisodeDurationAvg: "00:00:02.5205126"
+  TotalDuration: "00:19:19.4357977"
+  EpisodeHRMax: 106.0
+  CmpxCount: 2201
+  EpisodeDurationMax: "00:01:00.0972763"
+  CustomName: "Motion"
+  EpisodeCountDay: 460
+  HRIntervalSec: 10
+  EpisodeHRMin: 47.0
+  EpisodeCount: 460
+  EpisodeHRAvg: 81.281
+  CmpxOccurence: "Frequent"
