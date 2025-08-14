@@ -1,6 +1,7 @@
 using DataFrames
 using Statistics
 using Printf
+using Dates
 
 
 """
@@ -464,48 +465,86 @@ end
 
 Возвращает словарь Duct со статистиками.
 """
-function calculate_motion_statistics(motion_trend, sleep_frag, fs)
-    motion_interval_sec = motion_trend["MeasureInterval"][1]  # 10 seconds
+function calculate_motion_statistics(motion_trend, sleep_frag, fs, point_count, pqrst_data, hr_trend)
+    motion_interval_sec = motion_trend["MeasureInterval"][1]
     motion_string = motion_trend["Trend"]
     total_intervals = length(motion_string)
     
-    motion_count = 0
-    day_motion_count = 0
-    night_motion_count = 0
+    # Создаем искусственный "узел" для движений
+    motion_bitvec = BitVector([c == '1' for c in motion_string])
+    segs = bitvec2seg(motion_bitvec)
     
-    for i in 1:total_intervals
-        if motion_string[i] == '1'
-            motion_count += 1
+    # Используем существующую функцию для расчета эпизодов
+    episode_stats = compute_episode_stats(segs, pqrst_data[1], fs, sleep_frag)
+    
+    # Расчет базовых статистик комплексов
+    CmpxCount = sum(motion_bitvec)
+    CmpxPercent = total_intervals > 0 ? round((CmpxCount / total_intervals) * 100, digits=3) : 0.0
+    
+    CmpxOccurence = if CmpxPercent < 1.0
+        "Rare"
+    elseif 1.0 <= CmpxPercent < 10.0
+        "Moderate"
+    else
+        "Frequent"
+    end
+    
+    # Расчет ЧСС для движений (с проверками)
+    hr_avg_bpm = 0.0
+    hr_max_bpm = 0.0
+    hr_min_bpm = 0.0
+    
+    if !isempty(hr_trend["Trend"]) && !isempty(segs) && haskey(hr_trend, "MeasureInterval")
+        hr_values_in_motion = Float64[]
+        measure_interval = hr_trend["MeasureInterval"][1]
+        
+        # Находим значения ЧСС для периодов движений
+        for seg in segs
+            start_time_sec = (first(seg) - 1) * motion_interval_sec
+            end_time_sec = last(seg) * motion_interval_sec
             
-            # Вычисляем временные границы интервала
-            start_time_sec = (i-1) * motion_interval_sec
-            end_time_sec = i * motion_interval_sec
+            # Преобразуем временные границы в индексы HR тренда
+            start_hr_idx = ceil(Int, start_time_sec / measure_interval)
+            end_hr_idx = floor(Int, end_time_sec / measure_interval)
             
-            # Проверяем, попадает ли интервал в период сна
-            is_night = false
-            # перевести sleep_start и в sleep_end в секунды а не в отсчеты
-            for (sleep_start, sleep_end) in sleep_frag
-                if max(start_time_sec, sleep_start / fs) < min(end_time_sec, sleep_end / fs)
-                    is_night = true
-                    break
-                end
+            # Ограничиваем диапазон и проверяем корректность
+            start_hr_idx = max(1, min(start_hr_idx, length(hr_trend["Trend"])))
+            end_hr_idx = max(1, min(end_hr_idx, length(hr_trend["Trend"])))
+            
+            if start_hr_idx <= end_hr_idx && end_hr_idx <= length(hr_trend["Trend"])
+                # Фильтруем некорректные значения ЧСС (только отрицательные)
+                values = hr_trend["Trend"][start_hr_idx:end_hr_idx]
+                valid_values = filter(x -> x >= 0, values)  # Только неотрицательные значения
+                append!(hr_values_in_motion, valid_values)
             end
-            
-            if is_night
-                night_motion_count += 1
-            else
-                day_motion_count += 1
-            end
+        end
+        
+        # Проверяем, что есть валидные значения перед расчетом статистик
+        if !isempty(hr_values_in_motion)
+            hr_avg_bpm = round(mean(hr_values_in_motion), digits=3)
+            hr_max_bpm = round(maximum(hr_values_in_motion), digits=3)
+            hr_min_bpm = round(maximum([minimum(hr_values_in_motion), 0.0]), digits=3)  # Минимум не меньше 0
         end
     end
     
-    motion_percent = (motion_count / total_intervals) * 100
-    
-    return Dict(
-        "TotalMotionArtfCount" => motion_count,
-        "TotalMotionArtfPercent" => round(motion_percent, digits=3),
-        "DayMotionArtfCount" => day_motion_count,
-        "NightMotionArtfCount" => night_motion_count
+    # Формируем результат, используя те же ключи, что и в других функциях
+    return Dict{String, Any}(
+        "CustomName" => "Motion",
+        "CmpxCount" => CmpxCount,
+        "CmpxPercent" => CmpxPercent,
+        "CmpxOccurence" => CmpxOccurence,
+        "EpisodeCount" => episode_stats.len_segm,
+        "EpisodeCountDay" => episode_stats.is_day,
+        "EpisodeCountNight" => episode_stats.is_night,
+        "TotalDuration" => dur_s_to_hhmmss(episode_stats.total_dur_s),
+        "TotalDurationPercent" => point_count > 0 ? round((episode_stats.total_dur_s / (point_count / fs)) * 100, digits=3) : 0.0,
+        "EpisodeDurationAvg" => dur_s_to_hhmmss(episode_stats.dur_avg_s),
+        "EpisodeDurationMax" => dur_s_to_hhmmss(episode_stats.max_dur_s),
+        "EpisodeDurationMin" => dur_s_to_hhmmss(episode_stats.min_dur_s),
+        "EpisodeHRAvg" => hr_avg_bpm,
+        "EpisodeHRMax" => hr_max_bpm,
+        "EpisodeHRMin" => hr_min_bpm,
+        "HRIntervalSec" => hr_trend["MeasureInterval"][1]
     )
 end
 
@@ -513,11 +552,14 @@ end
 """
 Объединяет результаты расчета статистик для комплексов, эпизодов и ЧСС
 """
-function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, hr_trend)
+function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, hr_trend, motion_trend)
     # Рассчитываем базовые статистики для всех узлов
     cmpx_results = calc_cmpx_stats(found_nodes_result, sleep, fs)
     episode_results = calc_episode_stats(found_nodes_result, fs, point_count)
     hr_results = calc_hr(found_nodes_result, hr_trend, pqrst_data)
+    
+    # Рассчитываем статистики движений
+    motion_stats = calculate_motion_statistics(motion_trend, sleep, fs, point_count, pqrst_data, hr_trend)
     
     # Строим битовые векторы для родительских узлов
     parent_bitvecs = build_parent_bitvectors(found_nodes_result)
@@ -530,9 +572,9 @@ function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, h
         path_key = join(path, "/")
         
         # Получаем рассчитанные статистики
-        cmpx_data = cmpx_results[i][5]  # 5-й элемент содержит словарь статистик
-        episode_data = episode_results[i][2]  # 2-й элемент содержит словарь статистик
-        hr_data = hr_results[i][2]  # 2-й элемент содержит словарь статистик
+        cmpx_data = cmpx_results[i][5]
+        episode_data = episode_results[i][2]
+        hr_data = hr_results[i][2]
         
         # Создаем объединенный словарь статистик
         merged_stats = Dict{String, Any}()
@@ -545,7 +587,6 @@ function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, h
             merged_stats[k] = v
         end
         for (k, v) in hr_data
-            # Некоторые поля могут дублироваться, поэтому сохраняем важные
             if k in ["CustomName", "Code", "Title", "Path", "HRIntervalSec", 
                      "EpisodeHRAvg", "EpisodeHRMax", "EpisodeHRMin", 
                      "EpisodeHRMaxTime", "EpisodeHRMinTime", "RRMinMs", "RRMaxMs"]
@@ -557,8 +598,6 @@ function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, h
         
         # Если это родительский узел, пересчитываем статистики
         if haskey(parent_bitvecs, path_key)
-            
-            # Пересчитываем статистики комплексов для родительского узла
             parent_cmpx_stats = calc_cmpx_for_bitvec(
                 parent_bitvecs[path_key],
                 path,
@@ -568,7 +607,6 @@ function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, h
                 get(matched_tuple, :len, Int[])
             )
             
-            # Пересчитываем статистики эпизодов для родительского узла
             parent_episode_stats = calc_episode_for_bitvec(
                 parent_bitvecs[path_key],
                 fs,
@@ -576,7 +614,6 @@ function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, h
                 pqrst_data[1]
             )
             
-            # Обновляем статистики
             for (k, v) in parent_cmpx_stats
                 merged_stats[k] = v
             end
@@ -600,6 +637,16 @@ function complex_stats(found_nodes_result, sleep, fs, point_count, pqrst_data, h
             merged_stats
         ))
     end
+    
+    # Добавляем движения как отдельный элемент
+    motion_path = ["Motion"]
+    push!(_total, (
+        motion_path,
+        "Движения", 
+        "", 
+        "Артефакты движений", 
+        motion_stats
+    ))
     
     return _total
 end
@@ -665,22 +712,21 @@ function calc_episode_for_bitvec(bitvec, fs, point_count, pqrst_vector)
     # Преобразуем битовый вектор в сегменты
     segs = bitvec2seg(bitvec)
     
-    # Объединяем близкие эпизоды (если функция merge_episodes доступна)
-    # merged_segs = merge_episodes(segs, 0)  # Предполагая, что эта функция существует
-    
-    EpisodeCount = length(segs)
+    # Объединяем близкие эпизоды
+    # merged_segs = merge_episodes(segs, 0)
     
     # Рассчитываем длительности
     durations = Float64[]
     if !isempty(segs) && !isempty(pqrst_vector)
-        durations = calc_episode_durations(segs, pqrst_vector, fs)
+        episode_stats = compute_episode_stats(segs, pqrst_vector, fs, Tuple{Int, Int}[])
     end
     
-    TotalDuration = sum(durations)
-    EpisodeDurationAvg = isempty(durations) ? 0.0 : mean(durations)
-    EpisodeDurationMax = isempty(durations) ? 0.0 : maximum(durations)
-    EpisodeDurationMin = isempty(durations) ? 0.0 : minimum(durations)
-    
+    TotalDuration = episode_stats.total_dur_s
+    EpisodeDurationAvg = episode_stats.dur_avg_s
+    EpisodeDurationMax = episode_stats.max_dur_s
+    EpisodeDurationMin = episode_stats.min_dur_s
+    EpisodeCount = episode_stats.len_segm
+
     TotalDurationPercent = point_count > 0 ? round((TotalDuration / (point_count / fs)) * 100, digits=3) : 0.0
 
     return Dict{String, Any}(
@@ -691,4 +737,238 @@ function calc_episode_for_bitvec(bitvec, fs, point_count, pqrst_vector)
         "EpisodeDurationMax" => dur_s_to_hhmmss(EpisodeDurationMax),
         "EpisodeDurationMin" => dur_s_to_hhmmss(EpisodeDurationMin)
     )
+end
+
+
+"""
+Определяет пороговые значения для тахикардии и брадикардии
+"""
+function determine_hr_thresholds(hr_data)
+    valid_values = filter(x -> x > 0 && x < 300, hr_data)
+    
+    if isempty(valid_values)
+        return 110, 55  # значения по умолчанию
+    end
+    
+    mean_hr = mean(valid_values)
+    std_hr = std(valid_values)
+    
+    # Тахикардия: среднее + 2 стандартных отклонения
+    tachy_cutoff = min(round(Int, mean_hr + 2 * std_hr), 150)
+    
+    # Брадикардия: среднее - 2 стандартных отклонения
+    brady_cutoff = max(round(Int, mean_hr - 2 * std_hr), 40)
+    
+    # Убеждаемся, что пороги находятся в разумных пределах
+    tachy_cutoff = max(100, min(tachy_cutoff, 150))
+    brady_cutoff = max(40, min(brady_cutoff, 70))
+    
+    return tachy_cutoff, brady_cutoff
+end
+
+"""
+Производит расчет статистик по Heart Rate
+"""
+function calculate_hr_statistics(hr_trend, sleep_frag, fs, timestart)
+    stats = Dict{String, Any}()
+    
+    if isempty(hr_trend["Trend"]) || !haskey(hr_trend, "MeasureInterval")
+        return stats
+    end
+    
+    hr_data = hr_trend["Trend"]
+    measure_interval = hr_trend["MeasureInterval"][1]
+    
+    # Определяем пороговые значения
+    tachy_cutoff, brady_cutoff = determine_hr_thresholds(hr_data)
+    
+    # Базовая информация
+    stats["IntervalSec"] = measure_interval
+    stats["TachyCutoff"] = tachy_cutoff
+    stats["BradyCutoff"] = brady_cutoff
+    
+    # Фильтруем валидные значения ЧСС
+    valid_indices = findall(x -> x > 0 && x < 300, hr_data)
+    valid_hr_values = hr_data[valid_indices]
+    
+    if isempty(valid_hr_values)
+        return stats
+    end
+    
+    # Разделяем дневные и ночные значения
+    day_values = Float64[]
+    night_values = Float64[]
+    day_times = Int[]
+    night_times = Int[]
+    
+    for i in valid_indices
+        time_sec = (i - 1) * measure_interval
+        
+        is_night = false
+        for (sleep_start, sleep_end) in sleep_frag
+            sleep_start_sec = sleep_start / fs
+            sleep_end_sec = sleep_end / fs
+            if sleep_start_sec <= time_sec <= sleep_end_sec
+                is_night = true
+                break
+            end
+        end
+        
+        if is_night
+            push!(night_values, hr_data[i])
+            push!(night_times, time_sec)
+        else
+            push!(day_values, hr_data[i])
+            push!(day_times, time_sec)
+        end
+    end
+    
+    # Общая статистика
+    stats["AvgDaily"] = round(mean(valid_hr_values))
+    
+    # Дневная статистика
+    if !isempty(day_values)
+        stats["AvgDay"] = round(mean(day_values))
+        stats["MaxDay"] = round(maximum(day_values))
+        stats["MinDay"] = round(minimum(day_values))
+        
+        # Время максимума и минимума днем
+        max_day_idx = argmax(day_values)
+        min_day_idx = argmin(day_values)
+        if !isempty(day_times) && length(day_times) == length(day_values)
+            max_day_time = timestart + Dates.Second(day_times[max_day_idx])
+            min_day_time = timestart + Dates.Second(day_times[min_day_idx])
+            stats["MaxDayTime"] = Dates.format(max_day_time, "yyyy-mm-ddTHH:MM:SS")
+            stats["MinDayTime"] = Dates.format(min_day_time, "yyyy-mm-ddTHH:MM:SS")
+        end
+    end
+    
+    # Ночная статистика
+    if !isempty(night_values)
+        stats["AvgNight"] = round(mean(night_values))
+        stats["MaxNight"] = round(maximum(night_values))
+        stats["MinNight"] = round(minimum(night_values))
+        
+        # Время максимума и минимума ночью
+        max_night_idx = argmax(night_values)
+        min_night_idx = argmin(night_values)
+        if !isempty(night_times) && length(night_times) == length(night_values)
+            max_night_time = timestart + Dates.Second(night_times[max_night_idx])
+            min_night_time = timestart + Dates.Second(night_times[min_night_idx])
+            stats["MaxNightTime"] = Dates.format(max_night_time, "yyyy-mm-ddTHH:MM:SS")
+            stats["MinNightTime"] = Dates.format(min_night_time, "yyyy-mm-ddTHH:MM:SS")
+        end
+    end
+    
+    # Общие максимумы и минимумы
+    # stats["MaxInFL"] = round(maximum(valid_hr_values))
+    # stats["MaxOutFL"] = round(maximum(valid_hr_values))
+    
+    # Расчет длительности тахикардии
+    tachy_indices = findall(x -> x >= tachy_cutoff, valid_hr_values)
+    tachy_duration = length(tachy_indices) * measure_interval
+    
+    tachy_day_duration = 0
+    tachy_night_duration = 0
+    
+    # Разделяем тахикардию на дневную и ночную
+    for i in tachy_indices
+        original_index = valid_indices[i]
+        time_sec = (original_index - 1) * measure_interval
+        
+        is_night = false
+        for (sleep_start, sleep_end) in sleep_frag
+            sleep_start_sec = sleep_start / fs
+            sleep_end_sec = sleep_end / fs
+            if sleep_start_sec <= time_sec <= sleep_end_sec
+                is_night = true
+                break
+            end
+        end
+        
+        if is_night
+            tachy_night_duration += measure_interval
+        else
+            tachy_day_duration += measure_interval
+        end
+    end
+    
+    stats["TachyTotalDuration"] = dur_s_to_hhmmss(Float64(tachy_duration))
+    stats["TachyDayDuration"] = dur_s_to_hhmmss(Float64(tachy_day_duration))
+    stats["TachyNightDuration"] = dur_s_to_hhmmss(Float64(tachy_night_duration))
+    
+    # Расчет длительности брадикардии
+    brady_indices = findall(x -> x <= brady_cutoff, valid_hr_values)
+    brady_duration = length(brady_indices) * measure_interval
+    
+    brady_day_duration = 0
+    brady_night_duration = 0
+    
+    # Разделяем брадикардию на дневную и ночную
+    for i in brady_indices
+        original_index = valid_indices[i]
+        time_sec = (original_index - 1) * measure_interval
+        
+        is_night = false
+        for (sleep_start, sleep_end) in sleep_frag
+            sleep_start_sec = sleep_start / fs
+            sleep_end_sec = sleep_end / fs
+            if sleep_start_sec <= time_sec <= sleep_end_sec
+                is_night = true
+                break
+            end
+        end
+        
+        if is_night
+            brady_night_duration += measure_interval
+        else
+            brady_day_duration += measure_interval
+        end
+    end
+    
+    stats["BradyTotalDuration"] = dur_s_to_hhmmss(Float64(brady_duration))
+    stats["BradyDayDuration"] = dur_s_to_hhmmss(Float64(brady_day_duration))
+    stats["BradyNightDuration"] = dur_s_to_hhmmss(Float64(brady_night_duration))
+    
+    # Коэффициент изменчивости (CI)
+    # if length(valid_hr_values) > 1
+    #     mean_hr = mean(valid_hr_values)
+    #     std_hr = std(valid_hr_values)
+    #     if mean_hr > 0
+    #         stats["CI"] = round(std_hr / mean_hr, digits=6)
+    #     end
+    # end
+    
+    return stats
+end
+
+
+"""
+Подготавливает дополнительные статистики для записи в результат
+"""
+function prepare_additional_stats(form_stats, hr_trend, sleep_frag, fs, timestart)
+    stats = Dict{String, Any}()
+    
+    # Добавляем статистику по QRS
+    qrs_stats = Dict{String, Any}()
+    qrs_stats["CmpxCountTotal"] = sum(form_stats.CmpxCount)
+    
+    for row in eachrow(form_stats)
+        form_name = string(row.form)
+        qrs_stats[form_name] = Dict{String, Any}(
+            "CmpxCount" => row.CmpxCount,
+            "CmpxCountPercent" => row.CmpxCountPercent
+        )
+    end
+    stats["QRS"] = qrs_stats
+
+    # Добавляем статистику по Heart Rate
+    hr_stats = calculate_hr_statistics(hr_trend, sleep_frag, fs, timestart)
+    if !isempty(hr_stats)
+        stats["HR"] = hr_stats
+    end
+
+    # можно добавить любые другие статистики
+    
+    return stats
 end

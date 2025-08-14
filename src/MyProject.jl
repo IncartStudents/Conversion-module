@@ -8,10 +8,17 @@ include("FindNodes.jl")
 include("CalcStats.jl")
 
 
-function write_result_to_yaml(output, filepath)
+function write_result_to_yaml(output, filepath, additional_stats=Dict{String, Any}())
     output_tree = "C:/incart_dev/Myproject/result/result_datatree_$(basename(filepath)).yaml"
+    
     if !isempty(output)
         result_data = build_structure(output)
+        
+        # Добавляем дополнительные статистики, если они есть
+        for (key, stats) in additional_stats
+            result_data[key] = stats
+        end
+        
         open(output_tree, "w") do f
             YAML.write(f, result_data)
         end
@@ -69,9 +76,12 @@ function process_file(filepath, data)
 
     result = find_all_nodes_v2(data, arr_tuples, arr_pairs, [String(f) for f in form_stats.form])
     combined_result = combine_rhythm_arr_bitvecs(result)
-    output = complex_stats(combined_result, sleep_frag, meta.fs, meta.point_count, pqrst, hr_trend)
-    write_result_to_yaml(output, filepath)
-
+    output = complex_stats(combined_result, sleep_frag, meta.fs, meta.point_count, pqrst, hr_trend, motion_trend)
+    
+    # Подготавливаем дополнительные статистики
+    additional_stats = prepare_additional_stats(form_stats, hr_trend, sleep_frag, meta.fs, meta.timestart)
+    
+    write_result_to_yaml(output, filepath, additional_stats)
 end
 
 end # module
