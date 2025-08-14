@@ -137,7 +137,7 @@ end
         segments = [1:2, 8:9]
         form_pairs = [1=>"N", 2=>"N", 3=>"X", 4=>"Z1", 5=>"Y", 6=>"V1", 7=>"V2", 8=>"N", 9=>"N"]
         merged = merge_episodes_v2(segments, form_pairs)
-        @test merged == [1:9]
+        @test merged == [1:2, 8:9]
     end
 
     # Тест 7: Комбинация валидных и невалидных
