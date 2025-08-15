@@ -4,6 +4,7 @@ This project processes XML and YAML data files to generate analytical results. I
 
 # Project Structure
 
+```plaintext
 MyProject/
 ├── data/                   # Raw input data (XML/YAML)
 │   ├── AlgResult (1).xml   # Ishem_Arithm.ver
@@ -15,8 +16,8 @@ MyProject/
 │   
 │
 ├── result/                # Processed output files
-│   ├── result_datatree_AlgResult_*.xml    # Generated results (4 files)
-│   └── ResumeData*.yaml   # Example output for AlgResult*.xml (4 files)
+│   ├── result_datatree_AlgResult_\*.xml    # Generated results (4 files)
+│   └── ResumeData\*.yaml   # Example output for AlgResult*.xml (4 files)
 │
 └── src/                   # Source code
     ├── ReadXML/           # XML processing utilities
@@ -36,10 +37,11 @@ MyProject/
     ├── Project.toml       # Julia dependencies
     ├── Manifest.toml      # Dependency versions
     └── .gitignore         # Ignored files/directories
+```
 
 # Key Features
 
- - XML Processing: Parse and transform XML data (src/ReadXML/).
- - Data Tree Operations: Handle YAML-based tree structures (data/*.yaml).
- - Statistical Analysis: Calculate metrics from processed data (src/CalcStats.jl).
- - Node Navigation: Find and extract tree nodes (src/FindNodes.jl).
+- **XML Processing**: Parse and transform XML data (`src/ReadXML/`)
+- **Data Tree Operations**: Handle YAML-based tree structures (`data/*.yaml`)
+- **Statistical Analysis**: Calculate metrics from processed data (`src/CalcStats.jl`)
+- **Node Navigation**: Find and extract tree nodes (`src/FindNodes.jl`)
