@@ -15,28 +15,28 @@ MyProject/
 │   └── new_datatree.yaml   # Updated datatree schema
 │   
 │
-├── result/                # Processed output files
+├── result/                 # Processed output files
 │   ├── result_datatree_AlgResult_*.xml    # Generated results (4 files)
-│   └── ResumeData*.yaml   # Example output for AlgResult*.xml (4 files)
+│   └── ResumeData*.yaml    # Example output for AlgResult*.xml (4 files)
 │
-└── src/                   # Source code
-    ├── ReadXML/           # XML processing utilities
-    │   ├── ReadXML.jl     # Main XML reader
-    │   ├── xml_array.jl   # Array operations for XML (from FileUtiles)
-    │   └── xml.jl         # XML parsing internals (from FileUtiles)
-    │
-    ├── CalcStats.jl       # Statistical calculations
-    ├── FindNodes.jl       # Node search operations
-    ├── MyProject.jl       # Project entry point
-    ├── struct.jl          # Datastructure definitions for RhythmArrs/Pauses
-    │
-    ├── test/              # Unit tests
-    │   └── runtests.jl    # Test runner
-    │
-    ├── runfile.jl         # Execution script
-    ├── Project.toml       # Julia dependencies
-    ├── Manifest.toml      # Dependency versions
-    └── .gitignore         # Ignored files/directories
+├── src/                    # Source code
+│   ├── ReadXML/            # XML processing utilities
+│   │   ├── ReadXML.jl      # Main XML reader
+│   │   ├── xml_array.jl    # Array operations for XML (from FileUtiles)
+│   │   └── xml.jl          # XML parsing internals (from FileUtiles)
+│   │
+│   ├── CalcStats.jl        # Statistical calculations
+│   ├── FindNodes.jl        # Node search operations
+│   ├── MyProject.jl        # Project entry point
+│   └── struct.jl           # Datastructure definitions for RhythmArrs/Pauses
+│
+├── test/                   # Unit tests
+│   └── runtests.jl         # Test runner
+│
+├── runfile.jl              # Execution script
+├── Project.toml            # Julia dependencies
+├── Manifest.toml           # Dependency versions
+└── .gitignore              # Ignored files/directories
 ```
 
 # Key Features
