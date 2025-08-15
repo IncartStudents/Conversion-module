@@ -1,6 +1,6 @@
 # Project Overview
 
-This project processes XML and YAML data files to generate analytical results. It includes Julia modules for XML parsing, data tree manipulation, statistical calculations, and node operations. Processed results are stored in the result/ directory.
+This project processes XML and YAML data files to generate analytical results. It includes Julia modules for XML parsing, data tree manipulation, statistical calculations, and node operations. Processed results are stored in the `result/` directory.
 
 # Project Structure
 
@@ -16,8 +16,8 @@ MyProject/
 │   
 │
 ├── result/                # Processed output files
-│   ├── result_datatree_AlgResult_\*.xml    # Generated results (4 files)
-│   └── ResumeData\*.yaml   # Example output for AlgResult*.xml (4 files)
+│   ├── result_datatree_AlgResult_*.xml    # Generated results (4 files)
+│   └── ResumeData*.yaml   # Example output for AlgResult*.xml (4 files)
 │
 └── src/                   # Source code
     ├── ReadXML/           # XML processing utilities
